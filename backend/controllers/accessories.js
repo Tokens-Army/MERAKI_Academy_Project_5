@@ -50,7 +50,6 @@ const getAllAccessories = (req,res)=>{
 
 
 
-
 module.exports={createNewAccessories,getAllAccessories}
 
 
