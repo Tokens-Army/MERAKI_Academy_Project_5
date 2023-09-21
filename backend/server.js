@@ -21,5 +21,5 @@ app.use("/orders", ordersRouter);
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-  console.log(`server on ${PORT}`);
+  console.log(`server on http://localhost:${PORT}`);
 });
