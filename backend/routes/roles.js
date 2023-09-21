@@ -1,7 +1,10 @@
 const express = require("express");
+const roles = require("../controllers/orders");
+const rolesRouter = express.Router();
 
 //controllers
+// create New Role
+rolesRouter.post("/", roles.createNewRole);
 
-const rolesRouter = express.Router();
 
 module.exports = rolesRouter;
