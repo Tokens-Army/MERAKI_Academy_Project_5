@@ -18,7 +18,24 @@ const createNewService = (req, res) => {
     });
 };
 
+// this function views all the services
+const getAllServices = (req, res) => {
+    pool.query(`SELECT * FROM services WHERE is_deleted = 0`).then((result) => {
+        res.status(200).json({
+            success: true,
+            message: "All the services",
+            services: result.rows,
+        });
+    }).catch((err) => {
+        res.status(500).json({
+            success: false,
+            message: "Server Error",
+            error: err.message
+        });
+    });
+};
+
 module.exports = {
     createNewService,
-    
+    getAllServices
 };
