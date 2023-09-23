@@ -46,6 +46,7 @@ const getAllServices = (req, res) => {
 
 // this function updates a service by it's id
 const updateServiceById = (req, res) => {
+  const { id } = req.params; 
   const { name, description, img, price } = req.body;
   const query = `UPDATE services SET name = COALESCE($1,name), description = COALESCE($2, description), img = COALESCE($3, img), price = COALESCE($4, price) WHERE id=$5 AND is_deleted = 0  RETURNING *`;
   const data = [
@@ -76,6 +77,8 @@ const updateServiceById = (req, res) => {
       });
     });
 };
+
+
 
 module.exports = {
   createNewService,
