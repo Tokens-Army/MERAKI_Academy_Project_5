@@ -53,7 +53,7 @@ const deleteAccessoryById = (req,res)=>{
         res.status(200).json({
             success:true,
             message:`Accessory with id = ${id} is deleted`,
-            articles: results.rows
+            accessories: results.rows
         })
     })
     .catch((err)=>{
@@ -66,6 +66,31 @@ const deleteAccessoryById = (req,res)=>{
 }
 // successeded
 
+//Here you can update the article informations : 
+
+const updateArticleById = (req,res)=>{
+    const {product,description,img,price}=req.body
+    const {id}=req.params
+    const array = [product,description,img,price,id]
+    const query = `UPDATE accessories
+    SET product=COALESCE($1,product),description=COALESCE($2,description),img=COALESCE($3,img),price=COALESCE($4,price)
+    WHERE id=$5 RETURNING *`
+    pool.query(query,array)
+    .then((results)=>{
+        res.status(200).json({
+            success:true,
+            message:`Accessory with id = ${id} has been updated`,
+            accessories: results.rows
+        })
+    })
+    .catch((err)=>{
+        res.status(500).json({
+            success:false,
+            message:`Server Error kindly try again`,
+            error:err
+        })
+    })
+}
 
 
 
@@ -75,7 +100,7 @@ const deleteAccessoryById = (req,res)=>{
 
 
 
-module.exports={createNewAccessories,getAllAccessories,deleteAccessoryById}
+module.exports={createNewAccessories,getAllAccessories,deleteAccessoryById,updateArticleById}
 
 
 
