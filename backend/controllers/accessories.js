@@ -64,6 +64,7 @@ const deleteAccessoryById = (req,res)=>{
         })
     })
 }
+// successeded
 
 
 
