@@ -9,4 +9,8 @@ const usersRouter = express.Router();
 // http://localhost:5000/users/register
 usersRouter.post("/register", users.register);
 
+// login
+// http://localhost:5000/users/login
+usersRouter.post("/login", users.login);
+
 module.exports = usersRouter;
