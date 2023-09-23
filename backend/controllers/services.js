@@ -5,7 +5,7 @@ const createNewService = (req, res) => {
   const { name, description, img, price } = req.body;
   pool
     .query(
-      `INSERT INTO services (name, description, img, price) values ($1, $2, $3, $4) RETURNING *`,
+      `INSERT INTO services (name, description, img, price) values ($1, $2, $3, $4) RETURNING *;`,
       [name, description, img, price]
     )
     .then((result) => {
@@ -27,7 +27,7 @@ const createNewService = (req, res) => {
 // this function views all the services
 const getAllServices = (req, res) => {
   pool
-    .query(`SELECT * FROM services WHERE is_deleted = 0`)
+    .query(`SELECT * FROM services WHERE is_deleted = 0;`)
     .then((result) => {
       res.status(200).json({
         success: true,
@@ -48,7 +48,7 @@ const getAllServices = (req, res) => {
 const updateServiceById = (req, res) => {
   const { id } = req.params; 
   const { name, description, img, price } = req.body;
-  const query = `UPDATE services SET name = COALESCE($1,name), description = COALESCE($2, description), img = COALESCE($3, img), price = COALESCE($4, price) WHERE id=$5 AND is_deleted = 0  RETURNING *`;
+  const query = `UPDATE services SET name = COALESCE($1,name), description = COALESCE($2, description), img = COALESCE($3, img), price = COALESCE($4, price) WHERE id=$5 AND is_deleted = 0  RETURNING *;`;
   const data = [
     name || null,
     description || null,
@@ -80,7 +80,7 @@ const updateServiceById = (req, res) => {
 
 const deleteServiceById = (req, res) => {
   const { id } = req.params;
-  pool.query(`UPDATE FROM services SET is_deleted = 1 WHERE id = $1;`, [id]).then((result) => {
+  pool.query(`UPDATE services SET is_deleted = 1 WHERE id = ($1);`, [id]).then((result) => {
     res.status(200).json({
       success: true,
       message: `Service with id: ${id} is deleted successfully`
