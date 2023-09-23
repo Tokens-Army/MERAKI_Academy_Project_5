@@ -62,7 +62,7 @@ const updateServiceById = (req, res) => {
       if (result.rows.length !== 0) {
         res.status(200).json({
           success: true,
-          message: `Service with id: ${id} is updated successfully `,
+          message: `Service with id: ${id} is updated successfully`,
           result: result.rows[0],
         });
       } else {
@@ -78,10 +78,25 @@ const updateServiceById = (req, res) => {
     });
 };
 
-
+const deleteServiceById = (req, res) => {
+  const { id } = req.params;
+  pool.query(`UPDATE FROM services SET is_deleted = 1 WHERE id = $1;`, [id]).then((result) => {
+    res.status(200).json({
+      success: true,
+      message: `Service with id: ${id} is deleted successfully`
+    });
+  }).catch((err) => {
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+      error: err.message
+    });
+  });
+};
 
 module.exports = {
   createNewService,
   getAllServices,
   updateServiceById,
+  deleteServiceById
 };
