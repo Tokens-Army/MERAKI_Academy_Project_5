@@ -1,5 +1,6 @@
 const { pool } = require("../models/db");
 
+// this function creates an order by id
 const createOrderById = (req, res) => {
   const { id } = req.params;
   const { userId } = req.token;
@@ -24,10 +25,12 @@ const createOrderById = (req, res) => {
     });
 };
 
+// this function fetches all orders with the services and accessories attached to them
 const getAllOrders = (req, res) => {
   const { userId } = req.token;
   pool
-    .query(`SELECT * FROM orders where user_id = $1`, [userId])
+    .query(`select O.user_id,S.name AS service_name , S.img AS service_img, S.price AS service_price, A.name AS accessory_name, A.img AS accessory_img, A.price AS accessory_price from orders O inner join services S on O.service_id = S.id inner join order_accessories OA on OA.order_id=O.id
+    inner join accessories A on OA.accessories_id=A.id where O.user_id = $1;`, [userId])
     .then((result) => {
       if (!result.rows.length) {
         return res.status(404).json({
@@ -50,6 +53,7 @@ const getAllOrders = (req, res) => {
     });
 };
 
+// this function adds an accessory to order
 const addAccessoryToOrder = async (req, res) => {
   try {
     const { order_id, accessory_id } = req.params;
