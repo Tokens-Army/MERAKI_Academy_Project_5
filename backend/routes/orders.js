@@ -3,6 +3,7 @@ const {
   createOrderById,
   getAllOrders,
   addAccessoryToOrder,
+  updateOrderTime,
 } = require("../controllers/orders");
 const authentication = require("../middlewares/authentication");
 const authorization = require("../middlewares/authorization");
@@ -18,5 +19,7 @@ ordersRouter.post(
 ordersRouter.get("", authentication, getAllOrders);
 
 ordersRouter.post("/:order_id/:accessory_id", addAccessoryToOrder);
+
+ordersRouter.put("/:id", updateOrderTime);
 
 module.exports = ordersRouter;

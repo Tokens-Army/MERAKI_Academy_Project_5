@@ -71,8 +71,27 @@ const addAccessoryToOrder = async (req, res) => {
   }
 };
 
+const updateOrderTime = (req, res) => {
+  const {id} = req.params;
+  const {scheduled_time} = req.body;
+  pool.query(`UPDATE orders SET scheduled_time = COALESCE($1,scheduled_time) WHERE id = $2 RETURNING *`, [scheduled_time, id]).then((result) => {
+    res.status(201).json({
+      success: true,
+      message: `Order with id ${id} is updated successfully`,
+      order: result.rows
+    });
+  }).catch((err) => {
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+      error: err.message
+    });
+  });
+};
+
 module.exports = {
   createOrderById,
   getAllOrders,
   addAccessoryToOrder,
+  updateOrderTime
 };
