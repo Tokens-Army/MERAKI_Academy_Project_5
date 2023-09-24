@@ -1,5 +1,6 @@
 const express = require("express");
-const {createNewAccessories,getAllAccessories,deleteAccessoryById,updateAccessoryById}=require("../controllers/accessories")
+const {createNewAccessories,getAllAccessories,deleteAccessoryById,updateAccessoryById}=require("../controllers/accessories");
+const authentication = require("../middlewares/authentication");
 
 //controllers
 
