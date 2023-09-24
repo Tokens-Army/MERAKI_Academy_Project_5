@@ -98,8 +98,7 @@ const updateAccessoryById = (req,res)=>{
 
 
 
-
-
+module.exports={createNewAccessories,getAllAccessories,deleteAccessoryById,updateAccessoryById}
 module.exports={createNewAccessories,getAllAccessories,deleteAccessoryById,updateAccessoryById}
 
 
