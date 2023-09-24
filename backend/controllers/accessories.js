@@ -2,8 +2,8 @@ const {pool} =require("../models/db")
 
 // Here is the function that the admin can add the accessories from:
 const createNewAccessories = (req,res)=>{
-    const {product,description,img,price}=req.body
-    const array= [product,description,img,price]
+    const {name,description,img,price}=req.body
+    const array= [name,description,img,price]
     const query = `INSERT INTO accessories (name,description,img,price) VALUES ($1,$2,$3,$4) RETURNING *`
     pool.query(query,array)
     .then((results)=>{
@@ -68,12 +68,12 @@ const deleteAccessoryById = (req,res)=>{
 
 //Here you can update the article informations : 
 
-const updateArticleById = (req,res)=>{
+const updateAccessoryById = (req,res)=>{
     const {product,description,img,price}=req.body
     const {id}=req.params
     const array = [product,description,img,price,id]
     const query = `UPDATE accessories
-    SET product=COALESCE($1,product),description=COALESCE($2,description),img=COALESCE($3,img),price=COALESCE($4,price)
+    SET name=COALESCE($1,name),description=COALESCE($2,description),img=COALESCE($3,img),price=COALESCE($4,price)
     WHERE id=$5 RETURNING *`
     pool.query(query,array)
     .then((results)=>{
@@ -98,9 +98,8 @@ const updateArticleById = (req,res)=>{
 
 
 
-
-
-module.exports={createNewAccessories,getAllAccessories,deleteAccessoryById,updateArticleById}
+module.exports={createNewAccessories,getAllAccessories,deleteAccessoryById,updateAccessoryById}
+module.exports={createNewAccessories,getAllAccessories,deleteAccessoryById,updateAccessoryById}
 
 
 
