@@ -50,7 +50,29 @@ const getAllOrders = (req, res) => {
     });
 };
 
+const addAccessoryToOrder = async (req, res) => {
+  try {
+    const { order_id, accessory_id } = req.params;
+    const values = [order_id, accessory_id];
+    const query =
+      "INSERT INTO order_accessories (order_id, accessories_id) values ($1, $2) RETURNING *;";
+    const result = await pool.query(query, values);
+    res.status(201).json({
+      success: true,
+      message: `accessory added successfully to the order`,
+      result: result.rows,
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+      error: err.message,
+    });
+  }
+};
+
 module.exports = {
   createOrderById,
   getAllOrders,
+  addAccessoryToOrder,
 };
