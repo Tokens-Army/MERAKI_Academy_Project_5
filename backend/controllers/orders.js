@@ -26,31 +26,36 @@ const createOrderById = (req, res) => {
 };
 
 // this function fetches all orders with the services and accessories attached to them
-const getAllOrders = (req, res) => {
-  const { userId } = req.token;
-  pool
-    .query(`select O.user_id,S.name AS service_name , S.img AS service_img, S.price AS service_price, A.name AS accessory_name, A.img AS accessory_img, A.price AS accessory_price from orders O inner join services S on O.service_id = S.id inner join order_accessories OA on OA.order_id=O.id
-    inner join accessories A on OA.accessories_id=A.id where O.user_id = $1;`, [userId])
-    .then((result) => {
-      if (!result.rows.length) {
-        return res.status(404).json({
-          success: false,
-          message: "No orders found",
-        });
-      }
-      res.status(200).json({
-        success: true,
-        message: "All your orders",
-        orders: result.rows,
-      });
-    })
-    .catch((err) => {
-      res.status(500).json({
+const getAllOrders = async (req, res) => {
+  try {
+    const { userId } = req.token;
+    const orders = await pool.query(
+      `select O.user_id,S.name AS service_name , S.img AS service_img, S.price AS service_price from orders O inner join services S on O.service_id = S.id where O.user_id = $1 and order_status='pending';`,
+      [userId]
+    );
+    const accessories = await pool.query(
+      `select A.name As accessory_name, A.img As accessory_img , A.price As accessory_price from accessories A inner join order_accessories OA on A.id=OA.accessories_id inner join orders O on OA.order_id=O.id where O.user_id=$1;`,
+      [userId]
+    );
+    if (!orders.rows.length) {
+      return res.status(404).json({
         success: false,
-        message: "Server Error",
-        error: err.message,
+        message: "No orders found",
       });
+    }
+    res.status(200).json({
+      success: true,
+      message: "All your orders",
+      orders: orders.rows,
+      accessories: accessories.rows,
     });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+      error: err.message,
+    });
+  }
 };
 
 // this function adds an accessory to order
@@ -76,26 +81,32 @@ const addAccessoryToOrder = async (req, res) => {
 };
 
 const updateOrderTime = (req, res) => {
-  const {id} = req.params;
-  const {scheduled_time} = req.body;
-  pool.query(`UPDATE orders SET scheduled_time = COALESCE($1,scheduled_time) WHERE id = $2 RETURNING *`, [scheduled_time, id]).then((result) => {
-    res.status(201).json({
-      success: true,
-      message: `Order with id ${id} is updated successfully`,
-      order: result.rows
+  const { id } = req.params;
+  const { scheduled_time } = req.body;
+  pool
+    .query(
+      `UPDATE orders SET scheduled_time = COALESCE($1,scheduled_time) WHERE id = $2 RETURNING *`,
+      [scheduled_time, id]
+    )
+    .then((result) => {
+      res.status(201).json({
+        success: true,
+        message: `Order with id ${id} is updated successfully`,
+        order: result.rows,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server Error",
+        error: err.message,
+      });
     });
-  }).catch((err) => {
-    res.status(500).json({
-      success: false,
-      message: "Server Error",
-      error: err.message
-    });
-  });
 };
 
 module.exports = {
   createOrderById,
   getAllOrders,
   addAccessoryToOrder,
-  updateOrderTime
+  updateOrderTime,
 };
