@@ -23,7 +23,7 @@ div{
 }
 .registerComponents{
     display: grid;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 }
 .inputRegister{
     margin: 1%;
