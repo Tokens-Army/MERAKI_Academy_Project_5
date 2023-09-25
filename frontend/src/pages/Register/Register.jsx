@@ -1,10 +1,15 @@
 import React,{useState} from "react";
+import { useNavigate } from "react-router-dom";
 import "./Register.css"
+import axios from "axios";
 const Register = () => {
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [succcesMessage, setSucccesMessage] = useState("")
+  const [errorMessage, setErrorMessage] = useState("")
+  const navigate=useNavigate()
   return <div className="RegisterPage">
     <div className="RegisterNavBar">
       <div>Logo</div>
@@ -26,15 +31,32 @@ const Register = () => {
     <input className="inputRegister email" onChange={(e)=>{
       setEmail(e.target.value)
     }} placeholder="Email"/>
-    <input className="inputRegister password" onChange={(e)=>{
+    <input className="inputRegister password" type="password" onChange={(e)=>{
       setPassword(e.target.value)
     }} placeholder="Password"/>
-    <button className="RegisterButton">Register</button>
+    <button onClick={()=>{
+      axios.post("http://localhost:5000/users/register",{
+        firstName,
+        lastName,
+        email,
+        password,
+        role_id:1
+      })
+      .then((results)=>{
+        console.log(results.data.result);
+        setSucccesMessage(results.data.result)
+      })
+      .catch((err)=>{
+        console.log(err.response.data.message);
+        setErrorMessage(err.response.data.message)
+      })
+    }} className="RegisterButton">Register</button>
     </div>
 
     <div></div>
     </div>
-    
+    <div>{succcesMessage&&<>{navigate("/login")}</>}
+    {errorMessage&&<>{errorMessage}</>}</div>
     
   </div>;
 };
