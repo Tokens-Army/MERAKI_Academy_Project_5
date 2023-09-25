@@ -1,0 +1,33 @@
+div{
+    color: purple;
+}
+.RegisterPage{
+    width: 100vw;
+    height: 100vh;
+    background-color: red;
+}
+.RegisterNavBar{
+    display: grid;
+    grid-template-columns: 1fr 5fr 2fr 2fr;
+}
+.LoginButtonRegisterPage{
+    width: 50%;
+    height: 75%;
+    margin-top: 3%;
+}
+.registerMiddlePage{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+.registerComponents{
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+.inputRegister{
+    margin: 1%;
+    border-radius: 8px;
+}
+.RegisterButton{
+    width: 50%;
+    margin-left: 25%;
+}
