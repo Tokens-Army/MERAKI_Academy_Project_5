@@ -7,6 +7,7 @@ const Register = () => {
   const [lastName, setLastName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [checkPassword, setCheckPassword] = useState("")
   const [succcesMessage, setSucccesMessage] = useState("")
   const [errorMessage, setErrorMessage] = useState("")
   const navigate=useNavigate()
@@ -32,9 +33,16 @@ const Register = () => {
       setEmail(e.target.value)
     }} placeholder="Email"/>
     <input className="inputRegister password" type="password" onChange={(e)=>{
-      setPassword(e.target.value)
+      setPassword(e.target.value) 
     }} placeholder="Password"/>
+    <input className="inputRegister password" type="password" onChange={(e)=>{
+      setCheckPassword(e.target.value) 
+    }} placeholder="Re-type Password"/>
+    
     <button onClick={()=>{
+      if (password!==checkPassword){
+        return setErrorMessage("Password does not match")
+      }else{
       axios.post("http://localhost:5000/users/register",{
         firstName,
         lastName,
@@ -50,13 +58,15 @@ const Register = () => {
         console.log(err.response.data.message);
         setErrorMessage(err.response.data.message)
       })
-    }} className="RegisterButton">Register</button>
+    }}} className="RegisterButton">Register</button>
     </div>
 
     <div></div>
     </div>
-    <div>{succcesMessage&&<>{navigate("/login")}</>}
-    {errorMessage&&<>{errorMessage}</>}</div>
+    <div className="SuccessOrErrorMessage">
+    {succcesMessage&&<>{navigate("/login")}</>}
+    {errorMessage&&<>{errorMessage}</>}
+    </div>
     
   </div>;
 };
