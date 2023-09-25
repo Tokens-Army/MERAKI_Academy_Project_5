@@ -2,6 +2,7 @@ import React,{useState} from "react";
 import { useNavigate } from "react-router-dom";
 import "./Register.css"
 import axios from "axios";
+
 const Register = () => {
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
@@ -12,15 +13,21 @@ const Register = () => {
   const [errorMessage, setErrorMessage] = useState("")
   const navigate=useNavigate()
   return <div className="RegisterPage">
-    <div className="RegisterNavBar">
-      <div>Logo</div>
-      <div>Wash me</div>
-      <h4>Already have accout?</h4>
-      <button className="LoginButtonRegisterPage">Log In</button>
-    </div>
 
+    <div className="RegisterNavBar">
+      <div></div>
+      <img className="logoImg" src="../../../imgg.png" onClick={()=>{
+        navigate("/")
+      }} />
+      {/* <div>Wash me</div> */}
+      <h4 className="loginCheckText">Already have accout?</h4>
+      <button onClick={()=>{
+        navigate("/login")
+      }}className="LoginButtonRegisterPage">Log In</button>
+    </div>
+    
     <div className="registerMiddlePage">
-    <div></div>
+      <img className="rightImg" src="https://hips.hearstapps.com/hmg-prod/images/woman-wiping-down-steering-wheel-royalty-free-image-1656075655.jpg"/>
     <div className="registerComponents">
     <h4>Register</h4>
     <input className="inputRegister firstName" onChange={(e)=>{
@@ -61,7 +68,7 @@ const Register = () => {
     }}} className="RegisterButton">Register</button>
     </div>
 
-    <div></div>
+    <img className="rightImg"src="http://www.animated-gifs.fr/category_transportation/cars-wash/09681050.gif"/>
     </div>
     <div className="SuccessOrErrorMessage">
     {succcesMessage&&<>{navigate("/login")}</>}
