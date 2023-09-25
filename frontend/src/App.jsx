@@ -1,19 +1,10 @@
 import "./App.css";
-import { Routes, Route } from "react-router-dom";
-import Home from "./components/home/Home";
-import Register from "./components/Register/Register";
-import Login from "./components/Login/Login";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./routers";
+
 
 function App() {
-  return (
-    <>
-      <Routes>
-        <Route path="/home" element={<Home />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-      </Routes>
-    </>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
