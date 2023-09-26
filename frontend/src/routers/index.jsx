@@ -4,7 +4,7 @@ import Home, { serviceLoader } from "../pages/Home/Home";
 import Notfound from "../pages/Notfound/Notfound";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
-import Accessories from "../pages/Accessories/Accessories";
+import Accessories, { accessoriesLoader } from "../pages/Accessories/Accessories";
 
 export const router = createBrowserRouter([
   {
@@ -19,6 +19,7 @@ export const router = createBrowserRouter([
       {
         path: "/accessories",
         element: <Accessories />,
+        loader:accessoriesLoader
       },
     ],
   },
