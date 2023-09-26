@@ -28,7 +28,7 @@ const Home = () => {
         <CssBaseline />
         <main>
           <Container sx={{ py: 8 }} maxWidth="md">
-            <Grid container spacing={4}>
+            <Grid container spacing={3}>
               <Suspense fallback={<>loading......</>}>
                 <Await resolve={result} errorElement={<>error .....</>}>
                   {(result) => {
@@ -40,6 +40,7 @@ const Home = () => {
                               height: "100%",
                               display: "flex",
                               flexDirection: "column",
+                              width:"100%"
                             }}
                           >
                             <CardMedia
@@ -59,6 +60,13 @@ const Home = () => {
                                 {service.name}
                               </Typography>
                               <Typography>{service.description}</Typography>
+                              <Typography
+                                component="h2"
+                                variant="h3"
+                                color="grey"
+                              >
+                                {service.price}JD
+                              </Typography>
                             </CardContent>
                             <CardActions>
                               <Button size="small">View</Button>
