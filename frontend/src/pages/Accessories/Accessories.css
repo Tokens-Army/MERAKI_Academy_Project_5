@@ -1,0 +1,13 @@
+.accessoryImg{
+    width: 100%;
+}
+.accessoryCard{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    /* border: 3px solid greenyellow; */
+}
+.a{
+    border: 3px solid greenyellow;
+    border-radius: 8px;
+    margin: 10px;
+}

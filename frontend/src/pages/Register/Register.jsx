@@ -27,26 +27,28 @@ const Register = () => {
     </div>
     
      <div className="registerMiddlePage">
-      {/* <img className="rightImg" src="https://hips.hearstapps.com/hmg-prod/images/woman-wiping-down-steering-wheel-royalty-free-image-1656075655.jpg"/> */}
-    {/* <div className="registerComponents">
-    <h4>Register</h4>
-    <input className="inputRegister firstName" onChange={(e)=>{
-      setFirstName(e.target.value)
-    }} placeholder="First Name"/>
-    <input className="inputRegister lastName" onChange={(e)=>{
-      setLastName(e.target.value)
-    }} placeholder="Last Name"/>
-    <input className="inputRegister email" onChange={(e)=>{
-      setEmail(e.target.value)
-    }} placeholder="Email"/>
-    <input className="inputRegister password" type="password" onChange={(e)=>{
-      setPassword(e.target.value) 
-    }} placeholder="Password"/>
-    <input className="inputRegister password" type="password" onChange={(e)=>{
-      setCheckPassword(e.target.value) 
-    }} placeholder="Re-type Password"/>
+      
+    <div id="login-box">
+  <div class="left">
+    <h1 className="h1register">Sign up</h1>
     
-    <button onClick={()=>{
+    <input  type="text" onChange={(e)=>{
+      setFirstName(e.target.value)
+    }}  placeholder="First Name" />
+    <input  type="text" onChange={(e)=>{
+      setLastName(e.target.value) 
+    }}  placeholder="Last Name" />
+    <input type="text"  onChange={(e)=>{
+      setEmail(e.target.value)
+    }}   placeholder="E-mail" />
+    <input type="password" onChange={(e)=>{
+      setPassword(e.target.value)
+    }}  placeholder="Password" />
+    <input type="password" onChange={(e)=>{
+      setCheckPassword(e.target.value)
+    }}  placeholder="Retype password" />
+    
+    <input type="submit" onClick={()=>{
       if (password!==checkPassword){
         return setErrorMessage("Password does not match")
       }else{
@@ -60,37 +62,16 @@ const Register = () => {
       .then((results)=>{
         console.log(results.data.result);
         setSucccesMessage(results.data.result)
+        navigate("/login")
       })
       .catch((err)=>{
         console.log(err.response.data.message);
         setErrorMessage(err.response.data.message)
       })
-    }}} className="RegisterButton">Register</button>
-    </div>  */}
-    <div id="login-box">
-  <div class="left">
-    <h1>Sign up</h1>
-    
-    <input  type="text" onChange={(e)=>{
-      setFirstName(e.target.value)
-    }} name="username" placeholder="First Name" />
-    <input  type="text" onChange={(e)=>{
-      setLastName(e.target.value)
-    }} name="lastName" placeholder="Last Name" />
-    <input type="text"  onChange={(e)=>{
-      setEmail(e.target.value)
-    }} name="email"  placeholder="E-mail" />
-    <input type="password" onChange={(e)=>{
-      setPassword(e.target.value)
-    }} name="password" placeholder="Password" />
-    <input type="password" onChange={(e)=>{
-      setCheckPassword(e.target.value)
-    }} name="password2" placeholder="Retype password" />
-    
-    <input type="submit" name="signup_submit" value="Sign me up" />
+    }}} className="registerbuttonRegister" value="Sign me up" />
   </div>
   
-  {/* <div class="right">
+  <div class="right">
     <span class="loginwith">Sign in with<br />social network</span>
     <a target="_blank" href="https://www.facebook.com/login/">
     <button class="social-signin facebook" >Log in with facebook</button>
@@ -101,15 +82,15 @@ const Register = () => {
     <a target="_blank" href="https://accounts.google.com/InteractiveLogin/signinchooser?elo=1&ifkv=AYZoVhekNAfjAWCMyCkafk6vcFXKx3rEmf6LUzlkOVAB2n3chxQ94kF6938hWvUt3sFFQ2sPM-R0yA&theme=glif&flowName=GlifWebSignIn&flowEntry=ServiceLogin">
     <button class="social-signin google">Log in with Google+</button>
     </a>
-  </div>
-  <div class="or">OR</div> */}
-</div>
-
-    {/* <img className="rightImg"src="http://www.animated-gifs.fr/category_transportation/cars-wash/09681050.gif"/> */}
-    </div>
     <div className="SuccessOrErrorMessage">
     {succcesMessage&&<>{navigate("/login")}</>}
     {errorMessage&&<>{errorMessage}</>}
+    </div>
+  </div>
+  <div class="or">OR</div>
+</div>
+
+    <img className="rightImg"src="https://st.depositphotos.com/1203257/4886/i/450/depositphotos_48867585-stock-photo-summer-car-washing.jpg"/>
     </div>
     
   </div>;
