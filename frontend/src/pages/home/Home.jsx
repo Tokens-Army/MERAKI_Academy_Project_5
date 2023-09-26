@@ -1,10 +1,8 @@
-import React, { useState, useEffect, Suspense } from "react";
+import React, { Suspense } from "react";
 import axios from "axios";
 import { Await, useLoaderData } from "react-router-dom";
 const Home = () => {
-  const [services, setServices] = useState([]);
   const { result } = useLoaderData();
-  // useEffect(() => {}, []);
   return (
     <div>
       <Suspense fallback={<>loading......</>}>
@@ -31,7 +29,6 @@ export const serviceLoader = async () => {
   const result = axios.get("http://localhost:5000/services").then((result) => {
     return result.data.services;
   });
-  // console.log(result.data.services);
   return { result };
 };
 export default Home;
