@@ -27,7 +27,7 @@ const Register = () => {
     </div>
     
      <div className="registerMiddlePage">
-      <img className="rightImg" src="https://hips.hearstapps.com/hmg-prod/images/woman-wiping-down-steering-wheel-royalty-free-image-1656075655.jpg"/>
+      {/* <img className="rightImg" src="https://hips.hearstapps.com/hmg-prod/images/woman-wiping-down-steering-wheel-royalty-free-image-1656075655.jpg"/> */}
     {/* <div className="registerComponents">
     <h4>Register</h4>
     <input className="inputRegister firstName" onChange={(e)=>{
@@ -90,7 +90,7 @@ const Register = () => {
     <input type="submit" name="signup_submit" value="Sign me up" />
   </div>
   
-  <div class="right">
+  {/* <div class="right">
     <span class="loginwith">Sign in with<br />social network</span>
     <a target="_blank" href="https://www.facebook.com/login/">
     <button class="social-signin facebook" >Log in with facebook</button>
@@ -102,7 +102,7 @@ const Register = () => {
     <button class="social-signin google">Log in with Google+</button>
     </a>
   </div>
-  <div class="or">OR</div>
+  <div class="or">OR</div> */}
 </div>
 
     {/* <img className="rightImg"src="http://www.animated-gifs.fr/category_transportation/cars-wash/09681050.gif"/> */}

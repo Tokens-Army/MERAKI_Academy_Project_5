@@ -1,4 +1,4 @@
-div{
+/* div{
     color: black;
 }
 .RegisterPage{
@@ -28,12 +28,12 @@ div{
 .registerMiddlePage{
     display: grid;
     grid-template-columns: 1fr 2fr;
-    /* border-radius: 8px; */
+    border-radius: 8px;
 }
 .registerComponents{
     display: grid;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    /* border-radius: 8px; */
+    border-radius: 8px;
 }
 .inputRegister{
     margin: 1%;
@@ -51,7 +51,7 @@ div{
 }
 .logoImg{
     width: 40%;;;
-    /* margin-top: 3%; */
+    margin-top: 3%;
     margin-left: 63%;
     cursor: pointer;
 }
@@ -62,7 +62,7 @@ div{
 .rightImg{
     width: 100%;
     height: 108.7%;
-    /* border-radius: 8px; */
+    border-radius: 8px;
 }
 
 
@@ -227,4 +227,4 @@ button.social-signin.twitter {
 
 button.social-signin.google {
   background: #DD4B39;
-}
+} */
