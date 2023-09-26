@@ -28,7 +28,7 @@ const Home = () => {
         <CssBaseline />
         <main>
           <Container sx={{ py: 8 }} maxWidth="md">
-            <Grid container spacing={4}>
+            <Grid container spacing={3}>
               <Suspense fallback={<>loading......</>}>
                 <Await resolve={result} errorElement={<>error .....</>}>
                   {(result) => {
@@ -59,27 +59,24 @@ const Home = () => {
                                 {service.name}
                               </Typography>
                               <Typography>{service.description}</Typography>
+                              <Typography
+                                component="h2"
+                                variant="h3"
+                                color="grey"
+                              >
+                                {service.price}JD
+                              </Typography>
                             </CardContent>
                             <CardActions>
-                              <Button size="small">View</Button>
-                              <Button size="small">Edit</Button>
+                              <Button size="large" style={{ left: "40%" }}>
+                                Select
+                              </Button>
                             </CardActions>
                           </Card>
                         </Grid>
                       );
                     });
-                    // return result.map((service) => {
-                    //   return (
-                    //     <div key={service.id}>
-                    //       {service.name}
-                    //       <>{/* <img src={service.img} /> */}</>
-                    //     </div>
-                    //   );
-                    // });
                   }}
-                  {/* {cards.map((card) => (
-                    
-                  ))} */}
                 </Await>
               </Suspense>
             </Grid>
