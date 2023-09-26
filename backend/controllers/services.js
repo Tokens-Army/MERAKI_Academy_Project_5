@@ -46,7 +46,7 @@ const getAllServices = (req, res) => {
 
 // this function updates a service by it's id
 const updateServiceById = (req, res) => {
-  const { id } = req.params; 
+  const { id } = req.params;
   const { name, description, img, price } = req.body;
   const query = `UPDATE services SET name = COALESCE($1,name), description = COALESCE($2, description), img = COALESCE($3, img), price = COALESCE($4, price) WHERE id=$5 AND is_deleted = 0  RETURNING *;`;
   const data = [
@@ -80,23 +80,26 @@ const updateServiceById = (req, res) => {
 
 const deleteServiceById = (req, res) => {
   const { id } = req.params;
-  pool.query(`UPDATE services SET is_deleted = 1 WHERE id = ($1);`, [id]).then((result) => {
-    res.status(200).json({
-      success: true,
-      message: `Service with id: ${id} is deleted successfully`
+  pool
+    .query(`UPDATE services SET is_deleted = 1 WHERE id = ($1);`, [id])
+    .then((result) => {
+      res.status(200).json({
+        success: true,
+        message: `Service with id: ${id} is deleted successfully`,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server Error",
+        error: err.message,
+      });
     });
-  }).catch((err) => {
-    res.status(500).json({
-      success: false,
-      message: "Server Error",
-      error: err.message
-    });
-  });
 };
 
 module.exports = {
   createNewService,
   getAllServices,
   updateServiceById,
-  deleteServiceById
+  deleteServiceById,
 };
