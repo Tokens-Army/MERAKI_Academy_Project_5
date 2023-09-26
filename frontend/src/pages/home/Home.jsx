@@ -40,7 +40,6 @@ const Home = () => {
                               height: "100%",
                               display: "flex",
                               flexDirection: "column",
-                              width:"100%"
                             }}
                           >
                             <CardMedia
@@ -69,25 +68,15 @@ const Home = () => {
                               </Typography>
                             </CardContent>
                             <CardActions>
-                              <Button size="small">View</Button>
-                              <Button size="small">Edit</Button>
+                              <Button size="large" style={{ left: "40%" }}>
+                                Select
+                              </Button>
                             </CardActions>
                           </Card>
                         </Grid>
                       );
                     });
-                    // return result.map((service) => {
-                    //   return (
-                    //     <div key={service.id}>
-                    //       {service.name}
-                    //       <>{/* <img src={service.img} /> */}</>
-                    //     </div>
-                    //   );
-                    // });
                   }}
-                  {/* {cards.map((card) => (
-                    
-                  ))} */}
                 </Await>
               </Suspense>
             </Grid>
