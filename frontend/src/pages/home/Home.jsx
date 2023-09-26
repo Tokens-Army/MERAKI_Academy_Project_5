@@ -9,8 +9,8 @@ const Home = () => {
     <div>
       <Suspense fallback={<>loading......</>}>
         <Await resolve={result} errorElement={<>error .....</>}>
-          {result &&
-            result.map((service) => {
+          {(result) => {
+            return result.map((service) => {
               return (
                 <div key={service.id}>
                   {service.name}
@@ -19,7 +19,8 @@ const Home = () => {
                   </>
                 </div>
               );
-            })}
+            });
+          }}
         </Await>
       </Suspense>
     </div>
@@ -27,8 +28,10 @@ const Home = () => {
 };
 
 export const serviceLoader = async () => {
-  const result = axios.get("http://localhost:5000/services");
-  console.log(result.data.services);
-  return { result: result.data.services };
+  const result = axios.get("http://localhost:5000/services").then((result) => {
+    return result.data.services;
+  });
+  // console.log(result.data.services);
+  return { result };
 };
 export default Home;
