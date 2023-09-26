@@ -10,7 +10,7 @@ CREATE TABLE users(
   PRIMARY KEY (id)
 );
 INSERT INTO users (firstName, lastName,  email, password, role_id) VALUES ('mohammad','alawneh','mohammad@gmail.com','12345678',2) RETURNING *;
-INSERT INTO users (firstName, lastName,  email, password, role_id) VALUES ('ali','kmeil','ali@gmail.com','12345678',2) RETURNING *;
+INSERT INTO users (firstName, lastName,  email, password, role_id) VALUES ('ali','ikmail','ali@gmail.com','12345678',2) RETURNING *;
 INSERT INTO users (firstName, lastName,  email, password, role_id) VALUES ('saad','habashneh','saad@gmail.com','12345678',2) RETURNING *;
 INSERT INTO users (firstName, lastName,  email, password, role_id) VALUES ('ahmed','ahmed','ahmed@gmail.com','12345678',1) RETURNING *;
 INSERT INTO users (firstName, lastName,  email, password, role_id) VALUES ('yousef','yousef','yousef@gmail.com','12345678',1) RETURNING *;
