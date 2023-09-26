@@ -1,13 +1,43 @@
 .accessoryImg{
+    width: 70%;
+    cursor: pointer;
+    border-radius: 8px;
+}
+.accessoryImg:hover{
+    /* background-color: #9c2525; */
+    color: #fff;
+    display: inline-block;
+    margin: 8px;
+    max-width: 320px;
+    min-width: 240px;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
     width: 100%;
+    box-sizing: border-box;
+    transition: all 0.45s ease;
+    
 }
 .accessoryCard{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    /* border: 3px solid greenyellow; */
+    border-radius: 8px;    
 }
 .a{
-    border: 3px solid greenyellow;
+    /* border: 3px solid greenyellow; */
     border-radius: 8px;
     margin: 10px;
 }
+.accessoryDescription{
+    font-family:   'Brush Script MT', cursive;
+}
+.accessoryPrice{
+    color: red;
+}
+.mask{
+    background-color: rgba(251, 251, 251, 0.15);
+}
+.sec{
+    background-color: #eee;
+}
+
