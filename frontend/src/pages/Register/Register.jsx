@@ -29,7 +29,7 @@ const Register = () => {
      <div className="registerMiddlePage">
       
     <div id="login-box">
-  <div class="left">
+  <div className="left">
     <h1 className="h1register">Sign up</h1>
     
     <input  type="text" onChange={(e)=>{
@@ -71,23 +71,23 @@ const Register = () => {
     }}} className="registerbuttonRegister" value="Sign me up" />
   </div>
   
-  <div class="right">
-    <span class="loginwith">Sign in with<br />social network</span>
+  <div className="right">
+    <span className="loginwith">Sign in with<br />social network</span>
     <a target="_blank" href="https://www.facebook.com/login/">
-    <button class="social-signin facebook" >Log in with facebook</button>
+    <button className="social-signin facebook" >Log in with facebook</button>
     </a>
     <a target="_blank" href="https://twitter.com/i/flow/login?input_flow_data=%7B%22requested_variant%22%3A%22eyJsYW5nIjoiYXIifQ%3D%3D%22%7D">
-    <button class="social-signin twitter">Log in with Twitter</button>
+    <button className="social-signin twitter">Log in with Twitter</button>
     </a>
     <a target="_blank" href="https://accounts.google.com/InteractiveLogin/signinchooser?elo=1&ifkv=AYZoVhekNAfjAWCMyCkafk6vcFXKx3rEmf6LUzlkOVAB2n3chxQ94kF6938hWvUt3sFFQ2sPM-R0yA&theme=glif&flowName=GlifWebSignIn&flowEntry=ServiceLogin">
-    <button class="social-signin google">Log in with Google+</button>
+    <button className="social-signin google">Log in with Google+</button>
     </a>
     <div className="SuccessOrErrorMessage">
     {succcesMessage&&<>{navigate("/login")}</>}
     {errorMessage&&<>{errorMessage}</>}
     </div>
   </div>
-  <div class="or">OR</div>
+  <div className="or">OR</div>
 </div>
 
     <img className="rightImg"src="https://st.depositphotos.com/1203257/4886/i/450/depositphotos_48867585-stock-photo-summer-car-washing.jpg"/>
