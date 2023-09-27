@@ -60,9 +60,9 @@ const Login = () => {
         dispatch(setUserId(result.data.userId));
         navigate("/");
       } else throw Error;
-    } catch (error) {
-      if (error.response && error.response.data) {
-        return setMessage(error.response.data.message);
+    } catch (err) {
+      if (err.response && err.response.data) {
+        return setMessage(err.response.data.message);
       }
       setMessage("Error happened while Login, please try again");
     }
@@ -131,7 +131,6 @@ const Login = () => {
               {status
                 ? message && <Typography color="primary">{message}</Typography>
                 : message && <Typography color="error">{message}</Typography>}
-              <br />
               <Button
                 fullWidth
                 variant="contained"
@@ -143,7 +142,7 @@ const Login = () => {
               <br />
               <Typography>
                 Don't have an account?
-                <Link to="/register" className="noAccLink"> Register</Link>
+                <Link to="/register" > Register</Link>
               </Typography>
               <Grid container>
                 <Grid item xs></Grid>
