@@ -6,6 +6,15 @@ const { error } = require("console");
 const io = new Server(8080, { cors: { origin: "*" } });
 const clients = {};
 
+// namespace
+const users = io.of("/users");
+const admin = io.of("/admin");
+users.on("connection", (socket) => {
+  console.log("from users");
+});
+admin.on("connection", (socket) => {
+  console.log("from admin");
+});
 io.use(auth);
 // connection,disconnect is default , socket is who make the connection
 io.on("connection", (socket) => {

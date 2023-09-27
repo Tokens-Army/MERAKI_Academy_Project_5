@@ -3,7 +3,7 @@ const auth = (socket, next) => {
   if (!headers.token) {
     next(new Error("invalid"));
   } else {
-    console.log("from auth");
+    socket.join("room-" + headers.user_id);
     socket.user = { token: headers.token, user_id: headers.user_id };
     next();
   }
