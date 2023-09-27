@@ -1,99 +1,186 @@
-import React,{useState} from "react";
-import { useNavigate } from "react-router-dom";
-import "./Register.css"
+import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+function Copyright(props) {
+  return (
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      align="center"
+      {...props}
+    >
+      {"Copyright © "}
+      <Link color="inherit" to="/">
+        Wash My Ride
+      </Link>{" "}
+      {new Date().getFullYear()}
+      {"."}
+    </Typography>
+  );
+};
+
+// TODO remove, this demo shouldn't need to reset the theme.
+
+const defaultTheme = createTheme();
 
 const Register = () => {
-  const [firstName, setFirstName] = useState("")
-  const [lastName, setLastName] = useState("")
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [checkPassword, setCheckPassword] = useState("")
-  const [succcesMessage, setSucccesMessage] = useState("")
-  const [errorMessage, setErrorMessage] = useState("")
-  const navigate=useNavigate()
-  return <div className="RegisterPage">
 
-    <div className="RegisterNavBar">
-      <div></div>
-      <img className="logoImg" src="../../../img.png" onClick={()=>{
-        navigate("/")
-      }} />
-      
-      <h4 className="loginCheckText">Already have accout?</h4>
-      <button onClick={()=>{
-        navigate("/login")
-      }}className="LoginButtonRegisterPage">Log In</button>
-    </div>
-    
-     <div className="registerMiddlePage">
-      
-    <div id="login-box">
-  <div className="left">
-    <h1 className="h1register">Sign up</h1>
-    
-    <input  type="text" onChange={(e)=>{
-      setFirstName(e.target.value)
-    }}  placeholder="First Name" />
-    <input  type="text" onChange={(e)=>{
-      setLastName(e.target.value) 
-    }}  placeholder="Last Name" />
-    <input type="text"  onChange={(e)=>{
-      setEmail(e.target.value)
-    }}   placeholder="E-mail" />
-    <input type="password" onChange={(e)=>{
-      setPassword(e.target.value)
-    }}  placeholder="Password" />
-    <input type="password" onChange={(e)=>{
-      setCheckPassword(e.target.value)
-    }}  placeholder="Retype password" />
-    
-    <input type="submit" onClick={()=>{
-      if (password!==checkPassword){
-        return setErrorMessage("Password does not match")
-      }else{
+  const navigate = useNavigate();
+
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const [status, setStatus] = useState(false);
+
+  const RegisterHandler = () => {
+    if (password !== confirmPassword) {
+      return setMessage("Passwords don't match");
+    }
+    else {
       axios.post("http://localhost:5000/users/register",{
         firstName,
         lastName,
         email,
         password,
-        role_id:1
-      })
-      .then((results)=>{
-        console.log(results.data.result);
-        setSucccesMessage(results.data.result)
-        navigate("/login")
-      })
-      .catch((err)=>{
-        console.log(err.response.data.message);
-        setErrorMessage(err.response.data.message)
-      })
-    }}} className="registerbuttonRegister" value="Sign me up" />
-  </div>
-  
-  <div className="right">
-    <span className="loginwith">Sign in with<br />social network</span>
-    <a target="_blank" href="https://www.facebook.com/login/">
-    <button className="social-signin facebook" >Log in with facebook</button>
-    </a>
-    <a target="_blank" href="https://twitter.com/i/flow/login?input_flow_data=%7B%22requested_variant%22%3A%22eyJsYW5nIjoiYXIifQ%3D%3D%22%7D">
-    <button className="social-signin twitter">Log in with Twitter</button>
-    </a>
-    <a target="_blank" href="https://accounts.google.com/InteractiveLogin/signinchooser?elo=1&ifkv=AYZoVhekNAfjAWCMyCkafk6vcFXKx3rEmf6LUzlkOVAB2n3chxQ94kF6938hWvUt3sFFQ2sPM-R0yA&theme=glif&flowName=GlifWebSignIn&flowEntry=ServiceLogin">
-    <button className="social-signin google">Log in with Google+</button>
-    </a>
-    <div className="SuccessOrErrorMessage">
-    {succcesMessage&&<>{navigate("/login")}</>}
-    {errorMessage&&<>{errorMessage}</>}
-    </div>
-  </div>
-  <div className="or">OR</div>
-</div>
+        role_id: 1
+      }).then((result) => {
+        if (result.data) {
+          setMessage("");
+          navigate("/login");
+        }
+        else {
+          throw Error;
+        }
+      }).catch((err) => {
+        if (err.response && err.response.data) {
+          return setMessage(err.response.data.message);
+        }
+        setMessage("Error happened while Login, please try again");
+      });
+    }
+  };
 
-    <img className="rightImg"src="https://st.depositphotos.com/1203257/4886/i/450/depositphotos_48867585-stock-photo-summer-car-washing.jpg"/>
-    </div>
-    
-  </div>;
+  return (
+    <ThemeProvider theme={defaultTheme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign up
+          </Typography>
+          <Box
+            component="form"
+            sx={{ mt: 3 }}
+          >
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  autoComplete="given-name"
+                  name="firstName"
+                  required
+                  fullWidth
+                  id="firstName"
+                  label="First Name"
+                  autoFocus
+                  onChange={(e) => setFirstName(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  required
+                  fullWidth
+                  id="lastName"
+                  label="Last Name"
+                  name="lastName"
+                  autoComplete="family-name"
+                  onChange={(e) => setLastName(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="new-password"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="Con-password"
+                  label="Confirm Password"
+                  type="password"
+                  id="Con-password"
+                  autoComplete="new-password"
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                />
+              </Grid>
+            </Grid>
+            {status
+                ? message && <Typography color="primary">{message}</Typography>
+                : message && <Typography color="error">{message}</Typography>}
+            <Button
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+              onClick={RegisterHandler}
+            >
+              Sign Up
+            </Button>
+            <Grid container justifyContent="flex-end">
+              <Grid container>
+              <Typography>
+                Already have an account?
+                <Link to="/login" variant="body2"> Sign in</Link>
+              </Typography>
+              </Grid>
+            </Grid>
+          </Box>
+        </Box>
+        <Copyright sx={{ mt: 5 }} />
+      </Container>
+    </ThemeProvider>
+  );
 };
 
 export default Register;
