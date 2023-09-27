@@ -16,7 +16,7 @@ const Register = () => {
 
     <div className="RegisterNavBar">
       <div></div>
-      <img className="logoImg" src="../../../imgg.png" onClick={()=>{
+      <img className="logoImg" src="../../../img.png" onClick={()=>{
         navigate("/")
       }} />
       
