@@ -17,7 +17,7 @@ export const router = createBrowserRouter([
         loader: serviceLoader,
       },
       {
-        path: "/accessories",
+        path: "accessories",
         element: <Accessories />,
         loader:accessoriesLoader
       },

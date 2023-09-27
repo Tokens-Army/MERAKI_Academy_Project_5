@@ -1,13 +1,8 @@
-.accessoryCardAll{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    /* margin: 10px */
-    margin-left: 20px;
-}
+
 .accessoryImg{
-    width: 100%;
+    width: 120%;
     margin-top: 5vh;
-    margin-left: 8vw;
+    margin-left: 6vw;
 }
 
 .addtocart2{
@@ -130,9 +125,13 @@
   }
   
   .text {
+    width: 28%;
+    height: auto;
+    margin-top: 5vh;
+    margin-left: 8vw;
     background-color: #04AA6D;
     color: white;
     font-size: 16px;
     padding: 16px 32px;
-    margin-left: 16vw;
+    margin-left: 15vw;
 }

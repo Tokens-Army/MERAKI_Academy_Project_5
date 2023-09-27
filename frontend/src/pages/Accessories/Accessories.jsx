@@ -1,35 +1,26 @@
-import React, {useState, useEffect } from 'react'
+import React, {useState, useEffect, Suspense } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import "./Accessories.css"
 import {BsCartPlus} from "react-icons/bs"
 import { Card } from 'react-bootstrap'
+import { Await,useLoaderData } from 'react-router-dom'
 const Accessories = () => {
-const [accessoriesList, setAccessoriesList] = useState("")
-const navigate = useNavigate()    
-useEffect(()=>{
-        axios.get("http://localhost:5000/accessories/")
-        .then((results)=>{
-            // console.log(results.data.result);
-            setAccessoriesList(results.data.result)
-        })
-        .catch((err)=>{
-            navigate("/error")
-        })
-    },[])
+    const { result } = useLoaderData();
+    const navigate = useNavigate()    
     return (
         <div>
         Accessories
 
 <div className='accessoryCardAll'>
-
-{accessoriesList&&accessoriesList.map(accessory=>{
-    return (
-      <div className='productinfocategory'>
-            
-      {/* <img className='productImg' src={product.img}/> */}
-      <div className="container">
-<img src={accessory.img}  alt="Avatar" className="accessoryImg" />
+<Suspense fallback={<>Loading...</>}>
+<Await resolve={result} errorElement={<>Error Loading data refresh please</>}>
+{(result)=>{ 
+    return result.map(accessory=>{
+    return (    
+    <div className='productinfocategory'>
+    <div className="container">
+<img className="accessoryImg" alt="Avatar" src={accessory.img} />
 <div className="middle">
 <div onClick={()=>{}} className="text">Add {accessory.name} To Cart</div>
 </div>
@@ -40,10 +31,19 @@ useEffect(()=>{
   </div>
     )
     
-})}
+})}}
+</Await>
+</Suspense>
 </div>
         </div>
         )
-}
-
-export default Accessories
+    }
+    export const accessoriesLoader = async () => {
+        const result = axios.get("http://localhost:5000/accessories").then((result) => {
+            // console.log(result.data.result);  
+            return result.data.result
+        });
+        return { result };
+    };
+    export default Accessories
+    
