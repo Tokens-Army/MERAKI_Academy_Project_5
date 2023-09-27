@@ -5,6 +5,7 @@ import Notfound from "../pages/Notfound/Notfound";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import Accessories, { accessoriesLoader } from "../pages/Accessories/Accessories";
+import ScheduleOrder from "../pages/ScheduleOrder/ScheduleOrder";
 
 export const router = createBrowserRouter([
   {
@@ -20,6 +21,9 @@ export const router = createBrowserRouter([
         path: "accessories",
         element: <Accessories />,
         loader:accessoriesLoader
+      },{
+        path: "scheduleorder",
+        element: <ScheduleOrder />
       },
     ],
   },
