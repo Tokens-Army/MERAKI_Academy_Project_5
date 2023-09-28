@@ -11,6 +11,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { GoogleLogin } from '@react-oauth/google';
 
 const Copyright = (props) => {
   return (
@@ -35,6 +36,13 @@ const Copyright = (props) => {
 const defaultTheme = createTheme();
 
 const Register = () => {
+
+  const responseMessage = (response) => {
+    console.log(response);
+  };
+  const errorMessage = (error) => {
+    console.log(error);
+  };
 
   const navigate = useNavigate();
 
@@ -167,6 +175,7 @@ const Register = () => {
             >
               Sign Up
             </Button>
+            <GoogleLogin onSuccess={responseMessage} onError={responseMessage} /><br/>
             <Grid container justifyContent="flex-end">
               <Grid container>
               <Typography>
