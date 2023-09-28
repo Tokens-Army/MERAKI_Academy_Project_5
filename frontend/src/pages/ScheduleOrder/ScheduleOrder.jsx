@@ -9,19 +9,23 @@ import CssBaseline from "@mui/material/CssBaseline";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
-import Toolbar from "@mui/material/Toolbar";
 import Paper from "@mui/material/Paper";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
-import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
 import Accessories from "../Accessories/Accessories";
 import About from "../About/About";
-import Contactus from "../Contactus/Contactus";
+import axios from "axios";
+import { useSelector } from "react-redux";
+
 const steps = ["Shipping address", "Payment details", "Review your order"];
+
 function getStepContent(step) {
+  const order_id = useSelector((state) => {
+    return state.order.order.id;
+  });
   switch (step) {
     case 0:
       return (
@@ -33,7 +37,18 @@ function getStepContent(step) {
                 onChange={(value) => {
                   const selectedDate = String(value.$d).split(" ");
                   selectedDate.splice(5, 2);
-                  setAddedDate(selectedDate.join(" "));
+                  console.log(selectedDate);
+                  const datata = selectedDate.join(" ");
+                  axios
+                    .put(`http://localhost:5000/orders/${order_id}`, {
+                      scheduled_time: datata,
+                    })
+                    .then((res) => {
+                      console.log(res);
+                    })
+                    .catch((err) => {
+                      console.log(err);
+                    });
                 }}
               />
             </DemoItem>
@@ -50,7 +65,6 @@ function getStepContent(step) {
 }
 
 export default function ResponsiveDateTimePickers() {
-  const [addedDate, setAddedDate] = useState("");
   const [activeStep, setActiveStep] = React.useState(0);
   // const [activeStep, setActiveStep] = React.useState(0);
 
@@ -73,13 +87,7 @@ export default function ResponsiveDateTimePickers() {
             position: "relative",
             borderBottom: (t) => `1px solid ${t.palette.divider}`,
           }}
-        >
-          <Toolbar>
-            <Typography variant="h6" color="inherit" noWrap>
-              Company name
-            </Typography>
-          </Toolbar>
-        </AppBar>
+        ></AppBar>
         <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
           <Paper
             variant="outlined"
