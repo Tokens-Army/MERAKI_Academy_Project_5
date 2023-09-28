@@ -1,6 +1,7 @@
 const { pool } = require("../models/db");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const { query } = require("express");
 const users = {};
 
 users.register = async (req, res) => {
@@ -86,5 +87,43 @@ users.login = (req, res) => {
       });
     });
 };
-
+users.getAllAdminAccounts = (req,res)=>{
+    pool.query(`SELECT * from users WHERE role_id=2 AND is_deleted=0`)
+    .then((result)=>{
+      res.status(200).json({
+        success:true,
+        admins:result.rows,
+        message:"Here are all the admins"
+      })
+    })
+    .catch((err)=>{
+      res.status(500).json({
+        success:false,
+        message:"Server Error check again",
+        error:err.message
+      })
+    })    
+}
+users.deleteAdminAccountById=(req,res)=>{
+  const {id}=req.params
+  const array=[id]
+  const query=`UPDATE users
+  SET is_deleted=1
+  WHERE id=$1`
+  pool.query(query,array)
+  .then((result)=>{
+    res.status(200).json({
+      success:true,
+      admins:result.rows,
+      message:"Admin deleted Successfully"
+    })
+  })
+  .catch((err)=>{
+    res.status(500).json({
+      success:false,
+      message:"Server Error check again",
+      error:err.message
+    })
+  })
+}
 module.exports = users;
