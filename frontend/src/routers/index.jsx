@@ -6,6 +6,8 @@ import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import Accessories, { accessoriesLoader } from "../pages/Accessories/Accessories";
 import ScheduleOrder from "../pages/ScheduleOrder/ScheduleOrder";
+import About from "../pages/About/About";
+import Contactus from "../pages/Contactus/Contactus";
 
 export const router = createBrowserRouter([
   {
@@ -25,6 +27,14 @@ export const router = createBrowserRouter([
         path: "scheduleorder",
         element: <ScheduleOrder />
       },
+      {
+        path: "about",
+        element: <About />
+      },{
+        path: "contactus",
+        element: <Contactus />
+      },
+      
     ],
   },
   {
