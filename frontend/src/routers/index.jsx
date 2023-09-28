@@ -10,7 +10,15 @@ import Accessories, {
 import ScheduleOrder from "../pages/ScheduleOrder/ScheduleOrder";
 import About from "../pages/About/About";
 import Contactus from "../pages/Contactus/Contactus";
-import Admin from "../pages/Admin/admin";
+import Adminhome from "../pages/Admin/Adminhome/Adminhome";
+import Addadmins from "../pages/Admin/Addadmins/Addadmins";
+import Deleteadmins, { deleteAdminLoader } from "../pages/Admin/Deleteadmins/Deleteadmins";
+import Addaccessories from "../pages/Admin/Addaccessories/Addaccessories";
+import Addservices from "../pages/Admin/Addservices/Addservices";
+import Updateservices from "../pages/Admin/Updateservices/Updateservices";
+import Deleteservices from "../pages/Admin/Deleteservices/Deleteservices";
+import Updateaccessories from "../pages/Admin/Updateaccessories/Updateaccessories";
+import Deleteaccessories from "../pages/Admin/Deleteaccessories/Deleteaccessories";
 
 export const router = createBrowserRouter([
   {
@@ -51,7 +59,35 @@ export const router = createBrowserRouter([
   },
   {
     path: "/admin",
-    element: <Admin />,
+    element: <Adminhome />,
+    children:[
+      {
+        path: "addadmins",
+        element: <Addadmins />,
+      },{
+        path: "deleteadmins",
+        element: <Deleteadmins />,
+        loader: deleteAdminLoader,
+      },{
+        path: "addservices",
+        element: <Addservices />,
+      },{
+        path: "updateservices",
+        element: <Updateservices />,
+      },{
+        path: "deleteservices",
+        element: <Deleteservices />,
+      },{
+        path: "addaccessories",
+        element: <Addaccessories />,
+      },{
+        path: "updateaccessories",
+        element: <Updateaccessories />,
+      },{
+        path: "deleteaccessories",
+        element: <Deleteaccessories />,
+      },
+  ]
   },
   {
     path: "*",
