@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
-import { setLogin, setUserId } from "../../service/redux/loginSlice";
+import { setLogin, setUserId, setRoleId } from "../../service/redux/loginSlice";
 import axios from "axios";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -54,10 +54,9 @@ const Login = () => {
       });
       if (result.data) {
         setMessage("");
-        localStorage.setItem("token", result.data.token);
-        localStorage.setItem("userId", result.data.userId);
         dispatch(setLogin(result.data.token));
         dispatch(setUserId(result.data.userId));
+        dispatch(setRoleId(result.data.roleId));
         navigate("/");
       } else throw Error;
     } catch (err) {
