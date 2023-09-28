@@ -20,6 +20,6 @@ ordersRouter.get("", authentication, getAllOrders);
 
 ordersRouter.post("/:order_id/:accessory_id", addAccessoryToOrder);
 
-ordersRouter.put("/:id", updateOrderTime);
+ordersRouter.put("/update_time/:id", updateOrderTime);
 
 module.exports = ordersRouter;

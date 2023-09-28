@@ -15,12 +15,12 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import Accessories from "../Accessories/Accessories";
+import Location from "../Location/Location";
 import About from "../About/About";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
-const steps = ["Shipping address", "Payment details", "Review your order"];
+const steps = ["Add cleaning time", "Add your Location", "Review your order"];
 
 function getStepContent(step) {
   const order_id = useSelector((state) => {
@@ -37,12 +37,13 @@ function getStepContent(step) {
                 onChange={(value) => {
                   const selectedDate = String(value.$d).split(" ");
                   selectedDate.splice(5, 2);
-                  console.log(selectedDate);
-                  const datata = selectedDate.join(" ");
                   axios
-                    .put(`http://localhost:5000/orders/${order_id}`, {
-                      scheduled_time: datata,
-                    })
+                    .put(
+                      `http://localhost:5000/orders/update_time/${order_id}`,
+                      {
+                        scheduled_time: selectedDate.join(" "),
+                      }
+                    )
                     .then((res) => {
                       console.log(res);
                     })
@@ -56,7 +57,7 @@ function getStepContent(step) {
         </LocalizationProvider>
       );
     case 1:
-      return <Accessories />;
+      return <Location />;
     case 2:
       return <About />;
     default:
