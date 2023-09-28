@@ -11,11 +11,13 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setOrder } from "../../service/redux/orderSlice";
 
 const defaultTheme = createTheme();
 
 const Home = () => {
+  const dispatch = useDispatch();
   const { result } = useLoaderData();
   const token = useSelector((state) => {
     return state.login.token;
@@ -82,6 +84,14 @@ const Home = () => {
                                       }
                                     )
                                     .then((result) => {
+                                      localStorage.setItem(
+                                        "order",
+                                        JSON.stringify(result.data.service[0])
+                                      );
+
+                                      dispatch(
+                                        setOrder(result.data.service[0])
+                                      );
                                       console.log(result);
                                     })
                                     .catch((err) => {
