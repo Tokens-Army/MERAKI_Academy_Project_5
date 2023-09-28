@@ -1,0 +1,10 @@
+.adminaccountinfo{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    margin: 5%;
+}
+
+.deleteadminaccountbutton{
+    border: 0;
+    background-color: white;
+}

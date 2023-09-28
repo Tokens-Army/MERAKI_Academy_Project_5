@@ -1,0 +1,18 @@
+.adminhomepage{
+    display: grid;
+    grid-template-columns: 1fr 6fr;
+}
+.adminleftbar{
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    /* margin: 10%; */
+}
+.adminbuttons{
+    margin: 0 auto;
+    margin: 10px;
+    background-color: greenyellow
+}
+.adminrightbar{
+    display: grid;
+    grid-template-rows: 1fr 7fr;
+}

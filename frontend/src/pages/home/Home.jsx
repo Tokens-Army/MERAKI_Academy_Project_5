@@ -92,7 +92,7 @@ const Home = () => {
                                       dispatch(
                                         setOrder(result.data.service[0])
                                       );
-                                      console.log(result);
+                                      navigate("/scheduleorder");
                                     })
                                     .catch((err) => {
                                       navigate("/login");
