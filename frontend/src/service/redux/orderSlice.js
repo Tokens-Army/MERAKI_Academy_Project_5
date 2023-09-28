@@ -7,11 +7,9 @@ export const orderSlice = createSlice({
   reducers: {
     setOrder: (state, action) => {
       state.order = action.payload;
-      const object = JSON.stringify(action.payload);
-      localStorage.setItem("order", object);
     },
   },
 });
 
-export const { setOrder } = loginSlice.actions;
+export const { setOrder } = orderSlice.actions;
 export default orderSlice.reducer;
