@@ -26,9 +26,6 @@ export const loginSlice = createSlice({
       state.token = null;
       state.userId = null;
       state.roleId = null;
-    setLogout: (state) => {
-      state.token = null;
-      state.userId = null;
       state.isLoggedIn = false;
       localStorage.clear();
     },
@@ -36,6 +33,5 @@ export const loginSlice = createSlice({
 });
 
 export const { setLogin, setUserId, setRoleId, setLogout } = loginSlice.actions;
-export const { setLogin, setUserId, setLogout } = loginSlice.actions;
 
 export default loginSlice.reducer;
