@@ -3,3 +3,12 @@
   justify-content: space-between;
   align-items: center;
 }
+.navbarabout{
+  cursor: pointer;
+}
+.navbarhome{
+  cursor: pointer;
+}
+.navbarcontactus{
+  cursor: pointer;
+}

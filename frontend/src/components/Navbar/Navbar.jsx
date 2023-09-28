@@ -12,7 +12,7 @@ const Navbar = () => {
         <input placeholder="Search" />
       </div>
       <div>
-        <h3
+        <h3 className="navbarhome"
           onClick={() => {
             navigate("/");
           }}
@@ -21,10 +21,14 @@ const Navbar = () => {
         </h3>
       </div>
       <div>
-        <h3>About </h3>
+        <h3 className="navbarabout" onClick={()=>{
+          navigate('/about')
+        }}>About </h3>
       </div>
       <div>
-        <h3>Contact Us</h3>
+        <h3 className="navbarcontactus" onClick={()=>{
+          navigate("/contactus")
+        }}>Contact Us</h3>
       </div>
       <div>
         <h3

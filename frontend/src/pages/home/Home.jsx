@@ -1,27 +1,28 @@
 import React, { Suspense } from "react";
 import axios from "axios";
-import { Await, useLoaderData } from "react-router-dom";
-import AppBar from "@mui/material/AppBar";
+import { Await, useLoaderData, useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
-import CameraIcon from "@mui/icons-material/PhotoCamera";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
-import Stack from "@mui/material/Stack";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import Link from "@mui/material/Link";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-const cards = [1, 2, 3, 4];
-const defaultTheme = createTheme();
-const Home = () => {
-  const { result } = useLoaderData();
+import { useSelector, useDispatch } from "react-redux";
+import { setOrder } from "../../service/redux/orderSlice";
 
+const defaultTheme = createTheme();
+
+const Home = () => {
+  const dispatch = useDispatch();
+  const { result } = useLoaderData();
+  const token = useSelector((state) => {
+    return state.login.token;
+  });
+  const navigate = useNavigate();
   return (
     <div>
       <ThemeProvider theme={defaultTheme}>
@@ -68,7 +69,36 @@ const Home = () => {
                               </Typography>
                             </CardContent>
                             <CardActions>
-                              <Button size="large" style={{ left: "40%" }}>
+                              <Button
+                                size="large"
+                                style={{ left: "40%" }}
+                                onClick={() => {
+                                  axios
+                                    .post(
+                                      `http://localhost:5000/orders/${service.id}`,
+                                      "",
+                                      {
+                                        headers: {
+                                          Authorization: `Bearer ${token}`,
+                                        },
+                                      }
+                                    )
+                                    .then((result) => {
+                                      localStorage.setItem(
+                                        "order",
+                                        JSON.stringify(result.data.service[0])
+                                      );
+
+                                      dispatch(
+                                        setOrder(result.data.service[0])
+                                      );
+                                      console.log(result);
+                                    })
+                                    .catch((err) => {
+                                      navigate("/login");
+                                    });
+                                }}
+                              >
                                 Select
                               </Button>
                             </CardActions>

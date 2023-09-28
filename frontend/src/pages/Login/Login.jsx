@@ -37,7 +37,6 @@ const Copyright = (props) => {
 const defaultTheme = createTheme();
 
 const Login = () => {
-  
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -141,7 +140,7 @@ const Login = () => {
               <br />
               <Typography>
                 Don't have an account?
-                <Link to="/register" > Register</Link>
+                <Link to="/register"> Register</Link>
               </Typography>
               <Grid container>
                 <Grid item xs></Grid>

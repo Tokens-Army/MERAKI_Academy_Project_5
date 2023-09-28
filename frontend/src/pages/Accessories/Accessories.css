@@ -114,21 +114,23 @@
     -ms-transform: translate(-50%, -50%);
     text-align: center;
     cursor: pointer;
-  }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
   
   .container:hover .image {
-    opacity: 0.3;
-  }
-  
-  .container:hover .middle {
     opacity: 1;
   }
   
+  .container:hover .middle {
+    opacity: 0.7;
+  }
+  
   .text {
-    width: 28%;
-    height: auto;
-    margin-top: 5vh;
-    margin-left: 8vw;
+    width: 130px;
+    height: 159px;
+    margin-top:27px;
     background-color: #04AA6D;
     color: white;
     font-size: 16px;
