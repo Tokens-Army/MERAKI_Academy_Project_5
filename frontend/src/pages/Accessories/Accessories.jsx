@@ -14,12 +14,43 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Stack from "@mui/material/Stack";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
+import { useSelector } from "react-redux";
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
 const defaultTheme = createTheme();
 const Accessories = () => {
+  const [open, setOpen] = useState(false);
+  const order = useSelector((state) => {
+    return state.order.order;
+  });
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
   const { result } = useLoaderData();
   const navigate = useNavigate();
   return (
     <div>
+      <Stack spacing={2} sx={{ width: "10%" }}>
+        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+          <Alert
+            onClose={handleClose}
+            severity="success"
+            sx={{ width: "100%" }}
+          >
+            Added to your order!
+          </Alert>
+        </Snackbar>
+      </Stack>
       <ThemeProvider theme={defaultTheme}>
         <CssBaseline />
         <main>
@@ -67,7 +98,23 @@ const Accessories = () => {
                               </Typography>
                             </CardContent>
                             <CardActions>
-                              <Button size="large" style={{ left: "40%" }}>
+                              <Button
+                                size="large"
+                                style={{ left: "40%" }}
+                                onClick={() => {
+                                  axios
+                                    .post(
+                                      `http://localhost:5000/orders/${order.id}/${accessory.id}`
+                                    )
+                                    .then((result) => {
+                                      console.log(result);
+                                      setOpen(true);
+                                    })
+                                    .catch((err) => {
+                                      console.log(err);
+                                    });
+                                }}
+                              >
                                 Select
                               </Button>
                             </CardActions>
@@ -82,6 +129,13 @@ const Accessories = () => {
           </Container>
         </main>
       </ThemeProvider>
+      <Button
+        onClick={() => {
+          navigate("/scheduleorder");
+        }}
+      >
+        NEXT
+      </Button>
     </div>
   );
 };
