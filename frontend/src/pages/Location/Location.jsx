@@ -3,7 +3,7 @@ import GoogleMapReact from "google-map-react";
 
 const AnyReactComponent = ({ text }) => <div>{text}❌</div>;
 
-const Location = () => {
+const Location = (props) => {
   const defaultProps = {
     center: {
       lat: 31.92425,
@@ -21,8 +21,8 @@ const Location = () => {
         yesIWantToUseGoogleMapApiInternals
       >
         <AnyReactComponent
-          lat={59.955413}
-          lng={30.337844}
+          lat={31.92425}
+          lng={35.917441}
           text="My Marker"
           icon={"http://maps.google.com/mapfiles/ms/icons/green-dot.png"}
         />
