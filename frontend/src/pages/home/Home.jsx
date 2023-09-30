@@ -88,11 +88,10 @@ const Home = () => {
                                         "order",
                                         JSON.stringify(result.data.service[0])
                                       );
-
                                       dispatch(
                                         setOrder(result.data.service[0])
                                       );
-                                      navigate("/scheduleorder");
+                                      navigate("/accessories");
                                     })
                                     .catch((err) => {
                                       navigate("/login");
