@@ -1,0 +1,13 @@
+.serviceinputsdiv{
+    display: grid;
+
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+}
+.serviceinputs{
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+.servicemiddlespace{
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+}

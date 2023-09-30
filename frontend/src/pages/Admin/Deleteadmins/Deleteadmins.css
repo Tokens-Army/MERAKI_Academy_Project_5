@@ -7,4 +7,6 @@
 .deleteadminaccountbutton{
     border: 0;
     background-color: white;
+    cursor: pointer;
+    margin: 0 auto;
 }
