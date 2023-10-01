@@ -4,6 +4,7 @@ import Home, { serviceLoader } from "../pages/Home/Home";
 import Notfound from "../pages/Notfound/Notfound";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
+import Cart from "../pages/Cart/Cart";
 import Accessories, {
   accessoriesLoader,
 } from "../pages/Accessories/Accessories";
@@ -34,6 +35,10 @@ export const router = createBrowserRouter([
         path: "accessories",
         element: <Accessories />,
         loader: accessoriesLoader,
+      },
+      {
+        path: "cart/:order_id",
+        element: <Cart />,
       },
       {
         path: "scheduleorder",
