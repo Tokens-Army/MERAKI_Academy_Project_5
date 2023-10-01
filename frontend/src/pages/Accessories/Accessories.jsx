@@ -144,6 +144,9 @@ export const accessoriesLoader = async () => {
     .then((result) => {
       // console.log(result.data.result);
       return result.data.result;
+    })
+    .catch((err) => {
+      console.log(err);
     });
   return { result };
 };
