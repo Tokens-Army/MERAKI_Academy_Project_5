@@ -28,14 +28,15 @@ const createOrderById = (req, res) => {
 // this function fetches all orders with the services and accessories attached to them
 const getAllOrders = async (req, res) => {
   try {
+    const { order_id } = req.params;
     const { userId } = req.token;
     const orders = await pool.query(
-      `select O.user_id,S.name AS service_name , S.img AS service_img, S.price AS service_price from orders O inner join services S on O.service_id = S.id where O.user_id = $1 and order_status='pending';`,
-      [userId]
+      `select O.user_id,S.name AS service_name , S.img AS service_img, S.price AS service_price, O.order_status,O.location ,O.scheduled_time from orders O inner join services S on O.service_id = S.id  where O.user_id = $1 and order_status='pending' and O.is_deleted=0 and o.id=$2;`,
+      [userId, order_id]
     );
     const accessories = await pool.query(
-      `select A.name As accessory_name, A.img As accessory_img , A.price As accessory_price from accessories A inner join order_accessories OA on A.id=OA.accessories_id inner join orders O on OA.order_id=O.id where O.user_id=$1;`,
-      [userId]
+      `select A.name As accessory_name, A.img As accessory_img , A.price As accessory_price from accessories A inner join order_accessories OA on A.id=OA.accessories_id inner join orders O on OA.order_id=O.id where O.user_id=$1 and O.id=$2;`,
+      [userId, order_id]
     );
     if (!orders.rows.length) {
       return res.status(404).json({
@@ -46,7 +47,7 @@ const getAllOrders = async (req, res) => {
     res.status(200).json({
       success: true,
       message: "All your orders",
-      orders: orders.rows,
+      order: orders.rows[0],
       accessories: accessories.rows,
     });
   } catch (err) {
