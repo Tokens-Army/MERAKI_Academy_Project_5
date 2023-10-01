@@ -4,6 +4,7 @@ const {
   getAllOrders,
   addAccessoryToOrder,
   updateOrderTime,
+  addLocationToOrder,
 } = require("../controllers/orders");
 const authentication = require("../middlewares/authentication");
 const authorization = require("../middlewares/authorization");
@@ -21,5 +22,7 @@ ordersRouter.get("/:order_id", authentication, getAllOrders);
 ordersRouter.post("/:order_id/:accessory_id", addAccessoryToOrder);
 
 ordersRouter.put("/update_time/:id", updateOrderTime);
+
+ordersRouter.put("/location/:order_id", addLocationToOrder);
 
 module.exports = ordersRouter;

@@ -105,9 +105,34 @@ const updateOrderTime = (req, res) => {
     });
 };
 
+const addLocationToOrder = (req, res) => {
+  const { order_id } = req.params;
+  const { location } = req.body;
+  pool
+    .query(
+      `UPDATE orders SET location = COALESCE($1,location) WHERE id = $2 RETURNING *`,
+      [location, order_id]
+    )
+    .then((result) => {
+      res.status(201).json({
+        success: true,
+        message: `Order with id ${order_id} is updated successfully`,
+        order: result.rows,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server Error",
+        error: err.message,
+      });
+    });
+};
+
 module.exports = {
   createOrderById,
   getAllOrders,
   addAccessoryToOrder,
   updateOrderTime,
+  addLocationToOrder,
 };
