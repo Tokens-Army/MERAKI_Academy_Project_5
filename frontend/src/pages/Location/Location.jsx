@@ -4,6 +4,8 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 const Marker = ({ text }) => <h1>📍</h1>;
 
@@ -27,7 +29,9 @@ const Location = (props) => {
     },
     zoom: 11,
   };
-
+  const order = useSelector((state) => {
+    return state.order.order;
+  });
   return (
     <div style={{ height: "80vh", width: "100%" }}>
       <Stack spacing={2} sx={{ width: "10%" }}>
@@ -53,6 +57,7 @@ const Location = (props) => {
       >
         <Marker lat={myLoc.lat} lng={myLoc.lng} text="My Marker" />
       </GoogleMapReact>
+      <label>building</label>
       <input
         placeholder="Building name"
         onChange={(e) => {
@@ -60,6 +65,7 @@ const Location = (props) => {
           console.log(myLoc);
         }}
       />
+      <label>home</label>
       <input
         placeholder="Home No."
         onChange={(e) => {
@@ -70,7 +76,16 @@ const Location = (props) => {
       <br />
       <Button
         onClick={() => {
-          
+          axios
+            .put(`http://localhost:5000/orders/location/${order.id}`, {
+              location: JSON.stringify(myLoc),
+            })
+            .then((result) => {
+              setOpen(true);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
         }}
       >
         confirm my location

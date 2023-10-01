@@ -16,9 +16,10 @@ import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Location from "../Location/Location";
-import About from "../About/About";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
+import Review from "../Review/Review";
 
 const steps = ["Add cleaning time", "Add your Location", "Review your order"];
 
@@ -59,7 +60,7 @@ function getStepContent(step) {
     case 1:
       return <Location />;
     case 2:
-      return <About />;
+      return <Review />;
     default:
       throw new Error("Unknown step");
   }
@@ -68,7 +69,7 @@ function getStepContent(step) {
 export default function ResponsiveDateTimePickers() {
   const [activeStep, setActiveStep] = React.useState(0);
   // const [activeStep, setActiveStep] = React.useState(0);
-
+  const navigate = useNavigate();
   const handleNext = () => {
     setActiveStep(activeStep + 1);
   };
@@ -105,16 +106,7 @@ export default function ResponsiveDateTimePickers() {
               ))}
             </Stepper>
             {activeStep === steps.length ? (
-              <React.Fragment>
-                <Typography variant="h5" gutterBottom>
-                  Thank you for your order.
-                </Typography>
-                <Typography variant="subtitle1">
-                  Your order number is #2001539. We have emailed your order
-                  confirmation, and will send you an update when your order has
-                  shipped.
-                </Typography>
-              </React.Fragment>
+              navigate("/")
             ) : (
               <React.Fragment>
                 {getStepContent(activeStep)}
@@ -124,7 +116,6 @@ export default function ResponsiveDateTimePickers() {
                       Back
                     </Button>
                   )}
-
                   <Button
                     variant="contained"
                     onClick={handleNext}
