@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import Avatar from "@mui/material/Avatar";
@@ -11,7 +11,8 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { GoogleLogin } from '@react-oauth/google';
+import { useGoogleLogin } from "@react-oauth/google";
+
 
 const Copyright = (props) => {
   return (
@@ -36,13 +37,39 @@ const Copyright = (props) => {
 const defaultTheme = createTheme();
 
 const Register = () => {
+  const [user, setUser] = useState([]);
+  const [profile, setProfile] = useState([]);
 
-  const responseMessage = (response) => {
-    console.log(response);
-  };
-  const errorMessage = (error) => {
-    console.log(error);
-  };
+  const login = useGoogleLogin({
+    onSuccess: (codeResponse) => {
+      setUser(codeResponse);
+      console.log("Token: ", codeResponse.access_token);
+    },
+    onError: (error) => {
+      setMessage("Login Failed");
+      console.log(error);
+    },
+  });
+
+  useEffect(() => {
+    if (user) {
+      axios
+        .get(
+          `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,
+          {
+            headers: {
+              Authorization: `Bearer ${user.access_token}`,
+              Accept: "application/json",
+            },
+          }
+        )
+        .then((result) => {
+          setProfile(result.data);
+          navigate("/");
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [user]);
 
   const navigate = useNavigate();
 
@@ -57,28 +84,29 @@ const Register = () => {
   const RegisterHandler = () => {
     if (password !== confirmPassword) {
       return setMessage("Passwords don't match");
-    }
-    else {
-      axios.post("http://localhost:5000/users/register",{
-        firstName,
-        lastName,
-        email,
-        password,
-        role_id: 1
-      }).then((result) => {
-        if (result.data) {
-          setMessage("");
-          navigate("/login");
-        }
-        else {
-          throw Error;
-        }
-      }).catch((err) => {
-        if (err.response && err.response.data) {
-          return setMessage(err.response.data.message);
-        }
-        setMessage("Error happened while Login, please try again");
-      });
+    } else {
+      axios
+        .post("http://localhost:5000/users/register", {
+          firstName,
+          lastName,
+          email,
+          password,
+          role_id: 1,
+        })
+        .then((result) => {
+          if (result.data) {
+            setMessage("");
+            navigate("/login");
+          } else {
+            throw Error;
+          }
+        })
+        .catch((err) => {
+          if (err.response && err.response.data) {
+            return setMessage(err.response.data.message);
+          }
+          setMessage("Error happened while Login, please try again");
+        });
     }
   };
 
@@ -100,10 +128,7 @@ const Register = () => {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box
-            component="form"
-            sx={{ mt: 3 }}
-          >
+          <Box component="form" sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -165,8 +190,8 @@ const Register = () => {
               </Grid>
             </Grid>
             {status
-                ? message && <Typography color="primary">{message}</Typography>
-                : message && <Typography color="error">{message}</Typography>}
+              ? message && <Typography color="primary">{message}</Typography>
+              : message && <Typography color="error">{message}</Typography>}
             <Button
               fullWidth
               variant="contained"
@@ -175,18 +200,30 @@ const Register = () => {
             >
               Sign Up
             </Button>
-            <GoogleLogin onSuccess={responseMessage} onError={responseMessage} /><br/>
+            <Button
+              fullWidth
+              variant="contained"
+              sx={{ mt: 1, mb: 2 }}
+              onClick={() => login()}
+              className="googleBtn"
+            >
+              Sign in with Google
+            </Button>
+            <br />
             <Grid container justifyContent="flex-end">
               <Grid container>
-              <Typography>
-                Already have an account?
-                <Link to="/login" variant="body2"> Sign in</Link>
-              </Typography>
+                <Typography>
+                  Already have an account?
+                  <Link to="/login" variant="body2">
+                    {" "}
+                    Sign in
+                  </Link>
+                </Typography>
               </Grid>
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
+        <Copyright sx={{ mt: 3 }} />
       </Container>
     </ThemeProvider>
   );

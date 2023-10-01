@@ -9,7 +9,7 @@ import Accessories, {
 } from "../pages/Accessories/Accessories";
 import ScheduleOrder from "../pages/ScheduleOrder/ScheduleOrder";
 import About from "../pages/About/About";
-import Contactus from "../pages/Contactus/Contactus";
+import ContactUs from "../pages/ContactUs/ContactUs";
 import Adminhome from "../pages/Admin/Adminhome/Adminhome";
 import Addadmins from "../pages/Admin/Addadmins/Addadmins";
 import Deleteadmins, { deleteAdminLoader } from "../pages/Admin/Deleteadmins/Deleteadmins";
@@ -44,8 +44,8 @@ export const router = createBrowserRouter([
         element: <About />,
       },
       {
-        path: "contactus",
-        element: <Contactus />,
+        path: "contact-us",
+        element: <ContactUs />,
       },
     ],
   },
