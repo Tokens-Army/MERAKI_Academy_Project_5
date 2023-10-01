@@ -4,20 +4,29 @@ import Toolbar from "@mui/material/Toolbar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { setLogout } from "../../service/redux/loginSlice";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
+
+  const handleLogout = () => {
+    dispatch(setLogout());
+    navigate("/");
+  };
 
   return (
     <AppBar position="static">
       <Toolbar>
         <Button
           sx={{
-            color: '#fff',
+            color: "#fff",
             "&:hover": {
               backgroundColor: "transparent",
               transform: "scale(1.1)",
-              color: '#fff',
+              color: "#fff",
             },
           }}
           onClick={() => navigate("/")}
@@ -31,9 +40,15 @@ const Navbar = () => {
         <Button color="inherit" onClick={() => navigate("/contact-us")}>
           Contact Us
         </Button>
-        <Button color="inherit" onClick={() => navigate("/login")}>
-          Login
-        </Button>
+        {isLoggedIn ? (
+          <Button color="inherit" onClick={handleLogout}>
+            Logout
+          </Button>
+        ) : (
+          <Button color="inherit" onClick={() => navigate("/login")}>
+            Login
+          </Button>
+        )}
       </Toolbar>
     </AppBar>
   );
