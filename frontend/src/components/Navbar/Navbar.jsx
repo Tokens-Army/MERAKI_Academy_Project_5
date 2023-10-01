@@ -1,45 +1,41 @@
 import React from "react";
-import "./navbar.css";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
+
 const Navbar = () => {
   const navigate = useNavigate();
+
   return (
-    <div className="navbar">
-      <div className="navbar-logo">
-        <h3>Wash My Ride</h3>
-      </div>
-      <div className="navbar-search">
-        <input placeholder="Search" />
-      </div>
-      <div>
-        <h3 className="navbarhome"
-          onClick={() => {
-            navigate("/");
+    <AppBar position="static">
+      <Toolbar>
+        <Button
+          sx={{
+            color: '#fff',
+            "&:hover": {
+              backgroundColor: "transparent",
+              transform: "scale(1.1)",
+              color: '#fff',
+            },
           }}
+          onClick={() => navigate("/")}
         >
-          Home
-        </h3>
-      </div>
-      <div>
-        <h3 className="navbarabout" onClick={()=>{
-          navigate('/about')
-        }}>About </h3>
-      </div>
-      <div>
-        <h3 className="navbarcontactus" onClick={()=>{
-          navigate("/contactus")
-        }}>Contact Us</h3>
-      </div>
-      <div>
-        <h3
-          onClick={() => {
-            navigate("/login");
-          }}
-        >
+          Wash My Ride
+        </Button>
+        <Box sx={{ flexGrow: 1 }} />
+        <Button color="inherit" onClick={() => navigate("/about")}>
+          About
+        </Button>
+        <Button color="inherit" onClick={() => navigate("/contact-us")}>
+          Contact Us
+        </Button>
+        <Button color="inherit" onClick={() => navigate("/login")}>
           Login
-        </h3>
-      </div>
-    </div>
+        </Button>
+      </Toolbar>
+    </AppBar>
   );
 };
 
