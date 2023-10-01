@@ -1,0 +1,12 @@
+.middleUpdateServices{
+    display: grid;
+    grid-template-columns: 1fr 1fr ;
+}
+.updateServicesInputs{
+    width: 200px;
+    height: 50px;
+    margin: auto;
+}
+.serviceImg{
+    width: 75%;
+}

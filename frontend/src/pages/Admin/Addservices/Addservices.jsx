@@ -19,16 +19,17 @@ const Addservices = () => {
   const token = useSelector((state)=>{
     return state.login.token    
   })
-  useEffect(()=>{
-    axios.get("http://localhost:5000/services")
-    .then((results)=>{
-      console.log(results.data.services);
-      dispatch(setServices(results.data.services))
-    })
-    .catch((err)=>{
-      console.log(err);
-    })
-  },[])
+  
+    useEffect(()=>{
+      axios.get("http://localhost:5000/services")
+      .then((results)=>{
+        console.log(results.data.services);
+        dispatch(setServices(results.data.services))
+      })
+      .catch((err)=>{
+        console.log(err);
+      })
+    },[])
     return (
     <div>Addservices
         <button onClick={()=>{
