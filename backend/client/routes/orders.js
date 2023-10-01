@@ -17,6 +17,7 @@ ordersRouter.post(
   authorization("ADD_ORDER"),
   createOrderById
 );
+
 ordersRouter.get("/:order_id", authentication, getAllOrders);
 
 ordersRouter.post("/:order_id/:accessory_id", addAccessoryToOrder);
