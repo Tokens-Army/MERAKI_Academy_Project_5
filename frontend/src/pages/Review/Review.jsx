@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Typography from "@mui/material/Typography";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Grid from "@mui/material/Grid";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 const products = [
   {
@@ -37,10 +39,43 @@ const payments = [
   { name: "Expiry date", detail: "04/2024" },
 ];
 const Review = () => {
+  const order = useSelector((state) => {
+    return state.order.order;
+  });
+  const token = useSelector((state) => {
+    return state.login.token;
+  });
+  const [myOrder, setMyOrder] = useState({});
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/orders/${order.id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((result) => {
+        setMyOrder(result.data);
+        // console.log(myOrder.order.service_name);
+        console.log(result.data);
+        console.log(result.data.order.service_name);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
         Order summary
+      </Typography>
+      {myOrder.order && (
+        <ListItem sx={{ py: 1, px: 0 }}>
+          <ListItemText primary={myOrder.order.service_name} />
+          <Typography variant="body2">{myOrder.order.service_price}</Typography>
+        </ListItem>
+      )}
+      <Typography variant="h6" gutterBottom>
+        Accessories
       </Typography>
       <List disablePadding>
         {products.map((product) => (
