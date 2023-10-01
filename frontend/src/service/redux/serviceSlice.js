@@ -28,7 +28,7 @@ export const serviceSlice =createSlice({
                 return service
             })
         },
-        deleteServices:(state,action)=>{
+        deleteService:(state,action)=>{
             state.services=state.services.filter((service)=>{
                 return service.id !==action.payload
             })

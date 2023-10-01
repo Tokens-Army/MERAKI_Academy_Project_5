@@ -2,7 +2,7 @@ import React,{useState,useEffect} from 'react'
 import { useNavigate } from 'react-router-dom'
 import "./Addservices.css"
 import axios from 'axios'
-import { setServices,addServices,updateServices,deleteServices } from '../../../service/redux/serviceSlice'
+import { setServices,addServices,updateServices } from '../../../service/redux/serviceSlice'
 import { useDispatch, useSelector } from 'react-redux/'
 const Addservices = () => {
   const [name, setName] = useState("")

@@ -21,7 +21,7 @@ const Deleteadmins = () => {
             {(result) => {
               return result.map((user) => {
                 return (
-                  <div className="adminaccountinfo">
+                  <div key={user.id} className="adminaccountinfo">
                   <div>{user.firstname}</div>
                   <div>{user.lastname}</div>
                   <div>{user.email}</div>

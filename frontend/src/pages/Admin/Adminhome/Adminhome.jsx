@@ -33,7 +33,6 @@ const Adminhome = () => {
     }}>Delete Accessories</button>
     </div>
     <div className="adminrightbar">
-    <div className="adminnavbar"></div>
     <Outlet/>
     </div>
       
