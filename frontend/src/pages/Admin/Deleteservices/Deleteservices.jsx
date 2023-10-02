@@ -4,18 +4,13 @@ import { Await,useLoaderData } from 'react-router-dom'
 import { useDispatch,useSelector } from 'react-redux'
 import axios from 'axios'
 import "./Deleteservices.css"
-import { deleteServices, setServices } from '../../../service/redux/serviceSlice'
+import { deleteService, setServices } from '../../../service/redux/serviceSlice'
 
 const Deleteservices = () => {
   const dispatch = useDispatch()
-  const state = useSelector((state)=>{
-    return{
-      services:state.services.services
-    }
-  })
-  const token = useSelector((state)=>{
-    return state.login.token    
-  })
+ 
+  const services = useSelector((state)=>state.services.services)
+  const token = useSelector((state)=>state.login.token)
   
   useEffect(()=>{
     axios.get("http://localhost:5000/services")
@@ -28,14 +23,29 @@ const Deleteservices = () => {
     })
   },[])
   
-  return(  <div className='deleteServiceCard'>
-      {state.services.map(service=>{
-        return <div >
+  return(  <div  className='deleteServiceCard'>
+      {services&&services.map(service=>{
+        return <div key={service.id} >
         
         <div>{service.name}</div>
         <img className='deleteserviceImg' src={service.img}/>
         <div>{service.description}</div>
         <div>{service.price}</div>
+        <div className='deleteadminaccountbutton' onClick={()=>{
+                      axios.put(`http://localhost:5000/services/delete/${service.id}`,{id:service.id},{
+                        headers: {
+                          Authorization: `Bearer ${token}`,
+                        },
+                      })
+                      .then((result)=>{
+                        console.log(result);
+                        console.log(service.id);
+                        dispatch(deleteService(service.id))
+                      })
+                      .catch((err)=>{
+                        console.log(err);
+                      })
+                    }}>❌</div>
         </div>
       })}
 
