@@ -4,12 +4,14 @@ const {
   getAllOrders,
   addAccessoryToOrder,
   updateOrderTime,
+  deleteOrderById,
 } = require("../controllers/orders");
 const authentication = require("../middlewares/authentication");
 const authorization = require("../middlewares/authorization");
 //controllers
 
 const ordersRouter = express.Router();
+
 ordersRouter.post(
   "/:id",
   authentication,
@@ -22,5 +24,7 @@ ordersRouter.get("/:order_id", authentication, getAllOrders);
 ordersRouter.post("/:order_id/:accessory_id", addAccessoryToOrder);
 
 ordersRouter.put("/update_time/:id", updateOrderTime);
+
+ordersRouter.delete("/:orderId", deleteOrderById);
 
 module.exports = ordersRouter;

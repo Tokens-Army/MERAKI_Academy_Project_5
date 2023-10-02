@@ -11,8 +11,8 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useGoogleLogin } from "@react-oauth/google";
-
+import { GoogleLogin } from "@react-oauth/google";
+import { decodeToken } from "react-jwt";
 
 const Copyright = (props) => {
   return (
@@ -37,39 +37,6 @@ const Copyright = (props) => {
 const defaultTheme = createTheme();
 
 const Register = () => {
-  const [user, setUser] = useState([]);
-  const [profile, setProfile] = useState([]);
-
-  const login = useGoogleLogin({
-    onSuccess: (codeResponse) => {
-      setUser(codeResponse);
-      console.log("Token: ", codeResponse.access_token);
-    },
-    onError: (error) => {
-      setMessage("Login Failed");
-      console.log(error);
-    },
-  });
-
-  useEffect(() => {
-    if (user) {
-      axios
-        .get(
-          `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,
-          {
-            headers: {
-              Authorization: `Bearer ${user.access_token}`,
-              Accept: "application/json",
-            },
-          }
-        )
-        .then((result) => {
-          setProfile(result.data);
-          navigate("/");
-        })
-        .catch((err) => console.log(err));
-    }
-  }, [user]);
 
   const navigate = useNavigate();
 
@@ -81,7 +48,17 @@ const Register = () => {
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState(false);
 
-  const RegisterHandler = () => {
+  // login with google
+  const responseGoogle = (codeResponse) =>{
+    setFirstName(codeResponse.credential.given_name);
+    setLastName(codeResponse.credential.family_name);
+    setEmail(codeResponse.credential.email);
+    setPassword(codeResponse.credential.name);
+    const userInfo = decodeToken(codeResponse.credential);
+    console.log(userInfo);
+  };
+
+  const registerHandler = () => {
     if (password !== confirmPassword) {
       return setMessage("Passwords don't match");
     } else {
@@ -196,19 +173,15 @@ const Register = () => {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              onClick={RegisterHandler}
+              onClick={registerHandler}
             >
               Sign Up
             </Button>
-            <Button
-              fullWidth
-              variant="contained"
-              sx={{ mt: 1, mb: 2 }}
-              onClick={() => login()}
-              className="googleBtn"
-            >
-              Sign in with Google
-            </Button>
+            <GoogleLogin
+    onSuccess={responseGoogle}
+    onError={() => {
+      setMessage('Login Failed');
+    }}/>
             <br />
             <Grid container justifyContent="flex-end">
               <Grid container>

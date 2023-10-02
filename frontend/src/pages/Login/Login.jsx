@@ -56,7 +56,12 @@ const Login = () => {
         dispatch(setLogin(result.data.token));
         dispatch(setUserId(result.data.userId));
         dispatch(setRoleId(result.data.roleId));
-        navigate("/");
+        if (result.data.roleId == 2) {
+          navigate("/admin");
+        }
+        else {
+          navigate("/");
+        }
       } else throw Error;
     } catch (err) {
       if (err.response && err.response.data) {

@@ -37,7 +37,7 @@ export const router = createBrowserRouter([
         loader: accessoriesLoader,
       },
       {
-        path: "cart/:order_id",
+        path: "cart",
         element: <Cart />,
       },
       {
