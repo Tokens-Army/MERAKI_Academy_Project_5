@@ -35,7 +35,7 @@ const getAllOrders = async (req, res) => {
       [userId, order_id]
     );
     const accessories = await pool.query(
-      `select A.name As accessory_name, A.img As accessory_img , A.price As accessory_price from accessories A inner join order_accessories OA on A.id=OA.accessories_id inner join orders O on OA.order_id=O.id where O.user_id=$1 and O.id=$2;`,
+      `select A.name As accessory_name, A.img As accessory_img , A.price As accessory_price,A.id As accessory_id from accessories A inner join order_accessories OA on A.id=OA.accessories_id inner join orders O on OA.order_id=O.id where O.user_id=$1 and O.id=$2 AND OA.is_deleted = 0;`,
       [userId, order_id]
     );
     if (!orders.rows.length) {
@@ -105,6 +105,25 @@ const updateOrderTime = (req, res) => {
     });
 };
 
+const deleteOrderById = (req, res) => {
+
+  const {orderId} = req.params;
+
+  const query = `DELETE FROM orders WHERE order.id = $1`;
+
+  pool.query(query, [orderId]).then(() => {
+    res.status(201).json({
+      success: true,
+      message: "Order removed successfully",
+    });
+  }).catch((err) => {
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+      error: err.message
+    });
+  });
+  
 const addLocationToOrder = (req, res) => {
   const { order_id } = req.params;
   const { location } = req.body;
@@ -134,5 +153,6 @@ module.exports = {
   getAllOrders,
   addAccessoryToOrder,
   updateOrderTime,
+  deleteOrderById,
   addLocationToOrder,
 };
