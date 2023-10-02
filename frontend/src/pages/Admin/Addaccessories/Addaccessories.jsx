@@ -10,6 +10,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import TablePagination from "@mui/material/TablePagination";
 
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
@@ -44,59 +45,35 @@ const Addaccessories = () => {
     getAllAccessories();
   }, []);
   return (
-    // const columns = [
-    //   { id: "id", label: "Accessory id", minWidth: 20 },
-    //   { id: "name", label: "Accessory Name", minWidth: 100 },
-    //   {
-    //     id: "description",
-    //     label: "Accessory Desc.",
-    //     minWidth: 170,
-    //     align: "right",
-    //     format: (value) => value.toLocaleString("en-US"),
-    //   },
-    //   {
-    //     id: "img",
-    //     label: "Accessory Img",
-    //     minWidth: 170,
-    //     align: "right",
-    //     format: (value) => value.toLocaleString("en-US"),
-    //   },
-    //   {
-    //     id: "Accessory price",
-    //     label: "price",
-    //     minWidth: 170,
-    //     align: "right",
-    //     format: (value) => value.toFixed(2),
-    //   },
-    // ];
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>
             <TableCell>Accessory id</TableCell>
-            <TableCell align="right">Accessory Name</TableCell>
-            <TableCell align="right">Accessory Desc.</TableCell>
-            <TableCell align="right">Accessory Img</TableCell>
-            <TableCell align="right">Accessory price</TableCell>
+            <TableCell align="left">Accessory Name</TableCell>
+            <TableCell align="left">Accessory Desc.</TableCell>
+            <TableCell align="left">Accessory Img</TableCell>
+            <TableCell align="left">Accessory price</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {accessories.map((accessory) => (
             <TableRow
-              key={row.name}
+              key={accessory.id}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {row.name}
+                {accessory.id}
               </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
+              <TableCell align="left">{accessory.name}</TableCell>
+              <TableCell align="left">{accessory.description}</TableCell>
+              <TableCell align="left">{accessory.img}</TableCell>
+              <TableCell align="left">{accessory.price}</TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
+      <TablePagination />
     </TableContainer>
   );
 };
