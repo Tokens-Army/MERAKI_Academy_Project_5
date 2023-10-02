@@ -20,6 +20,7 @@ import Updateservices from "../pages/Admin/Updateservices/Updateservices";
 import Deleteservices from "../pages/Admin/Deleteservices/Deleteservices";
 import Updateaccessories from "../pages/Admin/Updateaccessories/Updateaccessories";
 import Deleteaccessories from "../pages/Admin/Deleteaccessories/Deleteaccessories";
+import Orders from "../pages/Admin/Orders/Orders";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -97,6 +98,10 @@ export const router = createBrowserRouter([
         path: "deleteaccessories",
         element: <Deleteaccessories />,
       },
+      {
+        path:"ordersAdmin",
+        element:<Orders/>
+      }
     ],
   },
   {
