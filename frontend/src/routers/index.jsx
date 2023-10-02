@@ -71,7 +71,6 @@ export const router = createBrowserRouter([
       },{
         path: "deleteadmins",
         element: <Deleteadmins />,
-        loader: deleteAdminLoader,
       },{
         path: "addservices",
         element: <Addservices />,
