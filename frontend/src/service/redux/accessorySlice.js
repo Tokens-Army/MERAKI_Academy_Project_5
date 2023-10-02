@@ -6,7 +6,7 @@ export const accessories = createSlice({
     accessories: [],
   },
   reducers: {
-    getAllAccessory: (state, action) => {
+    setAccessories: (state, action) => {
       state.accessories = action.payload;
     },
     addAccessory: (state, action) => {
@@ -27,7 +27,7 @@ export const accessories = createSlice({
   },
 });
 export const {
-  getAllAccessory,
+  setAccessories,
   addAccessory,
   updateAccessory,
   deleteAccessory,

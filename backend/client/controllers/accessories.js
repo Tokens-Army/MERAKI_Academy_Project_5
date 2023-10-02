@@ -35,8 +35,8 @@ const getAllAccessories = (req, res) => {
         });
       } else {
         res.status(404).json({
-            success:false,
-            message:"There is no accessories for this result",
+          success: false,
+          message: "There is no accessories for this result",
         });
       }
     })
