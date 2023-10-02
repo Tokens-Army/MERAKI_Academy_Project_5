@@ -71,7 +71,8 @@ const Updateservices = () => {
         },
       })
       .then((results)=>{
-        dispatch(updateServices({id:service.id,name,img,description,price}))
+        console.log(results.data.result);
+        dispatch(updateServices(results.data.result))
       })
       .catch((err)=>{
         <>Some thing went wrong kindly try again later</>

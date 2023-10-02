@@ -25,11 +25,10 @@ const drawerWidth = 240;
 const Adminhome = () => {
     const navigate = useNavigate()
     const [mobileOpen, setMobileOpen] = useState(false);
-    // const { window } = props;
     const handleDrawerToggle = () => {
       setMobileOpen(!mobileOpen);
     };
-    const rightBar =[{name:"Add Admins",nav:"addadmins"},{name:"Delete Admins",nav:"deleteadmins"},{name:"Add Services",nav:"addservices"},{name:"Update Services",nav:"updateservices"},{name:"Delete Services",nav:"deleteservices"},{name:"Add Accessories",nav:"addaccessories"},{name:"Update Accessories",nav:"updateaccessories"},{name:"Delete Accessories",nav:"deleteaccessories"}]
+    const rightBar =[{name:"Add Admins",nav:"addadmins"},{name:"Delete Admins",nav:"deleteadmins"},{name:"Add Services",nav:"addservices"},{name:"Update Services",nav:"updateservices"},{name:"Delete Services",nav:"deleteservices"},{name:"Add Accessories",nav:"addaccessories"},{name:"Update Accessories",nav:"updateaccessories"},{name:"Delete Accessories",nav:"deleteaccessories"},{name:"Orders",nav:"ordersAdmin"}]
     const HelpRightBar = [{name:"About",nav:"/about"},{name:"Contact Us",nav:"/contact-us"}]
     const drawer = (
       <div>
@@ -95,14 +94,12 @@ const Adminhome = () => {
           sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
           aria-label="mailbox folders"
         >
-          {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
           <Drawer
-            // container={container}
             variant="temporary"
             open={mobileOpen}
             onClose={handleDrawerToggle}
             ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
+              keepMounted: true, 
             }}
             sx={{
               display: { xs: 'block', sm: 'none' },
@@ -130,41 +127,7 @@ const Adminhome = () => {
             <Outlet/>
         </Box>
       </Box>
-    );
-  return <div className="adminhomepage"> 
-
-    <div className="adminleftbar">
-
-    <button className="adminbuttons" onClick={()=>{
-        navigate("addadmins")
-    }}>Add Admins</button>
-    <button className="adminbuttons" onClick={()=>{
-        navigate("deleteadmins")
-    }}>Delete Admins</button>
-    <button className="adminbuttons" onClick={()=>{
-        navigate("addservices")
-    }}>Add Services</button>
-    <button className="adminbuttons" onClick={()=>{
-        navigate("updateservices")
-    }}>Update Services</button>
-    <button className="adminbuttons" onClick={()=>{
-        navigate("deleteservices")
-    }}>Delete Services</button>
-    <button className="adminbuttons" onClick={()=>{
-        navigate("addaccessories")
-    }}>Add Accessories</button>
-    <button className="adminbuttons" onClick={()=>{
-        navigate("updateaccessories")
-    }}>Update Accessories</button>
-    <button className="adminbuttons" onClick={()=>{
-        navigate("deleteaccessories")
-    }}>Delete Accessories</button>
-    </div>
-    <div className="adminrightbar">
-    <Outlet/>
-    </div>
-      
-  </div>;
+    )
 };
 
 export default Adminhome;
