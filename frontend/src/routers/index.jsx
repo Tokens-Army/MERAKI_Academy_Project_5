@@ -13,7 +13,7 @@ import About from "../pages/About/About";
 import ContactUs from "../pages/ContactUs/ContactUs";
 import Adminhome from "../pages/Admin/Adminhome/Adminhome";
 import Addadmins from "../pages/Admin/Addadmins/Addadmins";
-import Deleteadmins, { deleteAdminLoader } from "../pages/Admin/Deleteadmins/Deleteadmins";
+import Deleteadmins from "../pages/Admin/Deleteadmins/Deleteadmins";
 import Addaccessories from "../pages/Admin/Addaccessories/Addaccessories";
 import Addservices from "../pages/Admin/Addservices/Addservices";
 import Updateservices from "../pages/Admin/Updateservices/Updateservices";
