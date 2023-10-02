@@ -22,7 +22,6 @@ import { useSelector } from "react-redux";
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
-
 const defaultTheme = createTheme();
 const Accessories = () => {
   const [open, setOpen] = useState(false);
@@ -145,6 +144,9 @@ export const accessoriesLoader = async () => {
     .then((result) => {
       // console.log(result.data.result);
       return result.data.result;
+    })
+    .catch((err) => {
+      console.log(err);
     });
   return { result };
 };

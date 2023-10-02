@@ -11,3 +11,9 @@
     display: grid;
     grid-template-columns: 1fr 3fr 1fr;
 }
+.serviceimgaddservicepage{
+    width: 240px;
+    height: 200px;
+    padding: 10px;
+    
+}

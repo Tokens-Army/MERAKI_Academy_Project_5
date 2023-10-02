@@ -2,7 +2,7 @@ import React,{useState,useEffect} from 'react'
 import { useNavigate } from 'react-router-dom'
 import "./Addservices.css"
 import axios from 'axios'
-import { setServices,addServices,updateServices,deleteServices } from '../../../service/redux/serviceSlice'
+import { setServices,addServices,updateServices } from '../../../service/redux/serviceSlice'
 import { useDispatch, useSelector } from 'react-redux/'
 const Addservices = () => {
   const [name, setName] = useState("")
@@ -11,24 +11,21 @@ const Addservices = () => {
   const [price, setPrice] = useState(0)
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const state = useSelector((state)=>{
-    return {
-      services:state.services.services
-    }
-  })
+  const services = useSelector((state)=>state.services.services)
   const token = useSelector((state)=>{
     return state.login.token    
   })
-  useEffect(()=>{
-    axios.get("http://localhost:5000/services")
-    .then((results)=>{
-      console.log(results.data.services);
-      dispatch(setServices(results.data.services))
-    })
-    .catch((err)=>{
-      console.log(err);
-    })
-  },[])
+  
+    useEffect(()=>{
+      axios.get("http://localhost:5000/services")
+      .then((results)=>{
+        console.log(results.data.services);
+        dispatch(setServices(results.data.services))
+      })
+      .catch((err)=>{
+        console.log(err);
+      })
+    },[])
     return (
     <div>Addservices
         <button onClick={()=>{
@@ -50,7 +47,7 @@ const Addservices = () => {
       setPrice(e.target.value)
     }}/>
     <button className='addServiceBtn' onClick={()=>{
-      console.log(state.services);
+      console.log(services);
       if (!name||!img||!description||!price){
         console.log("Didn't add");
         <div>Fill all the inputs please</div>
@@ -72,7 +69,17 @@ const Addservices = () => {
       }
       }}>Add Service</button>
     </div>
-    <div></div>
+    <div>
+    </div>
+      {services&&services.map(service=>{
+       return <div key={service.id}>
+        <div>{service.name}</div>
+        <img className='serviceimgaddservicepage' src={service.img}/>
+        <div>{service.description}</div>
+        <div>Price {service.price} JD only</div>
+        
+       </div>
+      })}
     </div>
     </div>
   )

@@ -1,0 +1,8 @@
+
+.deleteServiceCard{
+    display: grid;
+    grid-column: 1fr 1fr 1fr ;
+}
+.deleteserviceImg{
+    width: 20%;
+}

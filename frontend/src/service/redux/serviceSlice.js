@@ -14,18 +14,21 @@ export const serviceSlice =createSlice({
             state.services.push(action.payload)
         },
         updateServices:(state,action)=>{
+            // console.log(action);
+            console.log(state.services);
             state.services.map((service)=>{
-                console.log(service);
+                // console.log(service);
                 if (service.id===action.payload.id){
                     service.name = action.payload.name
                     service.img=action.payload.img
                     service.description=action.payload.description
                     service.price=action.payload.price
+                    
                 }
                 return service
             })
         },
-        deleteServices:(state,action)=>{
+        deleteService:(state,action)=>{
             state.services=state.services.filter((service)=>{
                 return service.id !==action.payload
             })
@@ -33,5 +36,5 @@ export const serviceSlice =createSlice({
 
     }
 })
-export const {setServices,addServices,updateServices,deleteServices} = serviceSlice.actions
+export const {setServices,addServices,updateServices,deleteService} = serviceSlice.actions
 export default serviceSlice.reducer
