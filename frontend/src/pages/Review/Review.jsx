@@ -46,6 +46,8 @@ const Review = () => {
     return state.login.token;
   });
   const [myOrder, setMyOrder] = useState({});
+  const [location, setLocation] = useState({});
+  let totalPrice = 0;
   useEffect(() => {
     axios
       .get(`http://localhost:5000/orders/${order.id}`, {
@@ -55,6 +57,7 @@ const Review = () => {
       })
       .then((result) => {
         setMyOrder(result.data);
+        setLocation(JSON.parse(result.data.order.location));
         // console.log(myOrder.order.service_name);
         console.log(result.data);
         console.log(result.data.order.service_name);
@@ -71,33 +74,58 @@ const Review = () => {
       {myOrder.order && (
         <ListItem sx={{ py: 1, px: 0 }}>
           <ListItemText primary={myOrder.order.service_name} />
-          <Typography variant="body2">{myOrder.order.service_price}</Typography>
+          <Typography variant="body2">
+            {myOrder.order.service_price} JD
+          </Typography>
         </ListItem>
       )}
       <Typography variant="h6" gutterBottom>
         Accessories
       </Typography>
       <List disablePadding>
-        {products.map((product) => (
-          <ListItem key={product.name} sx={{ py: 1, px: 0 }}>
-            <ListItemText primary={product.name} secondary={product.desc} />
-            <Typography variant="body2">{product.price}</Typography>
-          </ListItem>
-        ))}
+        {myOrder.accessories &&
+          myOrder.accessories.map((accessory, i) => {
+            if (i == 0) {
+              totalPrice += myOrder.order.service_price;
+            }
+            totalPrice += accessory.accessory_price;
+            return (
+              <ListItem key={accessory.accessory_name} sx={{ py: 1, px: 0 }}>
+                <ListItemText primary={accessory.accessory_name} />
+                <Typography variant="body2">
+                  {accessory.accessory_price} JD
+                </Typography>
+              </ListItem>
+            );
+          })}
+
+        <ListItem sx={{ py: 1, px: 0 }}>
+          <ListItemText primary="shipping" />
+          <Typography variant="body2">free</Typography>
+        </ListItem>
+
         <ListItem sx={{ py: 1, px: 0 }}>
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-            $34.06
+            {totalPrice} JD
           </Typography>
         </ListItem>
       </List>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
           <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
-            Shipping
+            Location
           </Typography>
-          <Typography gutterBottom>John Smith</Typography>
-          <Typography gutterBottom>{addresses.join(", ")}</Typography>
+          {location && (
+            <Typography gutterBottom>
+              ({location.lat}, {location.lng})
+            </Typography>
+          )}
+          {location && (
+            <Typography gutterBottom>
+              {location.buildingName}, {location.HomeNo}
+            </Typography>
+          )}
         </Grid>
         <Grid item container direction="column" xs={12} sm={6}>
           <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
