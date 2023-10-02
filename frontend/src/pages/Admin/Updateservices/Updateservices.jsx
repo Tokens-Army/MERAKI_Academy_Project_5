@@ -17,11 +17,7 @@ const Updateservices = () => {
     return state.login.token    
   })
   
-  const state = useSelector((state)=>{
-    return{
-      services:state.services.services
-    }
-  })
+  const services = useSelector((state)=>state.services.services)
   useEffect(()=>{
     axios.get("http://localhost:5000/services")
     .then((results)=>{
@@ -39,7 +35,7 @@ const Updateservices = () => {
     }}>Back to home page</button>
     <div className='middleUpdateServices'>
       
-    {state.services.map(service=>{
+    {services&&services.map(service=>{
       return<div key={service.id} className='updateServiceCard'>
         <div className='serviceName'>{service.name}</div>
         <img className='serviceImg' src={service.img}/>
