@@ -26,7 +26,7 @@ const createOrderById = (req, res) => {
 };
 
 // this function fetches all orders with the services and accessories attached to them
-const getAllOrders = async (req, res) => {
+const getMyOrders = async (req, res) => {
   try {
     const { order_id } = req.params;
     const { userId } = req.token;
@@ -148,12 +148,30 @@ const addLocationToOrder = (req, res) => {
       });
     });
 };
-
+const getAllOrders = (req, res) => {
+  pool
+    .query(`SELECT * FROM orders WHERE is_deleted = 0;`)
+    .then((result) => {
+      res.status(200).json({
+        success: true,
+        message: "All the orders",
+        orders: result.rows,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server Error",
+        error: err.message,
+      });
+    });
+};
 module.exports = {
   createOrderById,
-  getAllOrders,
+  getMyOrders,
   addAccessoryToOrder,
   updateOrderTime,
   deleteOrderById,
   addLocationToOrder,
+  getAllOrders
 };
