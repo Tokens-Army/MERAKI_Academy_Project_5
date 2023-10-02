@@ -1,10 +1,11 @@
 const express = require("express");
 const {
   createOrderById,
-  getAllOrders,
+  getMyOrders,
   addAccessoryToOrder,
   updateOrderTime,
   addLocationToOrder,
+  getAllOrders
 } = require("../controllers/orders");
 const authentication = require("../middlewares/authentication");
 const authorization = require("../middlewares/authorization");
@@ -17,8 +18,9 @@ ordersRouter.post(
   authorization("ADD_ORDER"),
   createOrderById
 );
+ordersRouter.get("/",getAllOrders)
 
-ordersRouter.get("/:order_id", authentication, getAllOrders);
+ordersRouter.get("/:order_id", authentication, getMyOrders);
 
 ordersRouter.post("/:order_id/:accessory_id", addAccessoryToOrder);
 
