@@ -72,7 +72,7 @@ const Addservices = () => {
     <div>
     </div>
       {services&&services.map(service=>{
-       return <div>
+       return <div key={service.id}>
         <div>{service.name}</div>
         <img className='serviceimgaddservicepage' src={service.img}/>
         <div>{service.description}</div>
