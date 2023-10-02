@@ -11,11 +11,7 @@ const Addservices = () => {
   const [price, setPrice] = useState(0)
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const state = useSelector((state)=>{
-    return {
-      services:state.services.services
-    }
-  })
+  const services = useSelector((state)=>state.services.services)
   const token = useSelector((state)=>{
     return state.login.token    
   })
@@ -51,7 +47,7 @@ const Addservices = () => {
       setPrice(e.target.value)
     }}/>
     <button className='addServiceBtn' onClick={()=>{
-      console.log(state.services);
+      console.log(services);
       if (!name||!img||!description||!price){
         console.log("Didn't add");
         <div>Fill all the inputs please</div>
@@ -73,7 +69,17 @@ const Addservices = () => {
       }
       }}>Add Service</button>
     </div>
-    <div></div>
+    <div>
+    </div>
+      {services&&services.map(service=>{
+       return <div>
+        <div>{service.name}</div>
+        <img className='serviceimgaddservicepage' src={service.img}/>
+        <div>{service.description}</div>
+        <div>Price {service.price} JD only</div>
+        
+       </div>
+      })}
     </div>
     </div>
   )
