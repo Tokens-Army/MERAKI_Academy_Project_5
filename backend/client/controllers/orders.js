@@ -123,7 +123,8 @@ const deleteOrderById = (req, res) => {
       error: err.message
     });
   });
-  
+};
+
 const addLocationToOrder = (req, res) => {
   const { order_id } = req.params;
   const { location } = req.body;

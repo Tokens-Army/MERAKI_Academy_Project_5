@@ -27,6 +27,7 @@ ordersRouter.post("/:order_id/:accessory_id", addAccessoryToOrder);
 ordersRouter.put("/update_time/:id", updateOrderTime);
 
 ordersRouter.delete("/:orderId", deleteOrderById);
+
 ordersRouter.put("/location/:order_id", addLocationToOrder);
 
 module.exports = ordersRouter;
