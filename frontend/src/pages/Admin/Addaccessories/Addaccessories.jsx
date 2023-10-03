@@ -19,6 +19,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import { Input } from "@mui/material";
 
 const style = {
   position: "absolute",
@@ -34,8 +35,12 @@ const style = {
 
 const Addaccessories = () => {
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
+  const [id, setId] = useState(0);
+
+  const [newAccessory, setNewAccessory] = useState({});
+
   const handleClose = () => setOpen(false);
+
   const token = useSelector((state) => {
     return state.login.token;
   });
@@ -50,7 +55,6 @@ const Addaccessories = () => {
     axios
       .get("http://localhost:5000/accessories")
       .then((result) => {
-        console.log(result.data.result);
         dispatch(setAccessories(result.data.result));
       })
       .catch((err) => {
@@ -77,6 +81,27 @@ const Addaccessories = () => {
             </TableRow>
           </TableHead>
           <TableBody>
+            <TableRow
+              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+            >
+              <TableCell>Add Accessory</TableCell>
+              <TableCell>
+                <Input placeholder="Accessory Name"></Input>
+              </TableCell>
+              <TableCell>
+                <Input placeholder="Accessory Desc."></Input>
+              </TableCell>
+              <TableCell>
+                <Input placeholder="Accessory Img"></Input>
+              </TableCell>
+              <TableCell>
+                <Input placeholder="Accessory price"></Input>
+              </TableCell>
+              <TableCell>
+                <Button>Add New</Button>
+              </TableCell>
+            </TableRow>
+
             {accessories.map((accessory) => (
               <TableRow
                 key={accessory.id}
@@ -89,21 +114,24 @@ const Addaccessories = () => {
                 <TableCell align="left">
                   <details>
                     <summary>Description</summary>
-
                     <p>{accessory.description}</p>
                   </details>
                 </TableCell>
                 <TableCell align="left">
                   <details>
                     <summary>Link</summary>
-
                     <p>{accessory.img}</p>
                   </details>
                 </TableCell>
                 <TableCell align="left">{accessory.price} JD</TableCell>
                 <TableCell align="left">
                   <div>
-                    <Button onClick={handleOpen}>
+                    <Button
+                      onClick={() => {
+                        setOpen(true);
+                        setId(accessory.id);
+                      }}
+                    >
                       <DeleteForeverIcon style={{ color: "red" }} />
                     </Button>
                     <Modal
@@ -124,7 +152,7 @@ const Addaccessories = () => {
                           onClick={() => {
                             axios
                               .delete(
-                                `http://localhost:5000/accessories/${accessory.id}`,
+                                `http://localhost:5000/accessories/${id}`,
                                 {
                                   headers: {
                                     Authorization: `Bearer ${token}`,
@@ -132,7 +160,7 @@ const Addaccessories = () => {
                                 }
                               )
                               .then((result) => {
-                                dispatch(deleteAccessory(accessory.id));
+                                dispatch(deleteAccessory(id));
                                 setOpen(false);
                               })
                               .catch((err) => {
