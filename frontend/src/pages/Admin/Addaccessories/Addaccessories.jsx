@@ -107,6 +107,7 @@ const Addaccessories = () => {
                 key={accessory.id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
+                {console.log(11)}
                 <TableCell component="th" scope="row">
                   {accessory.id}
                 </TableCell>
