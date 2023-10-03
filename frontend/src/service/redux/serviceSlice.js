@@ -9,12 +9,9 @@ export const serviceSlice =createSlice({
             state.services=action.payload
         },
         addServices: (state,action)=>{
-            console.log(action.payload);
-            console.log(state);
             state.services.push(action.payload)
         },
         updateServices:(state,action)=>{
-            console.log(state.services);
             state.services.map((service)=>{
                 if (service.id===action.payload.id){
                     service.name = action.payload.name

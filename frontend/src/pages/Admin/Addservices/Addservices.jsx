@@ -19,7 +19,6 @@ const Addservices = () => {
     useEffect(()=>{
       axios.get("http://localhost:5000/services")
       .then((results)=>{
-        console.log(results.data.services);
         dispatch(setServices(results.data.services))
       })
       .catch((err)=>{
@@ -47,12 +46,10 @@ const Addservices = () => {
       setPrice(e.target.value)
     }}/>
     <button className='addServiceBtn' onClick={()=>{
-      console.log(services);
       if (!name||!img||!description||!price){
-        console.log("Didn't add");
-        <div>Fill all the inputs please</div>
+        console.log("Kindly fill all the fields");
+        <div>Fill all the fields please</div>
       }else{
-        console.log("Service added successfully");
         dispatch(addServices({name,img,description,price}))
         axios.post("http://localhost:5000/services",{name,img,description,price},
         {
@@ -61,7 +58,7 @@ const Addservices = () => {
           },
         })
         .then((results)=>{
-          console.log(results);
+          <>Service added successfully</>
         })
         .catch((err)=>{
           console.log(err);
