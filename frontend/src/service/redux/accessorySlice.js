@@ -20,7 +20,7 @@ export const accessories = createSlice({
     deleteAccessory: (state, action) => {
       state.accessories.find((accessory, i) => {
         if (accessory.id === action.payload) {
-          return state.accessory.splice(i, 1);
+          return state.accessories.splice(i, 1);
         }
       });
     },
