@@ -1,0 +1,22 @@
+.employeeImg{
+    width: 100%;
+    padding: 5%;
+}
+.employeeInfo{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+.ordersInfo{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 
+}
+.ordersCardEmployees{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+.orderStatusPending{
+    color: red;
+}
+.orderStatusAccepted{
+    color: greenyellow;
+}
