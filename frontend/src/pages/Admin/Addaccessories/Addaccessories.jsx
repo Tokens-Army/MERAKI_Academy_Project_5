@@ -107,6 +107,7 @@ const Addaccessories = () => {
                 key={accessory.id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
+                {console.log(11)}
                 <TableCell component="th" scope="row">
                   {accessory.id}
                 </TableCell>
@@ -134,45 +135,47 @@ const Addaccessories = () => {
                     >
                       <DeleteForeverIcon style={{ color: "red" }} />
                     </Button>
-                    <Modal
-                      open={open}
-                      onClose={handleClose}
-                      aria-labelledby="modal-modal-title"
-                      aria-describedby="modal-modal-description"
-                    >
-                      <Box sx={style}>
-                        <Typography
-                          id="modal-modal-title"
-                          variant="h6"
-                          component="h2"
-                        >
-                          Are you sure to delete this accessory?
-                        </Typography>
-                        <Button
-                          onClick={() => {
-                            axios
-                              .delete(
-                                `http://localhost:5000/accessories/${id}`,
-                                {
-                                  headers: {
-                                    Authorization: `Bearer ${token}`,
-                                  },
-                                }
-                              )
-                              .then((result) => {
-                                dispatch(deleteAccessory(id));
-                                setOpen(false);
-                              })
-                              .catch((err) => {
-                                console.log(err);
-                              });
-                          }}
-                        >
-                          Yes
-                        </Button>
-                        <Button onClick={handleClose}>No</Button>
-                      </Box>
-                    </Modal>
+                    {id === accessory.id && (
+                      <Modal
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                      >
+                        <Box sx={style}>
+                          <Typography
+                            id="modal-modal-title"
+                            variant="h6"
+                            component="h2"
+                          >
+                            Are you sure to delete this accessory?
+                          </Typography>
+                          <Button
+                            onClick={() => {
+                              axios
+                                .delete(
+                                  `http://localhost:5000/accessories/${id}`,
+                                  {
+                                    headers: {
+                                      Authorization: `Bearer ${token}`,
+                                    },
+                                  }
+                                )
+                                .then((result) => {
+                                  dispatch(deleteAccessory(id));
+                                  setOpen(false);
+                                })
+                                .catch((err) => {
+                                  console.log(err);
+                                });
+                            }}
+                          >
+                            Yes
+                          </Button>
+                          <Button onClick={handleClose}>No</Button>
+                        </Box>
+                      </Modal>
+                    )}
                   </div>
                 </TableCell>
               </TableRow>
