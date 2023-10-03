@@ -18,6 +18,7 @@ admin.on("connection", (socket) => {
 io.use(auth);
 // connection,disconnect is default , socket is who make the connection
 io.on("connection", (socket) => {
+  console.log("connected");
   socket.use(socketMW);
   const user_id = socket.handshake.headers.user_id;
   clients[user_id] = { socket_id: socket.id, user_id };
