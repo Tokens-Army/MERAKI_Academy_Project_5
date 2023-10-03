@@ -19,6 +19,6 @@ const servicesRouter = express.Router();
 servicesRouter.post("", authentication, authorization("CREATE_SERVICE"),createNewService);
 servicesRouter.get("", getAllServices);
 servicesRouter.put("/:id", authentication, authorization("CREATE_SERVICE"),updateServiceById);
-servicesRouter.delete("/:id", authentication, authorization("CREATE_SERVICE"),deleteServiceById);
+servicesRouter.put("/delete/:id", authentication, authorization("CREATE_SERVICE"),deleteServiceById);
 
 module.exports = servicesRouter;
