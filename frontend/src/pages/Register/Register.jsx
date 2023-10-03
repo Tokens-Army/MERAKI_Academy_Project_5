@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import Avatar from "@mui/material/Avatar";
@@ -13,6 +13,8 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { GoogleLogin } from "@react-oauth/google";
 import { decodeToken } from "react-jwt";
+import { useDispatch } from "react-redux";
+import { setLogin, setUserId, setRoleId } from "../../service/redux/loginSlice";
 
 const Copyright = (props) => {
   return (
@@ -37,54 +39,94 @@ const Copyright = (props) => {
 const defaultTheme = createTheme();
 
 const Register = () => {
-
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState(false);
 
   // login with google
-  const responseGoogle = (codeResponse) =>{
-    setFirstName(codeResponse.credential.given_name);
-    setLastName(codeResponse.credential.family_name);
-    setEmail(codeResponse.credential.email);
-    setPassword(codeResponse.credential.name);
-    const userInfo = decodeToken(codeResponse.credential);
-    console.log(userInfo);
+  const responseGoogle = (codeResponse) => {
+    const decoded = decodeToken(codeResponse.credential);
+    const userData = {
+      firstName: decoded.given_name,
+      lastName: decoded.family_name,
+      email: decoded.email,
+      password: decoded.jti,
+    };
+    const { firstName, lastName, email, password } = userData;
+    axios
+    .post("http://localhost:5000/users/login", {
+      email,
+      password,
+    })
+    .then((loginResult) => {
+      if (loginResult.data) {
+        dispatch(setLogin(loginResult.data.token));
+        dispatch(setUserId(loginResult.data.userId));
+        dispatch(setRoleId(loginResult.data.roleId));
+        if (loginResult.data.roleId == 2) {
+          navigate("/admin");
+        } else {
+          navigate("/");
+        }
+      } else {
+        registerHandler(firstName, lastName, email, password);
+      }
+    })
+    .catch((err) => {
+      setMessage("Error happened while Login, please try again");
+    });
   };
 
-  const registerHandler = () => {
-    if (password !== confirmPassword) {
-      return setMessage("Passwords don't match");
-    } else {
-      axios
-        .post("http://localhost:5000/users/register", {
-          firstName,
-          lastName,
-          email,
-          password,
-          role_id: 1,
-        })
-        .then((result) => {
-          if (result.data) {
-            setMessage("");
-            navigate("/login");
-          } else {
-            throw Error;
-          }
-        })
-        .catch((err) => {
-          if (err.response && err.response.data) {
-            return setMessage(err.response.data.message);
-          }
-          setMessage("Error happened while Login, please try again");
-        });
-    }
+  // sign up button function
+  const registerHandler = (firstName, lastName, email, password) => {
+    console.log(firstName, lastName, email, password);
+    axios
+      .post("http://localhost:5000/users/register", {
+        firstName,
+        lastName,
+        email,
+        password,
+        role_id: 1,
+      })
+      .then((result) => {
+        console.log(result);
+        if (result.data) {
+          setMessage("");
+          axios
+            .post("http://localhost:5000/users/login", {
+              email,
+              password,
+            })
+            .then((loginResult) => {
+              if (loginResult.data) {
+                dispatch(setLogin(loginResult.data.token));
+                dispatch(setUserId(loginResult.data.userId));
+                dispatch(setRoleId(loginResult.data.roleId));
+                if (loginResult.data.roleId == 2) {
+                  navigate("/admin");
+                } else {
+                  navigate("/");
+                }
+              }
+            })
+            .catch((err) => {
+              setMessage("Error happened while Login, please try again");
+            });
+        }
+      })
+      .catch((err) => {
+        if (err.response && err.response.data) {
+          return setMessage(err.response.data.message);
+        }
+        setMessage("Error happened while Login, please try again");
+        console.log(err);
+      });
   };
 
   return (
@@ -153,18 +195,6 @@ const Register = () => {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="Con-password"
-                  label="Confirm Password"
-                  type="password"
-                  id="Con-password"
-                  autoComplete="new-password"
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                />
-              </Grid>
             </Grid>
             {status
               ? message && <Typography color="primary">{message}</Typography>
@@ -178,10 +208,11 @@ const Register = () => {
               Sign Up
             </Button>
             <GoogleLogin
-    onSuccess={responseGoogle}
-    onError={() => {
-      setMessage('Login Failed');
-    }}/>
+              onSuccess={responseGoogle}
+              onError={() => {
+                setMessage("Login Failed");
+              }}
+            />
             <br />
             <Grid container justifyContent="flex-end">
               <Grid container>
