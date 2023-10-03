@@ -1,17 +1,11 @@
 const { pool } = require("../models/db");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const { query } = require("express");
 const users = {};
 
 users.register = async (req, res) => {
   const { firstName, lastName, email, password, role_id } = req.body;
-  if (password.length < 8) {
-    return res.status(409).json({
-      success: false,
-      message: "The password should be more than 8 characters",
-    });
-  }
+  
   const encryptedPassword = await bcrypt.hash(password, 10);
   const query = `INSERT INTO users (firstName, lastName,  email, password, role_id) VALUES ($1,$2,$3,$4,$5) RETURNING *;`;
   const data = [
@@ -87,6 +81,7 @@ users.login = (req, res) => {
       });
     });
 };
+
 users.getAllAdminAccounts = (req,res)=>{
     pool.query(`SELECT * from users WHERE role_id=2 AND is_deleted=0`)
     .then((result)=>{
@@ -103,7 +98,8 @@ users.getAllAdminAccounts = (req,res)=>{
         error:err.message
       })
     })    
-}
+};
+
 users.deleteAdminAccountById=(req,res)=>{
   const {id}=req.params
   const array=[id]
@@ -125,5 +121,6 @@ users.deleteAdminAccountById=(req,res)=>{
       error:err.message
     })
   })
-}
+};
+
 module.exports = users;
