@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   deleteAccessory,
   setAccessories,
+  addAccessory,
 } from "../../../service/redux/accessorySlice";
 import axios from "axios";
 import Table from "@mui/material/Table";
@@ -33,11 +33,16 @@ const style = {
   p: 4,
 };
 
-const Addaccessories = () => {
+const AddAccessories = () => {
   const [open, setOpen] = useState(false);
   const [id, setId] = useState(0);
 
   const [newAccessory, setNewAccessory] = useState({});
+
+  const [accessoryName, setAccessoryName] = useState("");
+  const [accessoryDesc, setAccessoryDesc] = useState("");
+  const [accessoryImg, setAccessoryImg] = useState("");
+  const [accessoryPrice, setAccessoryPrice] = useState(0);
 
   const handleClose = () => setOpen(false);
 
@@ -46,11 +51,11 @@ const Addaccessories = () => {
   });
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const accessories = useSelector((state) => {
     return state.accessories.accessories;
   });
+
   const getAllAccessories = () => {
     axios
       .get("http://localhost:5000/accessories")
@@ -61,6 +66,7 @@ const Addaccessories = () => {
         console.log(err);
       });
   };
+
   useEffect(() => {
     getAllAccessories();
   }, []);
@@ -86,22 +92,33 @@ const Addaccessories = () => {
             >
               <TableCell>Add Accessory</TableCell>
               <TableCell>
-                <Input placeholder="Accessory Name"></Input>
+                <Input placeholder="Accessory Name" onChange={(e) => setAccessoryName(e.target.value)} />
               </TableCell>
               <TableCell>
-                <Input placeholder="Accessory Desc."></Input>
+                <Input placeholder="Accessory Desc." onChange={(e) => setAccessoryDesc(e.target.value)}/>
               </TableCell>
               <TableCell>
-                <Input placeholder="Accessory Img"></Input>
+                <Input placeholder="Accessory Img" onChange={(e) => setAccessoryImg(e.target.value)}/>
               </TableCell>
               <TableCell>
-                <Input placeholder="Accessory price"></Input>
+                <Input placeholder="Accessory price" onChange={(e) => setAccessoryPrice(e.target.value)}/>
               </TableCell>
               <TableCell>
-                <Button>Add New</Button>
+                <Button onClick={() => {
+                    setNewAccessory({
+                      name: accessoryName,
+                      description: accessoryDesc,
+                      img: accessoryImg,
+                      price: accessoryPrice,
+                    });
+                    dispatch(addAccessory(newAccessory));
+                    setAccessoryName("");
+                    setAccessoryDesc("");
+                    setAccessoryImg("");
+                    setAccessoryPrice(0);
+                  }}>Add New</Button>
               </TableCell>
             </TableRow>
-
             {accessories.map((accessory) => (
               <TableRow
                 key={accessory.id}
@@ -188,4 +205,4 @@ const Addaccessories = () => {
   );
 };
 
-export default Addaccessories;
+export default AddAccessories;
