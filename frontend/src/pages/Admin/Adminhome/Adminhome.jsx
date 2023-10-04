@@ -28,7 +28,6 @@ const Adminhome = () => {
     const navigate = useNavigate()
     const dispatch =useDispatch()
     const [mobileOpen, setMobileOpen] = useState(false);
-
     const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
     const handleLogout = () => {
       dispatch(setLogout());
@@ -37,7 +36,7 @@ const Adminhome = () => {
     const handleDrawerToggle = () => {
       setMobileOpen(!mobileOpen);
     };
-    const rightBar =[{name:"Add Admins",nav:"addadmins"},{name:"Delete Admins",nav:"deleteadmins"},{name:"Add Services",nav:"addservices"},{name:"Update Services",nav:"updateservices"},{name:"Delete Services",nav:"deleteservices"},{name:"Add Accessories",nav:"addaccessories"},{name:"Update Accessories",nav:"updateaccessories"},{name:"Delete Accessories",nav:"deleteaccessories"},{name:"Orders",nav:"ordersAdmin"},{name:"Add Employee",nav:"employeesadmin"}]
+    const rightBar =[{name:"Main",nav:"main"},{name:"Add Admins",nav:"addadmins"},{name:"Delete Admins",nav:"deleteadmins"},{name:"Add Services",nav:"addservices"},{name:"Update Services",nav:"updateservices"},{name:"Delete Services",nav:"deleteservices"},{name:"Add Accessories",nav:"addaccessories"},{name:"Update Accessories",nav:"updateaccessories"},{name:"Delete Accessories",nav:"deleteaccessories"},{name:"Orders",nav:"ordersAdmin"},{name:"Add Employee",nav:"employeesadmin"}]
     const HelpRightBar = [{name:"About",nav:"/about"},{name:"Contact Us",nav:"/contact-us"}]
     const drawer = (
       <div>
@@ -138,6 +137,7 @@ const Adminhome = () => {
           sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
         >
           <Toolbar />
+            
             <Outlet/>
         </Box>
       </Box>

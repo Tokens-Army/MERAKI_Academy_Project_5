@@ -43,7 +43,6 @@ const Addadmins = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState(false);
-
   const RegisterHandler = () => {
     if (password !== confirmPassword) {
       return setMessage("Passwords don't match");
