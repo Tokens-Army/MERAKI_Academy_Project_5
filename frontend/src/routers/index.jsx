@@ -22,6 +22,7 @@ import Updateaccessories from "../pages/Admin/Updateaccessories/Updateaccessorie
 import Deleteaccessories from "../pages/Admin/Deleteaccessories/Deleteaccessories";
 import Orders from "../pages/Admin/Orders/Orders";
 import Addemployeestoorders from "../pages/Admin/Addemployeestoorders/Addemployeestoorders";
+import Mainadmincomponent from "../pages/Admin/Mainadmincomponent/Mainadmincomponent";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -105,6 +106,9 @@ export const router = createBrowserRouter([
       },{
         path:"employeesadmin",
         element:<Addemployeestoorders/>
+      },{
+        path:"main",
+        element:<Mainadmincomponent/>
       }
     ],
   },

@@ -9,6 +9,7 @@ import { setAdmins, deleteAdmin } from "../../../service/redux/adminSlice";
 const Deleteadmins = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [toggle, setToggle] = useState(true)
   const admins = useSelector((state) => state.admins.admins);
   useEffect(() => {
     axios

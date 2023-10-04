@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 export const employeesSlice =createSlice({
     name:"data",
     initialState:{
-        data : []
+        data : [],
+        // toggle: localStorage.getItem("token") ? true : false,
     },
     reducers:{
         setData: (state,action)=>{
