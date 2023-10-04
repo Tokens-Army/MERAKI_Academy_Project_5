@@ -121,7 +121,6 @@ users.deleteAdminAccountById = (req, res) => {
         admins: result.rows,
         message: "Admin deleted Successfully",
       });
-
     })
     .catch((err) => {
       res.status(500).json({
@@ -152,6 +151,7 @@ users.sendMessage = (req, res) => {
       });
     });
 };
+
  
 
 users.getAllMessages = (req, res) => {
@@ -172,5 +172,6 @@ users.getAllMessages = (req, res) => {
       });
     });
 };
+
 
 module.exports = users;
