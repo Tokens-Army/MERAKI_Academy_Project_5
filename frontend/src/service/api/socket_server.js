@@ -6,7 +6,7 @@ const socketInit = ({ user_id, token }) => {
       user_id,
       token,
     },
-    // autoConnect: false, // .connect()  .open()
+    // autoConnect: true, // .connect()  .open()
   });
 };
 

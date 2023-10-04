@@ -10,7 +10,7 @@ const accessoriesRouter = require("./routes/accessories");
 const rolesRouter = require("./routes/roles");
 const ordersRouter = require("./routes/orders");
 require("./models/db");
-
+require("./models/mongoDB");
 
 app.use("/users", usersRouter);
 app.use("/services", servicesRouter);
