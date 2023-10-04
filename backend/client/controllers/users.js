@@ -152,4 +152,26 @@ users.sendMessage = (req, res) => {
     });
 };
 
+ 
+
+users.getAllMessages = (req, res) => {
+  const { userId } = req.params;
+  messageModel
+    .find({ from: userId })
+    .then((messages) => {
+      res.status(201).json({
+        success: true,
+        allMessages: messages,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server Error check again",
+        error: err.message,
+      });
+    });
+};
+
+
 module.exports = users;
