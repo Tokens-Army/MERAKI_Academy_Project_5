@@ -17,4 +17,6 @@ usersRouter.put("/delete/:id", users.deleteAdminAccountById);
 
 usersRouter.post("/message/:userId", users.sendMessage);
 
+usersRouter.get("/message/:userId", users.getAllMessages);
+
 module.exports = usersRouter;
