@@ -1,4 +1,6 @@
 import React,{useState,useEffect} from "react";
+import { useDispatch,useSelector } from "react-redux";
+import { setLogout } from "../../../service/redux/loginSlice";
 import "./Adminhome.css"
 import { Outlet, useNavigate } from "react-router-dom";
 import AppBar from '@mui/material/AppBar';
@@ -17,14 +19,21 @@ import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-
+import Button from "@mui/material/Button";
 const drawerWidth = 240;
 
 
 
 const Adminhome = () => {
     const navigate = useNavigate()
+    const dispatch =useDispatch()
     const [mobileOpen, setMobileOpen] = useState(false);
+
+    const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
+    const handleLogout = () => {
+      dispatch(setLogout());
+      navigate("/");
+    };
     const handleDrawerToggle = () => {
       setMobileOpen(!mobileOpen);
     };
@@ -85,8 +94,13 @@ const Adminhome = () => {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" noWrap component="div">
-              Responsive drawer
-            </Typography>
+            {isLoggedIn && 
+          <Button color="inherit" onClick={()=>{
+            handleLogout()
+          }}>
+            Logout
+          </Button>}
+          </Typography>
           </Toolbar>
         </AppBar>
         <Box

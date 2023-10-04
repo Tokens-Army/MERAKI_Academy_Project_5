@@ -130,4 +130,31 @@ users.deleteAdminAccountById = (req, res) => {
     });
 };
 
+
+
+
+
+
+
+
+
+
+
+users.countUsers = (req,res)=>{
+  pool.query(`SELECT COUNT (id) FROM users WHERE role_id=1 AND is_deleted=0`)
+  .then((results)=>{
+    res.status(200).json({
+      success:true,
+      usersCount:results.rows[0],
+      message : "Here is the users count"
+    })
+  })
+  .catch((err)=>{
+    res.status(500).json({
+      success:false,
+      error:err.message
+    })
+  })
+}
+
 module.exports = users;
