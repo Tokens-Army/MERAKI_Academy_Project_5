@@ -8,7 +8,8 @@ const {
   addLocationToOrder,
   getAllOrders,
   getAllEmployees,
-  addEmployeeToOrder
+  addEmployeeToOrder,
+  countPendingOrders
 } = require("../controllers/orders");
 const authentication = require("../middlewares/authentication");
 const authorization = require("../middlewares/authorization");
@@ -37,4 +38,6 @@ ordersRouter.put("/location/:order_id", addLocationToOrder);
 ordersRouter.get("/employees/employees",getAllEmployees)
 
 ordersRouter.put("/addemployees/:id/:employee_id/",addEmployeeToOrder)
+
+ordersRouter.get("/pendingorders/count",countPendingOrders)
 module.exports = ordersRouter;
