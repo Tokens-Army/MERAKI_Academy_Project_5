@@ -2,7 +2,7 @@ import React,{useState,useEffect} from 'react'
 import "./Addemployeestoorders.css"
 import axios from "axios"
 import { useDispatch,useSelector } from 'react-redux'
-import { setEmployees } from '../../../service/redux/employeeSlice'
+import { addEmployee, setData } from '../../../service/redux/employeeSlice'
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -24,12 +24,12 @@ const Addemployeestoorders = () => {
   const handleClose = () => setOpen(false);
     const [id, setId] = useState("")
     const dispatch = useDispatch()
-    const employees = useSelector((state)=>state.employees.employees)
+    const data = useSelector((state)=>state.employees.data)
     useEffect(()=>{
         axios.get("http://localhost:5000/orders/employees/employees")
         .then((results)=>{
-            console.log(results.data);
-            dispatch(setEmployees(results.data))
+          console.log(results.data);
+            dispatch(setData(results.data))
         })
         .catch(err=>console.log(err))
     },[])
@@ -37,28 +37,32 @@ const Addemployeestoorders = () => {
     <div>
         <div className='ordersCard'>
         <div className='ordersCardEmployees'>
-                <h3>Order Id</h3>
-                <h3>Created At</h3>
-                <h3>Order Status</h3>
-                <h3>Employee Id</h3>
-                <h3>User Id</h3>
-                <h3>Add Employee</h3>
+                <div>Order Id</div>
+                <div>Created At</div>
+                <div>Order Status</div>
+                <div>Employee Id</div>
+                <div>User Id</div>
+                <div>Add Employee</div>
             </div>
-        {employees.orders?employees.orders.map(order=>{
+        {data.orders?data.orders.map(order=>{
             return<div className='ordersInfo' key={order.id}>
                 <div>{order.id}</div>
                 <div>{order.created_at}</div>
                 {order.order_status==="pending"?<div className='orderStatusPending'>{order.order_status}</div>:<div className='orderStatusAccepted'>
                     {order.order_status}</div>
                     }
-                <h5>{order.employee_id}</h5>    
+                <div>{order.employee_id}</div>    
                 <div>{order.user_id}</div>
-                <Button onClick={()=>{
+                {order.employee_id?<Button onClick={()=>{
           handleOpen()
           setId(order.id)
-        }}>Add Employees</Button>
+        }}>Edit Employees</Button>:<Button onClick={()=>{
+          handleOpen()
+          setId(order.id)
+        }}>Add Employees</Button>}
+        {id===order.id&&
       <Modal
-        open={open}
+      open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
@@ -68,40 +72,46 @@ const Addemployeestoorders = () => {
           
           Which employee do you want to add to this on this order?
           </Typography>
+          <>
           <Typography className='deletebox' id="modal-modal-description" sx={{ mt: 2 }}>
           <div className='employeeCard'>
         <div className='employeeInfo'>
-                <h5>Id</h5>
-                <h5>Name</h5>
-                <h5>Image</h5>
-                <h5>Phone number</h5>
-                <h5>Availability</h5>
+                <div>Id</div>
+                <div>Name</div>
+                <div>Image</div>
+                <div>Phone number</div>
+                <div>Availability</div>
             </div>
-        {employees.employees?employees.employees.map(employee=>{
+        {data.employees?data.employees.map(employee=>{
             return<div className='employeeInfo' key={employee.id}>
-                <h5>{employee.id}</h5>
-                <h5>{employee.name}</h5>
+                <div>{employee.id}</div>
+                <div>{employee.name}</div>
                 <img className='employeeImg' src={employee.img}/>
-                <h5>{employee.phonenum}</h5>
-                <h5>{employee.availability}</h5>
+                <div>{employee.phonenum}</div>
+                <div>{employee.availability}</div>
                 <button onClick={()=>{
+                    
                     axios.put(`http://localhost:5000/orders/addemployees/${order.id}/${employee.id}`)
                     .then((results)=>{
-                        console.log(results);
+                       
+                        dispatch(addEmployee({id:order.id,employee_id:employee.id,order_status:order.order_status}))
+
                     })
                     .catch((err)=>{
                         console.log(err);
                     })
                 }} >add</button>
             </div>
-        }):<h2>No employees are available right now</h2>
+        }):<div>No employees are available right now</div>
     }
         </div>
           </Typography>
+          </>
         </Box>
       </Modal>
+    }
             </div>
-        }):<h2>No employees are available right now</h2>
+        }):<div>No employees are available right now</div>
     }
         </div>
     </div>
