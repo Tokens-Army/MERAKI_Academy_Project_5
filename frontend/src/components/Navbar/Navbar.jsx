@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setLogout } from "../../service/redux/loginSlice";
+import socketInit from "../../service/api/socket_server";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -37,7 +38,17 @@ const Navbar = () => {
         <Button color="inherit" onClick={() => navigate("/about")}>
           About
         </Button>
-        <Button color="inherit" onClick={() => navigate("/contact-us")}>
+        <Button
+          color="inherit"
+          onClick={() => {
+            if (isLoggedIn) {
+              navigate("/contact-us");
+              // setSocket(socketInit({ user_id, token }));
+            } else {
+              navigate("/login");
+            }
+          }}
+        >
           Contact Us
         </Button>
         {isLoggedIn ? (
