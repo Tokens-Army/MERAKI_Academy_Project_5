@@ -208,11 +208,13 @@ const addEmployeeToOrder = (req,res)=>{
 }
 
 const countPendingOrders = (req,res)=>{
-  pool.query(`SELECT COUNT(id) FROM orders WHERE order_status='pending' AND is_deleted=0;`)
+  pool.query(`SELECT COUNT (id) FROM orders WHERE order_status='pending' AND is_deleted=0 ; SELECT COUNT (id) FROM users WHERE role_id=1 AND is_deleted=0;SELECT COUNT (id) FROM orders WHERE order_status='accepted' AND is_deleted=0 ;`)
   .then((results)=>{
     res.status(200).json({
       success:true,
-      pendingOrders: results.rows[0],
+      pendingOrdersCount: results[0].rows,
+      usersCount:results[1].rows,
+      acceptedOrdersCount: results[2].rows,
       message :"Here are all your pending orders"
     })
   })
@@ -235,5 +237,6 @@ module.exports = {
   addLocationToOrder,
   getAllOrders,
   getAllEmployees,
-  addEmployeeToOrder
+  addEmployeeToOrder,
+  countPendingOrders
 };

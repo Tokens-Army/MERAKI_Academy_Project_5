@@ -14,5 +14,4 @@ usersRouter.post("/register", users.register);
 usersRouter.post("/login", users.login);
 usersRouter.get("/",users.getAllAdminAccounts)
 usersRouter.put("/delete/:id",users.deleteAdminAccountById)
-usersRouter.get("/count/",users.countUsers)
 module.exports = usersRouter;
