@@ -121,7 +121,6 @@ users.deleteAdminAccountById = (req, res) => {
         admins: result.rows,
         message: "Admin deleted Successfully",
       });
-
     })
     .catch((err) => {
       res.status(500).json({
@@ -143,15 +142,6 @@ users.sendMessage = (req, res) => {
         success: true,
         message: message,
       });
-    })
-    .catch((err) => {
-      res.status(500).json({
-        success: false,
-        message: "Server Error check again",
-        error: err.message,
-      });
-    });
-};
     })
     .catch((err) => {
       res.status(500).json({
