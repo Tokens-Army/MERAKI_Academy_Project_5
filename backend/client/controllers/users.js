@@ -152,15 +152,7 @@ users.sendMessage = (req, res) => {
       });
     });
 };
-    })
-    .catch((err) => {
-      res.status(500).json({
-        success: false,
-        message: "Server Error check again",
-        error: err.message,
-      });
-    });
-};
+ 
 
 users.getAllMessages = (req, res) => {
   const { userId } = req.params;
