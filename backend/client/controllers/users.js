@@ -1,4 +1,5 @@
 const { pool } = require("../models/db");
+const messageModel = require("../models/messagesSchema");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const users = {};
@@ -123,31 +124,46 @@ users.deleteAdminAccountById=(req,res)=>{
   })
 };
 
+users.sendMessage = (req, res) => {
+  const { message, to } = req.body;
+  const { userId } = req.params;
+  const newMessage = new messageModel({ from: userId, message, to });
+  newMessage
+    .save()
+    .then((message) => {
+      res.status(201).json({
+        success: true,
+        message: message,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server Error check again",
+        error: err.message,
+      });
+    });
+};
 
+ 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+users.getAllMessages = (req, res) => {
+  const { userId } = req.params;
+  messageModel
+    .find({ from: userId })
+    .then((messages) => {
+      res.status(201).json({
+        success: true,
+        allMessages: messages,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server Error check again",
+        error: err.message,
+      });
+    });
+};
 
 module.exports = users;

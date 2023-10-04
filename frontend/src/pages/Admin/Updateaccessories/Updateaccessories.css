@@ -1,0 +1,18 @@
+.middleUpdateAccessories{
+    display: grid;
+    grid-template-columns: 1fr 1fr ;
+}
+
+.updateAccessoryInputs{
+    width: 200px;
+    height: 50px;
+    margin: auto;
+}
+
+.UpdateAccessoryImg{
+    width: 75%;
+}
+
+.stylebox{
+    margin-left: 100px;
+}

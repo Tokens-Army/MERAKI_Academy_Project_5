@@ -12,6 +12,20 @@ usersRouter.post("/register", users.register);
 // login
 // http://localhost:5000/users/login
 usersRouter.post("/login", users.login);
+
 usersRouter.get("/",users.getAllAdminAccounts)
 usersRouter.put("/delete/:id",users.deleteAdminAccountById)
+
+
+usersRouter.get("/", users.getAllAdminAccounts);
+usersRouter.put("/delete/:id", users.deleteAdminAccountById);
+
+usersRouter.post("/message/:userId", users.sendMessage);
+
+usersRouter.get("/message/:userId", users.getAllMessages);
+
+usersRouter.get("/", users.getAllAdminAccounts);
+
+usersRouter.put("/delete/:id", users.deleteAdminAccountById);
+
 module.exports = usersRouter;
