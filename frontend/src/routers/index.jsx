@@ -21,6 +21,7 @@ import Deleteservices from "../pages/Admin/Deleteservices/Deleteservices";
 import Updateaccessories from "../pages/Admin/Updateaccessories/Updateaccessories";
 import Deleteaccessories from "../pages/Admin/Deleteaccessories/Deleteaccessories";
 import Orders from "../pages/Admin/Orders/Orders";
+import Addemployeestoorders from "../pages/Admin/Addemployeestoorders/Addemployeestoorders";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -101,6 +102,9 @@ export const router = createBrowserRouter([
       {
         path:"ordersAdmin",
         element:<Orders/>
+      },{
+        path:"employeesadmin",
+        element:<Addemployeestoorders/>
       }
     ],
   },

@@ -1,4 +1,6 @@
 import React,{useState,useEffect} from "react";
+import { useDispatch,useSelector } from "react-redux";
+import { setLogout } from "../../../service/redux/loginSlice";
 import "./Adminhome.css"
 import { Outlet, useNavigate } from "react-router-dom";
 import AppBar from '@mui/material/AppBar';
@@ -17,18 +19,25 @@ import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-
+import Button from "@mui/material/Button";
 const drawerWidth = 240;
 
 
 
 const Adminhome = () => {
     const navigate = useNavigate()
+    const dispatch =useDispatch()
     const [mobileOpen, setMobileOpen] = useState(false);
+
+    const isLoggedIn = useSelector((state) => state.login.isLoggedIn);
+    const handleLogout = () => {
+      dispatch(setLogout());
+      navigate("/");
+    };
     const handleDrawerToggle = () => {
       setMobileOpen(!mobileOpen);
     };
-    const rightBar =[{name:"Add Admins",nav:"addadmins"},{name:"Delete Admins",nav:"deleteadmins"},{name:"Add Services",nav:"addservices"},{name:"Update Services",nav:"updateservices"},{name:"Delete Services",nav:"deleteservices"},{name:"Add Accessories",nav:"addaccessories"},{name:"Update Accessories",nav:"updateaccessories"},{name:"Delete Accessories",nav:"deleteaccessories"},{name:"Orders",nav:"ordersAdmin"}]
+    const rightBar =[{name:"Add Admins",nav:"addadmins"},{name:"Delete Admins",nav:"deleteadmins"},{name:"Add Services",nav:"addservices"},{name:"Update Services",nav:"updateservices"},{name:"Delete Services",nav:"deleteservices"},{name:"Add Accessories",nav:"addaccessories"},{name:"Update Accessories",nav:"updateaccessories"},{name:"Delete Accessories",nav:"deleteaccessories"},{name:"Orders",nav:"ordersAdmin"},{name:"Add Employee",nav:"employeesadmin"}]
     const HelpRightBar = [{name:"About",nav:"/about"},{name:"Contact Us",nav:"/contact-us"}]
     const drawer = (
       <div>
@@ -85,8 +94,13 @@ const Adminhome = () => {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" noWrap component="div">
-              Responsive drawer
-            </Typography>
+            {isLoggedIn && 
+          <Button color="inherit" onClick={()=>{
+            handleLogout()
+          }}>
+            Logout
+          </Button>}
+          </Typography>
           </Toolbar>
         </AppBar>
         <Box

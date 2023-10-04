@@ -6,7 +6,9 @@ const {
   updateOrderTime,
   deleteOrderById,
   addLocationToOrder,
-  getAllOrders
+  getAllOrders,
+  getAllEmployees,
+  addEmployeeToOrder
 } = require("../controllers/orders");
 const authentication = require("../middlewares/authentication");
 const authorization = require("../middlewares/authorization");
@@ -32,4 +34,7 @@ ordersRouter.delete("/:orderId", deleteOrderById);
 
 ordersRouter.put("/location/:order_id", addLocationToOrder);
 
+ordersRouter.get("/employees/employees",getAllEmployees)
+
+ordersRouter.put("/addemployees/:id/:employee_id/",addEmployeeToOrder)
 module.exports = ordersRouter;

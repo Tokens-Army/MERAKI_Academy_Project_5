@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import "./Updateservices.css"
 import axios from 'axios'
 import { useDispatch,useSelector } from 'react-redux'
@@ -8,6 +8,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+
 const style = {
   position: 'absolute',
   top: '50%',
@@ -19,21 +20,23 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-const Updateservices = () => {
-  const [name, setName] = useState("")
-  const [img, setImg] = useState("")
-  const [description, setDescription] = useState("")
-  const [price, setPrice] = useState(0)
-  const [updatebtn, setUpdatebtn] = useState(false)
-  const [id, setId] = useState(0) 
-  const [open, setOpen] = React.useState(false);
+
+const UpdateServices = () => {
+  const [name, setName] = useState("");
+  const [img, setImg] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState(0);
+  const [updatebtn, setUpdatebtn] = useState(false);
+  const [id, setId] = useState(0);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const token = useSelector((state)=>{
     return state.login.token    
-  })
+  });
   
   const services = useSelector((state)=>state.services.services)
   
@@ -43,7 +46,7 @@ const Updateservices = () => {
       dispatch(setServices(results.data.services))
     })
     .catch((err)=>{
-      <div>Loading stanaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
+      <div>Loading...</div>
       console.log(err);
     })
   },[])
@@ -114,6 +117,6 @@ const Updateservices = () => {
     </div>
     </div>
   )
-}
+};
 
-export default Updateservices
+export default UpdateServices;
