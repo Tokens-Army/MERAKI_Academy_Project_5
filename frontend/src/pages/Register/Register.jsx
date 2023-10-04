@@ -60,32 +60,35 @@ const Register = () => {
     };
     const { firstName, lastName, email, password } = userData;
     axios
-    .post("http://localhost:5000/users/login", {
-      email,
-      password,
-    })
-    .then((loginResult) => {
-      if (loginResult.data) {
-        dispatch(setLogin(loginResult.data.token));
-        dispatch(setUserId(loginResult.data.userId));
-        dispatch(setRoleId(loginResult.data.roleId));
-        if (loginResult.data.roleId == 2) {
-          navigate("/admin");
+      .post("http://localhost:5000/users/login", {
+        email,
+        password,
+      })
+      .then((loginResult) => {
+        if (loginResult.data) {
+          dispatch(setLogin(loginResult.data.token));
+          dispatch(setUserId(loginResult.data.userId));
+          dispatch(setRoleId(loginResult.data.roleId));
+          if (loginResult.data.roleId == 2) {
+            navigate("/admin");
+          } else {
+            navigate("/");
+          }
         } else {
-          navigate("/");
+          registerHandler(firstName, lastName, email, password);
         }
-      } else {
-        registerHandler(firstName, lastName, email, password);
-      }
-    })
-    .catch((err) => {
-      setMessage("Error happened while Login, please try again");
-    });
+      })
+      .catch((err) => {
+        if (err.response && err.response.data.message === "User does not exist") {
+          registerHandler(firstName, lastName, email, password);
+        } else {
+          setMessage("Error happened while Login, please try again");
+        }
+      });
   };
 
   // sign up button function
   const registerHandler = (firstName, lastName, email, password) => {
-    console.log(firstName, lastName, email, password);
     axios
       .post("http://localhost:5000/users/register", {
         firstName,
@@ -95,7 +98,6 @@ const Register = () => {
         role_id: 1,
       })
       .then((result) => {
-        console.log(result);
         if (result.data) {
           setMessage("");
           axios
