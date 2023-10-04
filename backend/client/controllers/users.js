@@ -1,4 +1,5 @@
 const { pool } = require("../models/db");
+const messageModel = require("../models/messagesSchema");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const users = {};
@@ -120,6 +121,7 @@ users.deleteAdminAccountById = (req, res) => {
         admins: result.rows,
         message: "Admin deleted Successfully",
       });
+
     })
     .catch((err) => {
       res.status(500).json({
@@ -130,31 +132,34 @@ users.deleteAdminAccountById = (req, res) => {
     });
 };
 
-
-
-
-
-
-
-
-
-
-
-users.countUsers = (req,res)=>{
-  pool.query(`SELECT COUNT (id) FROM users WHERE role_id=1 AND is_deleted=0`)
-  .then((results)=>{
-    res.status(200).json({
-      success:true,
-      usersCount:results.rows[0],
-      message : "Here is the users count"
+users.sendMessage = (req, res) => {
+  const { message, to } = req.body;
+  const { userId } = req.params;
+  const newMessage = new messageModel({ from: userId, message, to });
+  newMessage
+    .save()
+    .then((message) => {
+      res.status(201).json({
+        success: true,
+        message: message,
+      });
     })
-  })
-  .catch((err)=>{
-    res.status(500).json({
-      success:false,
-      error:err.message
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server Error check again",
+        error: err.message,
+      });
+    });
+};
     })
-  })
-}
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server Error check again",
+        error: err.message,
+      });
+    });
+};
 
 module.exports = users;
