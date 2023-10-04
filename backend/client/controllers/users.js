@@ -2,17 +2,11 @@ const { pool } = require("../models/db");
 const messageModel = require("../models/messagesSchema");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const { query } = require("express");
 const users = {};
 
 users.register = async (req, res) => {
   const { firstName, lastName, email, password, role_id } = req.body;
-  if (password.length < 8) {
-    return res.status(409).json({
-      success: false,
-      message: "The password should be more than 8 characters",
-    });
-  }
+
   const encryptedPassword = await bcrypt.hash(password, 10);
   const query = `INSERT INTO users (firstName, lastName,  email, password, role_id) VALUES ($1,$2,$3,$4,$5) RETURNING *;`;
   const data = [
@@ -44,9 +38,9 @@ users.login = (req, res) => {
   const password = req.body.password;
   const email = req.body.email;
   const query = `SELECT * FROM users WHERE email = $1`;
-  const data = [email.toLowerCase()];
+  const loweredEmail = [email.toLowerCase()];
   pool
-    .query(query, data)
+    .query(query, loweredEmail)
     .then((result) => {
       if (result.rows.length) {
         bcrypt.compare(password, result.rows[0].password, (err, response) => {
@@ -77,7 +71,12 @@ users.login = (req, res) => {
             });
           }
         });
-      } else throw Error;
+      } else {
+        res.status(403).json({
+          success: false,
+          message: "User does not exist",
+        });
+      }
     })
     .catch((err) => {
       res.status(403).json({
@@ -88,6 +87,7 @@ users.login = (req, res) => {
       });
     });
 };
+
 users.getAllAdminAccounts = (req, res) => {
   pool
     .query(`SELECT * from users WHERE role_id=2 AND is_deleted=0`)
@@ -106,6 +106,7 @@ users.getAllAdminAccounts = (req, res) => {
       });
     });
 };
+
 users.deleteAdminAccountById = (req, res) => {
   const { id } = req.params;
   const array = [id];
@@ -120,6 +121,7 @@ users.deleteAdminAccountById = (req, res) => {
         admins: result.rows,
         message: "Admin deleted Successfully",
       });
+
     })
     .catch((err) => {
       res.status(500).json({
@@ -141,6 +143,15 @@ users.sendMessage = (req, res) => {
         success: true,
         message: message,
       });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server Error check again",
+        error: err.message,
+      });
+    });
+};
     })
     .catch((err) => {
       res.status(500).json({

@@ -4,6 +4,7 @@ import orderReducer from "./orderSlice";
 import servicesReducer from "./serviceSlice"
 import adminsReducer from "./adminSlice"
 import accessoryReducer from "./accessorySlice";
+import employeeesReducer from "./employeeSlice";
 
 
 export default configureStore({
@@ -13,5 +14,6 @@ export default configureStore({
     services: servicesReducer,
     admins: adminsReducer,
     accessories: accessoryReducer,
+    employees: employeeesReducer,
   },
 });

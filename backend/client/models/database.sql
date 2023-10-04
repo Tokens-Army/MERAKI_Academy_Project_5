@@ -50,11 +50,12 @@ CREATE TABLE employees (
   name VARCHAR(255),
   img TEXT,
   phoneNum VARCHAR(255),
+  Availability varchar(255),
   PRIMARY KEY (id)
 );
-INSERT INTO employees (name, img,  phoneNum) VALUES ('YOUSEF AlShereif','https://randomuser.me/api/portraits/med/men/45.jpg','+96258828787') RETURNING *;
-INSERT INTO employees (name, img,  phoneNum) VALUES ('Aleksi Aleksi','https://randomuser.me/api/portraits/med/men/95.jpg','+96258828787') RETURNING *;
-INSERT INTO employees (name, img,  phoneNum) VALUES ('Jameel Yaser','https://randomuser.me/api/portraits/med/men/64.jpg','+96258828787') RETURNING *;
+INSERT INTO employees (name, img,  phoneNum,Availability) VALUES ('YOUSEF AlShereif','https://randomuser.me/api/portraits/med/men/45.jpg','+96258828787','Available') RETURNING *;
+INSERT INTO employees (name, img,  phoneNum,Availability) VALUES ('Aleksi Aleksi','https://randomuser.me/api/portraits/med/men/95.jpg','+96258828787','Available') RETURNING *;
+INSERT INTO employees (name, img,  phoneNum,Availability) VALUES ('Jameel Yaser','https://randomuser.me/api/portraits/med/men/64.jpg','+96258828787','Available') RETURNING *;
 
 
 -- Create a table called **services** in the database
@@ -119,3 +120,8 @@ CREATE TABLE order_accessories (
   is_deleted SMALLINT DEFAULT 0,
   PRIMARY KEY (id)
 );
+
+
+
+
+
