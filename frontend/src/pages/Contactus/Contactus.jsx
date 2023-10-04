@@ -6,17 +6,20 @@ const ContactUs = () => {
   const [user_id, setUser_id] = useState("");
   const [token, setToken] = useState("");
   const [socket, setSocket] = useState(null);
+  const [isConnected, setIsConnected] = useState(false);
 
   useEffect(() => {
     socket?.on("connect", () => {
-      console.log(true);
+      setIsConnected(true);
     });
     socket?.on("connect_error", (error) => {
       console.log(error.message);
+      setIsConnected(false);
     });
     return () => {
       socket?.close();
       socket?.removeAllListeners();
+      setIsConnected(false);
     };
   }, [socket]);
 
@@ -44,7 +47,7 @@ const ContactUs = () => {
       >
         connect
       </button>
-      <Messages />
+      {isConnected && <Messages socket={socket} user_id={user_id} />}
     </div>
   );
 };
