@@ -1,4 +1,5 @@
 const { pool } = require("../models/db");
+const messageModel = require("../models/messagesSchema");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const { query } = require("express");
@@ -87,43 +88,67 @@ users.login = (req, res) => {
       });
     });
 };
-users.getAllAdminAccounts = (req,res)=>{
-    pool.query(`SELECT * from users WHERE role_id=2 AND is_deleted=0`)
-    .then((result)=>{
+users.getAllAdminAccounts = (req, res) => {
+  pool
+    .query(`SELECT * from users WHERE role_id=2 AND is_deleted=0`)
+    .then((result) => {
       res.status(200).json({
-        success:true,
-        admins:result.rows,
-        message:"Here are all the admins"
-      })
+        success: true,
+        admins: result.rows,
+        message: "Here are all the admins",
+      });
     })
-    .catch((err)=>{
+    .catch((err) => {
       res.status(500).json({
-        success:false,
-        message:"Server Error check again",
-        error:err.message
-      })
-    })    
-}
-users.deleteAdminAccountById=(req,res)=>{
-  const {id}=req.params
-  const array=[id]
-  const query=`UPDATE users
+        success: false,
+        message: "Server Error check again",
+        error: err.message,
+      });
+    });
+};
+users.deleteAdminAccountById = (req, res) => {
+  const { id } = req.params;
+  const array = [id];
+  const query = `UPDATE users
   SET is_deleted=1
-  WHERE id=$1`
-  pool.query(query,array)
-  .then((result)=>{
-    res.status(200).json({
-      success:true,
-      admins:result.rows,
-      message:"Admin deleted Successfully"
+  WHERE id=$1`;
+  pool
+    .query(query, array)
+    .then((result) => {
+      res.status(200).json({
+        success: true,
+        admins: result.rows,
+        message: "Admin deleted Successfully",
+      });
     })
-  })
-  .catch((err)=>{
-    res.status(500).json({
-      success:false,
-      message:"Server Error check again",
-      error:err.message
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server Error check again",
+        error: err.message,
+      });
+    });
+};
+
+users.sendMessage = (req, res) => {
+  const { message, to } = req.body;
+  const { userId } = req.params;
+  const newMessage = new messageModel({ from: userId, message, to });
+  newMessage
+    .save()
+    .then((message) => {
+      res.status(201).json({
+        success: true,
+        message: message,
+      });
     })
-  })
-}
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server Error check again",
+        error: err.message,
+      });
+    });
+};
+
 module.exports = users;
