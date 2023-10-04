@@ -26,6 +26,7 @@ export const accessories = createSlice({
     },
   },
 });
+
 export const {
   setAccessories,
   addAccessory,
