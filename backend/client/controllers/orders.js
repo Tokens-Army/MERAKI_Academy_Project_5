@@ -187,17 +187,43 @@ const getAllEmployees = async (req,res)=>{
 }
 const addEmployeeToOrder = (req,res)=>{
   const {id,employee_id} = req.params
-  const array = [employee_id,id]
-  const func=`update orders set employee_id=$1 where id=$2 returning *`
+  
+  const array = [employee_id,'accepted',id]
+  const func=`update orders set employee_id=$1, order_status=$2 where id=$3 returning *`
   pool.query(func,array)
   .then((results)=>{
-    console.log(results.rows);
+    res.status(203).json({
+      success:true,
+      message:"Employee added",
+      results:results.rows
+    })
   })
   .catch((err)=>{
-    console.log(err);
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+      error: err.message,
+    });
   })
 }
 
+const countPendingOrders = (req,res)=>{
+  pool.query(`SELECT COUNT(id) FROM orders WHERE order_status='pending' AND is_deleted=0;`)
+  .then((results)=>{
+    res.status(200).json({
+      success:true,
+      pendingOrders: results.rows[0],
+      message :"Here are all your pending orders"
+    })
+  })
+  .catch((err)=>{
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+      error: err.message,
+    });
+  })
+}
 
 
 module.exports = {
