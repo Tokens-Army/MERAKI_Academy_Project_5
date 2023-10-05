@@ -6,7 +6,7 @@ const users = {};
 
 users.register = async (req, res) => {
   const { firstName, lastName, email, password, role_id } = req.body;
-  
+
   const encryptedPassword = await bcrypt.hash(password, 10);
   const query = `INSERT INTO users (firstName, lastName,  email, password, role_id) VALUES ($1,$2,$3,$4,$5) RETURNING *;`;
   const data = [
@@ -83,45 +83,47 @@ users.login = (req, res) => {
     });
 };
 
-users.getAllAdminAccounts = (req,res)=>{
-    pool.query(`SELECT * from users WHERE role_id=2 AND is_deleted=0`)
-    .then((result)=>{
+users.getAllAdminAccounts = (req, res) => {
+  pool
+    .query(`SELECT * from users WHERE role_id=2 AND is_deleted=0`)
+    .then((result) => {
       res.status(200).json({
-        success:true,
-        admins:result.rows,
-        message:"Here are all the admins"
-      })
+        success: true,
+        admins: result.rows,
+        message: "Here are all the admins",
+      });
     })
-    .catch((err)=>{
+    .catch((err) => {
       res.status(500).json({
-        success:false,
-        message:"Server Error check again",
-        error:err.message
-      })
-    })    
+        success: false,
+        message: "Server Error check again",
+        error: err.message,
+      });
+    });
 };
 
-users.deleteAdminAccountById=(req,res)=>{
-  const {id}=req.params
-  const array=[id]
-  const query=`UPDATE users
+users.deleteAdminAccountById = (req, res) => {
+  const { id } = req.params;
+  const array = [id];
+  const query = `UPDATE users
   SET is_deleted=1
-  WHERE id=$1`
-  pool.query(query,array)
-  .then((result)=>{
-    res.status(200).json({
-      success:true,
-      admins:result.rows,
-      message:"Admin deleted Successfully"
+  WHERE id=$1`;
+  pool
+    .query(query, array)
+    .then((result) => {
+      res.status(200).json({
+        success: true,
+        admins: result.rows,
+        message: "Admin deleted Successfully",
+      });
     })
-  })
-  .catch((err)=>{
-    res.status(500).json({
-      success:false,
-      message:"Server Error check again",
-      error:err.message
-    })
-  })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server Error check again",
+        error: err.message,
+      });
+    });
 };
 
 users.sendMessage = (req, res) => {
@@ -145,12 +147,10 @@ users.sendMessage = (req, res) => {
     });
 };
 
- 
-
 users.getAllMessages = (req, res) => {
   const { userId } = req.params;
   messageModel
-    .find({ from: userId })
+    .find({ $or: [{ from: userId }, { to: userId }] })
     .then((messages) => {
       res.status(201).json({
         success: true,
