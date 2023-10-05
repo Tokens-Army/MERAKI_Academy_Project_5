@@ -35,9 +35,16 @@ const ContactUs = () => {
           setSocket(socketInit({ user_id, token }));
         }}
       >
-        connect
+        Talk with Customer Service
       </button>
-      {isConnected && <Messages socket={socket} user_id={user_id} />}
+      {isConnected && (
+        <Messages
+          socket={socket}
+          user_id={user_id}
+          setSocket={setSocket}
+          token={token}
+        />
+      )}
     </div>
   );
 };
