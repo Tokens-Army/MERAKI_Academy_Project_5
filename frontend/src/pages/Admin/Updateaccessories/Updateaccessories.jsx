@@ -46,7 +46,6 @@ const UpdateAccessories = () => {
   useEffect(()=>{
     axios.get("http://localhost:5000/accessories/")
     .then((results)=>{
-      console.log(results.data.result);
       dispatch(setAccessories(results.data.result));
     })
     .catch((err)=>{
@@ -106,7 +105,7 @@ const UpdateAccessories = () => {
                       dispatch(updateAccessory(results.data.result));
                     })
                     .catch((err)=>{
-                      <>Some thing went wrong kindly try again later</>
+                      <>Something went wrong kindly try again later</>
                       console.log(err);
                     });
                   }}>Update</button>

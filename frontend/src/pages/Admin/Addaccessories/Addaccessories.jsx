@@ -4,6 +4,7 @@ import {
   deleteAccessory,
   setAccessories,
   addAccessory,
+  updateAccessory,
 } from "../../../service/redux/accessorySlice";
 import axios from "axios";
 import Table from "@mui/material/Table";
@@ -14,6 +15,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import TablePagination from "@mui/material/TablePagination";
+import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -34,17 +36,17 @@ const style = {
 };
 
 const AddAccessories = () => {
+
   const [open, setOpen] = useState(false);
+  const [deleteOpen, setDeleteOpen] = useState(false);
   const [id, setId] = useState(0);
-
-  const [newAccessory, setNewAccessory] = useState({});
-
   const [accessoryName, setAccessoryName] = useState("");
   const [accessoryDesc, setAccessoryDesc] = useState("");
   const [accessoryImg, setAccessoryImg] = useState("");
   const [accessoryPrice, setAccessoryPrice] = useState(0);
 
   const handleClose = () => setOpen(false);
+  const handleDeleteClose = () => setDeleteOpen(false);
 
   const token = useSelector((state) => {
     return state.login.token;
@@ -70,6 +72,7 @@ const AddAccessories = () => {
   useEffect(() => {
     getAllAccessories();
   }, []);
+
   return (
     <>
       <TableContainer component={Paper}>
@@ -92,31 +95,48 @@ const AddAccessories = () => {
             >
               <TableCell>Add Accessory</TableCell>
               <TableCell>
-                <Input placeholder="Accessory Name" onChange={(e) => setAccessoryName(e.target.value)} />
+                <Input
+                  placeholder="Accessory Name"
+                  onChange={(e) => setAccessoryName(e.target.value)}
+                />
               </TableCell>
               <TableCell>
-                <Input placeholder="Accessory Desc." onChange={(e) => setAccessoryDesc(e.target.value)}/>
+                <Input
+                  placeholder="Accessory Desc."
+                  onChange={(e) => setAccessoryDesc(e.target.value)}
+                />
               </TableCell>
               <TableCell>
-                <Input placeholder="Accessory Img" onChange={(e) => setAccessoryImg(e.target.value)}/>
+                <Input
+                  placeholder="Accessory Img"
+                  onChange={(e) => setAccessoryImg(e.target.value)}
+                />
               </TableCell>
               <TableCell>
-                <Input placeholder="Accessory price" onChange={(e) => setAccessoryPrice(e.target.value)}/>
+                <Input
+                  placeholder="Accessory price"
+                  onChange={(e) => setAccessoryPrice(e.target.value)}
+                />
               </TableCell>
               <TableCell>
-                <Button onClick={() => {
-                    setNewAccessory({
-                      name: accessoryName,
-                      description: accessoryDesc,
-                      img: accessoryImg,
-                      price: accessoryPrice,
-                    });
-                    dispatch(addAccessory(newAccessory));
+                <Button
+                  onClick={() => {
+                    dispatch(
+                      addAccessory({
+                        name: accessoryName,
+                        description: accessoryDesc,
+                        img: accessoryImg,
+                        price: accessoryPrice,
+                      })
+                    );
                     setAccessoryName("");
                     setAccessoryDesc("");
                     setAccessoryImg("");
                     setAccessoryPrice(0);
-                  }}>Add New</Button>
+                  }}
+                >
+                  Add New
+                </Button>
               </TableCell>
             </TableRow>
             {accessories.map((accessory) => (
@@ -124,7 +144,6 @@ const AddAccessories = () => {
                 key={accessory.id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                {console.log(11)}
                 <TableCell component="th" scope="row">
                   {accessory.id}
                 </TableCell>
@@ -148,38 +167,80 @@ const AddAccessories = () => {
                       onClick={() => {
                         setOpen(true);
                         setId(accessory.id);
+                        setAccessoryName(accessory.name);
+                        setAccessoryDesc(accessory.description);
+                        setAccessoryImg(accessory.img);
+                        setAccessoryPrice(accessory.price);
+                      }}
+                    >
+                      <EditIcon style={{ color: "blue" }} />
+                    </Button>
+                    <Button
+                      onClick={() => {
+                        setDeleteOpen(true);
+                        setId(accessory.id);
                       }}
                     >
                       <DeleteForeverIcon style={{ color: "red" }} />
                     </Button>
-                    {id === accessory.id && (
-                      <Modal
-                        open={open}
-                        onClose={handleClose}
-                        aria-labelledby="modal-modal-title"
-                        aria-describedby="modal-modal-description"
-                      >
-                        <Box sx={style}>
-                          <Typography
-                            id="modal-modal-title"
-                            variant="h6"
-                            component="h2"
-                          >
-                            Are you sure to delete this accessory?
-                          </Typography>
+                    <Modal
+                      open={open}
+                      onClose={() => setOpen(false)}
+                      aria-labelledby="modal-modal-title"
+                      aria-describedby="modal-modal-description"
+                    >
+                      <Box sx={style}>
+                        <Typography
+                          id="modal-modal-title"
+                          variant="h6"
+                          component="h2"
+                        >
+                          Update {accessoryName} accessory
+                          <input
+                            className="updateAccessoryInputs"
+                            placeholder="New name"
+                            type="text"
+                            onChange={(e) => setAccessoryName(e.target.value)}
+                          />
+                          <input
+                            className="updateAccessoryInputs"
+                            placeholder="New img"
+                            type="text"
+                            onChange={(e) => setAccessoryImg(e.target.value)}
+                          />
+                          <input
+                            className="updateAccessoryInputs"
+                            placeholder="New description"
+                            type="text"
+                            onChange={(e) => setAccessoryDesc(e.target.value)}
+                          />
+                          <input
+                            className="updateAccessoryInputs"
+                            placeholder="New price"
+                            type="number"
+                            onChange={(e) => setAccessoryPrice(e.target.value)}
+                          />
                           <Button
                             onClick={() => {
                               axios
-                                .delete(
+                                .put(
                                   `http://localhost:5000/accessories/${id}`,
+                                  {
+                                    name: accessoryName,
+                                    img: accessoryImg,
+                                    description: accessoryDesc,
+                                    price: accessoryPrice,
+                                  },
                                   {
                                     headers: {
                                       Authorization: `Bearer ${token}`,
                                     },
                                   }
                                 )
-                                .then((result) => {
-                                  dispatch(deleteAccessory(id));
+                                .then((results) => {
+                                  dispatch(
+                                    updateAccessory(results.data.accessories[0])
+                                  );
                                   setOpen(false);
                                 })
                                 .catch((err) => {
@@ -187,19 +248,56 @@ const AddAccessories = () => {
                                 });
                             }}
                           >
-                            Yes
+                            Update
                           </Button>
-                          <Button onClick={handleClose}>No</Button>
-                        </Box>
-                      </Modal>
-                    )}
+                        </Typography>
+                      </Box>
+                    </Modal>
+                    <Modal
+                      open={deleteOpen}
+                      onClose={handleDeleteClose}
+                      aria-labelledby="modal-modal-title"
+                      aria-describedby="modal-modal-description"
+                    >
+                      <Box sx={style}>
+                        <Typography
+                          id="modal-modal-title"
+                          variant="h6"
+                          component="h2"
+                        >
+                          Are you sure you want to delete this accessory?
+                        </Typography>
+                        <Button
+                          onClick={() => {
+                            axios
+                              .delete(
+                                `http://localhost:5000/accessories/${id}`,
+                                {
+                                  headers: {
+                                    Authorization: `Bearer ${token}`,
+                                  },
+                                }
+                              )
+                              .then((result) => {
+                                dispatch(deleteAccessory(id));
+                                setDeleteOpen(false);
+                              })
+                              .catch((err) => {
+                                console.log(err);
+                              });
+                          }}
+                        >
+                          Yes
+                        </Button>
+                        <Button onClick={handleDeleteClose}>No</Button>
+                      </Box>
+                    </Modal>
                   </div>
                 </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
-        {/* <TablePagination /> */}
       </TableContainer>
     </>
   );
