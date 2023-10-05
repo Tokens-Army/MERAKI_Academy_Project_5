@@ -57,7 +57,7 @@ const Login = () => {
         dispatch(setUserId(result.data.userId));
         dispatch(setRoleId(result.data.roleId));
         if (result.data.roleId == 2) {
-          navigate("/admin");
+          navigate("/admin/main");
         }
         else {
           navigate("/");

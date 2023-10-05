@@ -1,0 +1,21 @@
+.countCards{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+.usersCountImg{
+    width: 100%;
+}
+.fireImg{
+    width: 40%;
+}
+.allCount{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 200%;
+    color: red;
+}
+.pendingOrderImg{
+    width: 50%
+}
+.acceptedOrdersImg{
+    width: 75%;
+}
