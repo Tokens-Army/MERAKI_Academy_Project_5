@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Card, CardContent, Typography, Button, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Margin } from "@mui/icons-material";
-
+import { updateCash } from "../../service/redux/orderSlice";
+  
 const Cart = () => {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch()
   const [cart, setCart] = useState({});
-
+  const totalCash = useSelector(state=>state.order.totalCash)
   const token = useSelector((state) => {
     return state.login.token;
   });
@@ -101,6 +101,8 @@ const Cart = () => {
           ))}
         <Typography variant="h6" component="div" gutterBottom>
           Total Price: {totalPrice}
+          {dispatch(updateCash(totalPrice))}
+          {console.log(totalCash)}
         </Typography>
           <Button variant="contained">Checkout</Button>
           <Button

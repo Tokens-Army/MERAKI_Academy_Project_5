@@ -38,19 +38,18 @@ import TableHead from '@mui/material/TableHead';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
-    let counter= 0
-    let counter2 = 0
-    function preventDefault(event) {
-      event.preventDefault();
-    }
-    
-    
-  function preventDefaults(event) {
+
+function preventDefault(event) {
+    event.preventDefault();
+}
+
+
+function preventDefaults(event) {
     event.preventDefaults();
 }
-  function Deposits() {
-      return (
-      <React.Fragment>
+function Deposits() {
+    return (
+        <React.Fragment>
         <Typography component="p" variant="h4">
           $3,024.00
         </Typography>
@@ -68,7 +67,7 @@ import TableCell from '@mui/material/TableCell';
 
 function Copyright(props) {
     return (
-      <Typography variant="body2" color="text.secondary" align="center" {...props}>
+        <Typography variant="body2" color="text.secondary" align="center" {...props}>
         {'Copyright © '}
         <Link color="inherit" href="https://mui.com/">
           Your Website
@@ -77,14 +76,14 @@ function Copyright(props) {
         {'.'}
       </Typography>
     );
-  }
-  
-  const drawerWidth = 240;
-  
-  const AppBar = styled(MuiAppBar, {
-      shouldForwardProp: (prop) => prop !== 'open',
-    })(({ theme, open }) => ({
-        zIndex: theme.zIndex.drawer + 1,
+}
+
+const drawerWidth = 240;
+
+const AppBar = styled(MuiAppBar, {
+    shouldForwardProp: (prop) => prop !== 'open',
+})(({ theme, open }) => ({
+    zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['width', 'margin'], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
@@ -92,9 +91,9 @@ function Copyright(props) {
     ...(open && {
         marginLeft: drawerWidth,
         width: `calc(100% - ${drawerWidth}px)`,
-      transition: theme.transitions.create(['width', 'margin'], {
-          easing: theme.transitions.easing.sharp,
-          duration: theme.transitions.duration.enteringScreen,
+        transition: theme.transitions.create(['width', 'margin'], {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.enteringScreen,
         }),
     }),
 }));
@@ -109,35 +108,37 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
                 easing: theme.transitions.easing.sharp,
                 duration: theme.transitions.duration.enteringScreen,
             }),
-        boxSizing: 'border-box',
-        ...(!open && {
-          overflowX: 'hidden',
-          transition: theme.transitions.create('width', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-          }),
-          width: theme.spacing(7),
-          [theme.breakpoints.up('sm')]: {
-            width: theme.spacing(9),
-          },
-        }),
-      },
-    }),
-  );
-  
-  // TODO remove, this demo shouldn't need to reset the theme.
-  const defaultTheme = createTheme();
-  
+            boxSizing: 'border-box',
+            ...(!open && {
+                overflowX: 'hidden',
+                transition: theme.transitions.create('width', {
+                    easing: theme.transitions.easing.sharp,
+                    duration: theme.transitions.duration.leavingScreen,
+                }),
+                width: theme.spacing(7),
+                [theme.breakpoints.up('sm')]: {
+                    width: theme.spacing(9),
+                },
+            }),
+    },
+}),
+);
+
+// TODO remove, this demo shouldn't need to reset the theme.
+const defaultTheme = createTheme();
+
 function createData(time, amount) {
     return { time, amount };
 }
-  
-  
+
+
 const Mainadmincomponent = () => {
     const token = useSelector((state)=>state.login.token)
+    const totalCash = useSelector((state=>state.order.totalCash))
     const count = useSelector((state)=>state.main.data)
     const orders = useSelector((state)=>state.main.orders)
     const theme = useTheme();
+    console.log(totalCash);
     const [open, setOpen] = React.useState(true);
     const toggleDrawer = () => {
         setOpen(!open);
@@ -156,7 +157,7 @@ const Mainadmincomponent = () => {
         .catch((err)=>{
             console.log(err);
         })
-    },[])
+    },[])   
     useEffect(()=>{
       axios.get("http://localhost:5000/orders")
       .then((results)=>{
@@ -215,7 +216,10 @@ const Mainadmincomponent = () => {
             <ResponsiveContainer>
               <LineChart
               
-                data={data}
+                data={orders&&orders.map((order)=>{
+                    
+                    return createData(order.id,(new Date(order.created_at).getDate()))
+                })}
                 margin={{
                     top: 16,
                   right: 16,
@@ -256,7 +260,6 @@ const Mainadmincomponent = () => {
           </React.Fragment>
         );
     }
-    console.log(count)
     return (
     <div>
         <div className='countCards'>
@@ -276,7 +279,6 @@ const Mainadmincomponent = () => {
          {count&&<div className='allCount'>{count?.acceptedOrdersCount[0]?.count}</div>}
             </div>
         </div>
-        {console.log(orders)}
     <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
