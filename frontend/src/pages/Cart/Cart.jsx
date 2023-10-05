@@ -15,6 +15,7 @@ const Cart = () => {
   });
 
   const order = useSelector((state) => state.order.order);
+  console.log(order);
 
   useEffect(() => {
     axios
@@ -102,14 +103,16 @@ const Cart = () => {
         <Typography variant="h6" component="div" gutterBottom>
           Total Price: {totalPrice}
         </Typography>
-          <Button variant="contained">Checkout</Button>
-          <Button
-            variant="contained"
-            sx={{ml: 1}}
-            onClick={() => handleDeleteOrder(order.id)}
-          >
-            Delete Order
-          </Button>
+        <Button variant="contained" onClick={() => navigate("/scheduleorder")}>
+          Checkout
+        </Button>
+        <Button
+          variant="contained"
+          sx={{ ml: 1 }}
+          onClick={() => handleDeleteOrder(order.id)}
+        >
+          Delete Order
+        </Button>
       </Box>
     </Box>
   );
