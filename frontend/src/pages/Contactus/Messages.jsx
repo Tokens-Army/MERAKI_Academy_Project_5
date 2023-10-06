@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Contactus.css";
 import axios from "axios";
 
-const Messages = ({ socket, user_id }) => {
+const Messages = ({ socket, user_id, admin, user }) => {
   const [to, setTo] = useState("");
   const [message, setMessage] = useState("");
   const [allMessages, setAllMessages] = useState([]);
@@ -26,7 +26,11 @@ const Messages = ({ socket, user_id }) => {
   }, [allMessages]);
 
   const sendMessage = () => {
-    socket.emit("message", { to: 7, from: Number(user_id), message });
+    socket.emit("message", {
+      to: admin ? user.id : 7,
+      from: Number(user_id),
+      message,
+    });
   };
 
   const receiveMessage = (data) => {
@@ -35,20 +39,29 @@ const Messages = ({ socket, user_id }) => {
   };
 
   return (
-    <div className="page-content page-container" id="page-content">
+    <div
+      className="page-content page-container"
+      id="page-content"
+      style={{ display: "flex", justifyContent: "center" }}
+    >
       <div className="padding">
-        <div className="row container d-flex justify-content-center">
+        <div>
           <div className="col-md-6">
             <div className="card card-bordered">
               <div className="card-header">
                 <h4 className="card-title">
-                  <strong>Customer service</strong>
+                  {admin ? (
+                    <strong>{user.firstname} {user.lastname}</strong>
+                  ) : (
+                    <strong>Customer service</strong>
+                  )}
                 </h4>
               </div>
 
               <div
                 className="ps-container ps-theme-default ps-active-y"
                 id="chat-content"
+                style={{ width: "100%" }}
               >
                 <div className="media media-meta-day">Today</div>
                 {allMessages.length > 0 &&

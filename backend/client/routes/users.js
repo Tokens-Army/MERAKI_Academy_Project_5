@@ -19,6 +19,8 @@ usersRouter.put("/delete/:id", users.deleteAdminAccountById);
 
 usersRouter.get("/", users.getAllAdminAccounts);
 
+usersRouter.get("/users", users.getAllUsersAccounts);
+
 usersRouter.put("/delete/:id", users.deleteAdminAccountById);
 
 usersRouter.post("/message/:userId", users.sendMessage);
