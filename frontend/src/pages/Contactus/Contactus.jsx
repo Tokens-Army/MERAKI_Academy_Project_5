@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import socketInit from "../../service/api/socket_server";
 import Messages from "./Messages.jsx";
 import { useSelector, useDispatch } from "react-redux";
-// import AdminMessage from "./AdminMessage";
 
 const ContactUs = () => {
   const [socket, setSocket] = useState(null);
@@ -44,9 +43,10 @@ const ContactUs = () => {
           user_id={user_id}
           setSocket={setSocket}
           token={token}
+          admin={false}
+          user={null}
         />
       )}
-      {/* <AdminMessage /> */}
     </div>
   );
 };

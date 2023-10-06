@@ -102,6 +102,25 @@ users.getAllAdminAccounts = (req, res) => {
     });
 };
 
+users.getAllUsersAccounts = (req, res) => {
+  pool
+    .query(`SELECT * from users WHERE role_id=1 AND is_deleted=0`)
+    .then((result) => {
+      res.status(200).json({
+        success: true,
+        users: result.rows,
+        message: "Here are all the users",
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server Error check again",
+        error: err.message,
+      });
+    });
+};
+
 users.deleteAdminAccountById = (req, res) => {
   const { id } = req.params;
   const array = [id];
