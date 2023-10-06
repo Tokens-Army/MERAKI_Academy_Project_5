@@ -227,6 +227,26 @@ const countPendingOrders = (req,res)=>{
   })
 }
 
+const addTotalPrice = (req,res)=>{
+    const {total_price}=req.body
+    const {order_id}=req.params
+    const array = [total_price,order_id]
+    pool.query(`UPDATE orders SET total_price=$1 where id=$2`,array)
+    .then((results)=>{
+      res.status(201).json({
+        succes:ture,
+        message:"order price added successfuly",
+        results : results
+      })
+    })
+    .catch((err)=>{
+      res.status(500).json({
+        success:false,
+        message:"Server Error kindly try again later",
+        error:err
+      })
+    })
+}
 
 module.exports = {
   createOrderById,
@@ -238,5 +258,6 @@ module.exports = {
   getAllOrders,
   getAllEmployees,
   addEmployeeToOrder,
-  countPendingOrders
+  countPendingOrders,
+  addTotalPrice
 };
