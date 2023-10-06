@@ -76,7 +76,7 @@ const Home = () => {
                                   axios
                                     .post(
                                       `http://localhost:5000/orders/${service.id}`,
-                                      "",
+                                      {total_price:service.price},
                                       {
                                         headers: {
                                           Authorization: `Bearer ${token}`,
