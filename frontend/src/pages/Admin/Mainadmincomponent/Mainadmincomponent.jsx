@@ -38,6 +38,7 @@ import TableHead from '@mui/material/TableHead';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
+import { useNavigate } from 'react-router'
 
 function preventDefault(event) {
     event.preventDefault();
@@ -133,6 +134,7 @@ function createData(time, amount) {
 
 
 const Mainadmincomponent = () => {
+    const navigate = useNavigate()
     const token = useSelector((state)=>state.login.token)
     const totalCash = useSelector((state=>state.order.totalCash))
     const count = useSelector((state)=>state.main.data)
@@ -192,7 +194,9 @@ const Mainadmincomponent = () => {
                 ))}
               </TableBody>
             </Table>
-            <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
+            <Link color="primary" href="#" onClick={()=>{
+                navigate("/admin/ordersAdmin")
+            }} sx={{ mt: 3 }}>
               See more orders
             </Link>
           </React.Fragment>
@@ -245,7 +249,7 @@ const Mainadmincomponent = () => {
                       ...theme.typography.body1,
                     }}
                   >
-                    Orders (:D)
+                    Days
                   </Label>
                 </YAxis>
                 <Line
@@ -330,7 +334,6 @@ const Mainadmincomponent = () => {
                 </Paper>
               </Grid>
             </Grid>
-            <Copyright sx={{ pt: 4 }} />
           </Container>
         </Box>
       </Box>
