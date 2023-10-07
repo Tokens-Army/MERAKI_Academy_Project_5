@@ -35,6 +35,9 @@ const Navbar = () => {
           Wash My Ride
         </Button>
         <Box sx={{ flexGrow: 1 }} />
+        <Button color="inherit" onClick={() => navigate("/cart")}>
+          Cart
+        </Button>
         <Button color="inherit" onClick={() => navigate("/about")}>
           About
         </Button>
