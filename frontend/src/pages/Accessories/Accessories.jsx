@@ -130,7 +130,7 @@ const Accessories = () => {
       </ThemeProvider>
       <Button
         onClick={() => {
-          navigate("/scheduleorder");
+          navigate("/cart");
         }}
       >
         NEXT
@@ -138,6 +138,7 @@ const Accessories = () => {
     </div>
   );
 };
+
 export const accessoriesLoader = async () => {
   const result = axios
     .get("http://localhost:5000/accessories")
