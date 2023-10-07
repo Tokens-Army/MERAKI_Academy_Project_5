@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Contactus.css";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const Messages = ({ socket, user_id, admin, user }) => {
   const [to, setTo] = useState("");
@@ -9,15 +10,27 @@ const Messages = ({ socket, user_id, admin, user }) => {
 
   useEffect(() => {
     if (allMessages.length === 0) {
-      axios
-        .get(`http://localhost:5000/users/message/${user_id}`)
-        .then((result) => {
-          // console.log();
-          setAllMessages(result.data.allMessages);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      if (admin) {
+        axios
+          .get(`http://localhost:5000/users/message/${user.id}/${user_id}`)
+          .then((result) => {
+            // console.log();
+            setAllMessages(result.data.allMessages);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } else {
+        axios
+          .get(`http://localhost:5000/users/message/${user_id}`)
+          .then((result) => {
+            // console.log();
+            setAllMessages(result.data.allMessages);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     }
     socket.on("message", receiveMessage);
     return () => {
@@ -51,7 +64,9 @@ const Messages = ({ socket, user_id, admin, user }) => {
               <div className="card-header">
                 <h4 className="card-title">
                   {admin ? (
-                    <strong>{user.firstname} {user.lastname}</strong>
+                    <strong>
+                      {user.firstname} {user.lastname}
+                    </strong>
                   ) : (
                     <strong>Customer service</strong>
                   )}
