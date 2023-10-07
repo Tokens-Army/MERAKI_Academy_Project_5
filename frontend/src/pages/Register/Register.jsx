@@ -88,9 +88,12 @@ const Register = () => {
   };
 
   // sign up button function
-  const registerHandler = (firstName, lastName, email, password) => {
-    axios
-      .post("http://localhost:5000/users/register", {
+  const registerHandler = () => {
+    if (firstName && lastName && email && password)
+    {if (email.includes("@gmail.com")||email.includes("@yahoo.com")||email.includes("@hotmail.com")||email.includes("@outlook.com"))
+    {if (password.length>=8)
+      {axios
+            .post("http://localhost:5000/users/register", {
         firstName,
         lastName,
         email,
@@ -98,6 +101,7 @@ const Register = () => {
         role_id: 1,
       })
       .then((result) => {
+        console.log(result.data);
         if (result.data) {
           setMessage("");
           axios
@@ -118,6 +122,7 @@ const Register = () => {
               }
             })
             .catch((err) => {
+              console.log(err);
               setMessage("Error happened while Login, please try again");
             });
         }
@@ -128,7 +133,18 @@ const Register = () => {
         }
         setMessage("Error happened while Login, please try again");
         console.log(err);
-      });
+      
+      })
+    }else{
+      setMessage("Password must be at least 8 charachters")
+    }
+  }else{
+    setMessage("Email must be example@example.com")
+  }
+    
+    }else {
+        setMessage("Fill all the blank please")
+      }
   };
 
   return (

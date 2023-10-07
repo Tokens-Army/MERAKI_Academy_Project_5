@@ -106,7 +106,7 @@ export default function ResponsiveDateTimePickers() {
               ))}
             </Stepper>
             {activeStep === steps.length ? (
-              navigate("/")
+              navigate("/cart")
             ) : (
               <React.Fragment>
                 {getStepContent(activeStep)}
@@ -122,7 +122,6 @@ export default function ResponsiveDateTimePickers() {
                     sx={{ mt: 3, ml: 1 }}
                   >
                     {activeStep === steps.length - 1 ? "Place order" : "Next"}
-                    
                   </Button>
                 </Box>
               </React.Fragment>

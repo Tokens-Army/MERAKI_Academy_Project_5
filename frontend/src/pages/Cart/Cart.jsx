@@ -104,7 +104,7 @@ const Cart = () => {
           Total Price: {totalPrice}
           
         </Typography>
-        <Button variant="contained" onClick={() => navigate("/scheduleorder")}>
+        <Button variant="contained" onClick={() => navigate("/")}>
           Checkout
         </Button>
         <Button
