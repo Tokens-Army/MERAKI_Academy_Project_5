@@ -24,6 +24,7 @@ import Orders from "../pages/Admin/Orders/Orders";
 import Addemployeestoorders from "../pages/Admin/Addemployeestoorders/Addemployeestoorders";
 import Mainadmincomponent from "../pages/Admin/Mainadmincomponent/Mainadmincomponent";
 import AdminMessage from "../pages/Admin/Customer_service/AdminMessage";
+import AboutAdmin from "../pages/Admin/Aboutadmin/AboutAdmin";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -116,7 +117,10 @@ export const router = createBrowserRouter([
       {
         path: "customer_service",
         element: <AdminMessage />,
-      },
+      },{
+        path: "about",
+        element:<AboutAdmin/>
+      }
     ],
   },
   {

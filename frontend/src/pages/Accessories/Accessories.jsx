@@ -130,7 +130,7 @@ const Accessories = () => {
       </ThemeProvider>
       <Button
         onClick={() => {
-          navigate("/cart");
+          navigate("/scheduleorder");
         }}
       >
         NEXT

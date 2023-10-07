@@ -136,11 +136,9 @@ function createData(time, amount) {
 const Mainadmincomponent = () => {
     const navigate = useNavigate()
     const token = useSelector((state)=>state.login.token)
-    const totalCash = useSelector((state=>state.order.totalCash))
     const count = useSelector((state)=>state.main.data)
     const orders = useSelector((state)=>state.main.orders)
     const theme = useTheme();
-    console.log(totalCash);
     const [open, setOpen] = React.useState(true);
     const toggleDrawer = () => {
         setOpen(!open);
@@ -179,7 +177,7 @@ const Mainadmincomponent = () => {
                   <TableCell>User Id</TableCell>
                   <TableCell>Order Status</TableCell>
                   <TableCell>Schedule date</TableCell>
-                  <TableCell align="right">Sale Amount</TableCell>
+                  <TableCell align="right">Employee id</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -188,8 +186,11 @@ const Mainadmincomponent = () => {
                     <TableCell>{order.created_at}</TableCell>
                     <TableCell>{order.user_id}</TableCell>
                     <TableCell>{order.order_status}</TableCell>
-                    <TableCell>{order.scheduled_time}</TableCell>
-                    <TableCell align="right">{`${order.employee_id}`}</TableCell>
+                    {order.scheduled_time?<TableCell>{order.scheduled_time}</TableCell>:<TableCell>Right Now</TableCell>}
+                    
+                    {order.employee_id?<TableCell align="right">{`${order.employee_id}`}</TableCell>:<h6 className='addemployeebtn' onClick={()=>{
+                      navigate("/admin/employeesadmin")
+                    }} align="right">Add employee</h6>}
                   </TableRow>
                 ))}
               </TableBody>
