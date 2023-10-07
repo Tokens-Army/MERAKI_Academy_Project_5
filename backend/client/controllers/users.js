@@ -185,4 +185,23 @@ users.getAllMessages = (req, res) => {
     });
 };
 
+users.getAllAdminMessages = (req, res) => {
+  const { adminId, userId } = req.params;
+  messageModel
+    .find({ from: adminId }, { to: userId })
+    .then((messages) => {
+      res.status(201).json({
+        success: true,
+        allMessages: messages,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        success: false,
+        message: "Server Error check again",
+        error: err.message,
+      });
+    });
+};
+
 module.exports = users;
