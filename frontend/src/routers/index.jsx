@@ -10,7 +10,7 @@ import Accessories, {
 } from "../pages/Accessories/Accessories";
 import ScheduleOrder from "../pages/ScheduleOrder/ScheduleOrder";
 import About from "../pages/About/About";
-import ContactUs from "../pages/ContactUs/ContactUs";
+import ContactUs from "../pages/ContactUs/Contactus";
 import Adminhome from "../pages/Admin/Adminhome/Adminhome";
 import Addadmins from "../pages/Admin/Addadmins/Addadmins";
 import Deleteadmins from "../pages/Admin/Deleteadmins/Deleteadmins";
@@ -23,6 +23,7 @@ import Deleteaccessories from "../pages/Admin/Deleteaccessories/Deleteaccessorie
 import Orders from "../pages/Admin/Orders/Orders";
 import Addemployeestoorders from "../pages/Admin/Addemployeestoorders/Addemployeestoorders";
 import Mainadmincomponent from "../pages/Admin/Mainadmincomponent/Mainadmincomponent";
+import AdminMessage from "../pages/Admin/Customer_service/AdminMessage";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -101,15 +102,21 @@ export const router = createBrowserRouter([
         element: <Deleteaccessories />,
       },
       {
-        path:"ordersAdmin",
-        element:<Orders/>
-      },{
-        path:"employeesadmin",
-        element:<Addemployeestoorders/>
-      },{
-        path:"main",
-        element:<Mainadmincomponent/>
-      }
+        path: "ordersAdmin",
+        element: <Orders />,
+      },
+      {
+        path: "employeesadmin",
+        element: <Addemployeestoorders />,
+      },
+      {
+        path: "main",
+        element: <Mainadmincomponent />,
+      },
+      {
+        path: "customer_service",
+        element: <AdminMessage />,
+      },
     ],
   },
   {
