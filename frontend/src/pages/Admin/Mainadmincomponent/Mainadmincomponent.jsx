@@ -55,12 +55,12 @@ function Deposits() {
           $3,024.00
         </Typography>
         <Typography color="text.secondary" sx={{ flex: 1 }}>
-          on 15 March, 2019
+          on 1st Oct, 2023
         </Typography>
         <div>
-          <Link color="primary" href="#" onClick={preventDefaults}>
+          <a href='http://localhost:5173/admin/ordersadmin'>
             View balance
-          </Link>
+          </a>
         </div>
       </React.Fragment>
     );
@@ -186,11 +186,8 @@ const Mainadmincomponent = () => {
                     <TableCell>{order.created_at}</TableCell>
                     <TableCell>{order.user_id}</TableCell>
                     <TableCell>{order.order_status}</TableCell>
-                    {order.scheduled_time?<TableCell>{order.scheduled_time}</TableCell>:<TableCell>Right Now</TableCell>}
-                    
-                    {order.employee_id?<TableCell align="right">{`${order.employee_id}`}</TableCell>:<h6 className='addemployeebtn' onClick={()=>{
-                      navigate("/admin/employeesadmin")
-                    }} align="right">Add employee</h6>}
+                     {order.scheduled_time?<TableCell>{order.scheduled_time}</TableCell>:<TableCell>Not scheduled</TableCell>}
+                    {order.employee_id?<TableCell align="right">{`${order.employee_id}`}</TableCell>:<a align="rigth" className='addEmpolyeebtn' href='http://localhost:5173/admin/employeesadmin' >Add Employee</a>}
                   </TableRow>
                 ))}
               </TableBody>

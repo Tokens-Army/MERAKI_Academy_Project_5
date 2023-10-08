@@ -81,7 +81,7 @@ const updateServiceById = (req, res) => {
 const deleteServiceById = (req, res) => {
   const { id } = req.params;
   pool
-    .query(`UPDATE services SET is_deleted = 1 WHERE id = ($1);`, [id])
+    .query(`UPDATE services SET is_deleted = 1 WHERE id = $1`, [id])
     .then((result) => {
       res.status(200).json({
         success: true,

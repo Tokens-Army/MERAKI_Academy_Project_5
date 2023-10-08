@@ -36,7 +36,6 @@ const style = {
 };
 
 const AddAccessories = () => {
-
   const [open, setOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [id, setId] = useState(0);
@@ -183,115 +182,123 @@ const AddAccessories = () => {
                     >
                       <DeleteForeverIcon style={{ color: "red" }} />
                     </Button>
-                    <Modal
-                      open={open}
-                      onClose={() => setOpen(false)}
-                      aria-labelledby="modal-modal-title"
-                      aria-describedby="modal-modal-description"
-                    >
-                      <Box sx={style}>
-                        <Typography
-                          id="modal-modal-title"
-                          variant="h6"
-                          component="h2"
-                        >
-                          Update {accessoryName} accessory
-                          <input
-                            className="updateAccessoryInputs"
-                            placeholder="New name"
-                            type="text"
-                            onChange={(e) => setAccessoryName(e.target.value)}
-                          />
-                          <input
-                            className="updateAccessoryInputs"
-                            placeholder="New img"
-                            type="text"
-                            onChange={(e) => setAccessoryImg(e.target.value)}
-                          />
-                          <input
-                            className="updateAccessoryInputs"
-                            placeholder="New description"
-                            type="text"
-                            onChange={(e) => setAccessoryDesc(e.target.value)}
-                          />
-                          <input
-                            className="updateAccessoryInputs"
-                            placeholder="New price"
-                            type="number"
-                            onChange={(e) => setAccessoryPrice(e.target.value)}
-                          />
+                    {id === accessory.id && (
+                      <Modal
+                        open={open}
+                        onClose={() => setOpen(false)}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                      >
+                        <Box sx={style}>
+                          <Typography
+                            id="modal-modal-title"
+                            variant="h6"
+                            component="h2"
+                          >
+                            Update {accessoryName} accessory
+                            <input
+                              className="updateAccessoryInputs"
+                              placeholder="New name"
+                              type="text"
+                              onChange={(e) => setAccessoryName(e.target.value)}
+                            />
+                            <input
+                              className="updateAccessoryInputs"
+                              placeholder="New img"
+                              type="text"
+                              onChange={(e) => setAccessoryImg(e.target.value)}
+                            />
+                            <input
+                              className="updateAccessoryInputs"
+                              placeholder="New description"
+                              type="text"
+                              onChange={(e) => setAccessoryDesc(e.target.value)}
+                            />
+                            <input
+                              className="updateAccessoryInputs"
+                              placeholder="New price"
+                              type="number"
+                              onChange={(e) =>
+                                setAccessoryPrice(e.target.value)
+                              }
+                            />
+                            <Button
+                              onClick={() => {
+                                axios
+                                  .put(
+                                    `http://localhost:5000/accessories/${id}`,
+                                    {
+                                      name: accessoryName,
+                                      img: accessoryImg,
+                                      description: accessoryDesc,
+                                      price: accessoryPrice,
+                                    },
+                                    {
+                                      headers: {
+                                        Authorization: `Bearer ${token}`,
+                                      },
+                                    }
+                                  )
+                                  .then((results) => {
+                                    dispatch(
+                                      updateAccessory(
+                                        results.data.accessories[0]
+                                      )
+                                    );
+                                    setOpen(false);
+                                  })
+                                  .catch((err) => {
+                                    console.log(err);
+                                  });
+                              }}
+                            >
+                              Update
+                            </Button>
+                          </Typography>
+                        </Box>
+                      </Modal>
+                    )}
+                    {id === accessory.id && (
+                      <Modal
+                        open={deleteOpen}
+                        onClose={handleDeleteClose}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                      >
+                        <Box sx={style}>
+                          <Typography
+                            id="modal-modal-title"
+                            variant="h6"
+                            component="h2"
+                          >
+                            Are you sure you want to delete this accessory?
+                          </Typography>
                           <Button
                             onClick={() => {
                               axios
-                                .put(
+                                .delete(
                                   `http://localhost:5000/accessories/${id}`,
-                                  {
-                                    name: accessoryName,
-                                    img: accessoryImg,
-                                    description: accessoryDesc,
-                                    price: accessoryPrice,
-                                  },
                                   {
                                     headers: {
                                       Authorization: `Bearer ${token}`,
                                     },
                                   }
                                 )
-                                .then((results) => {
-                                  dispatch(
-                                    updateAccessory(results.data.accessories[0])
-                                  );
-                                  setOpen(false);
+                                .then((result) => {
+                                  dispatch(deleteAccessory(id));
+                                  setDeleteOpen(false);
                                 })
                                 .catch((err) => {
                                   console.log(err);
                                 });
                             }}
                           >
-                            Update
+                            Yes
                           </Button>
-                        </Typography>
-                      </Box>
-                    </Modal>
-                    <Modal
-                      open={deleteOpen}
-                      onClose={handleDeleteClose}
-                      aria-labelledby="modal-modal-title"
-                      aria-describedby="modal-modal-description"
-                    >
-                      <Box sx={style}>
-                        <Typography
-                          id="modal-modal-title"
-                          variant="h6"
-                          component="h2"
-                        >
-                          Are you sure you want to delete this accessory?
-                        </Typography>
-                        <Button
-                          onClick={() => {
-                            axios
-                              .delete(
-                                `http://localhost:5000/accessories/${id}`,
-                                {
-                                  headers: {
-                                    Authorization: `Bearer ${token}`,
-                                  },
-                                }
-                              )
-                              .then((result) => {
-                                dispatch(deleteAccessory(id));
-                                setDeleteOpen(false);
-                              })
-                              .catch((err) => {
-                                console.log(err);
-                              });
-                          }}
-                        >
-                          Yes
-                        </Button>
-                        <Button onClick={handleDeleteClose}>No</Button>
-                      </Box>
-                    </Modal>
+                          <Button onClick={handleDeleteClose}>No</Button>
+                        </Box>
+                      </Modal>
+                    )}
                   </div>
                 </TableCell>
               </TableRow>

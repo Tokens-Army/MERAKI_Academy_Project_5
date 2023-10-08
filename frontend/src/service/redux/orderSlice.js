@@ -5,7 +5,7 @@ export const orderSlice = createSlice({
   initialState: {
     order: JSON.parse(localStorage.getItem("order")) || {},
     orders:[],
-    total_cash:0
+    orderDetails:[]
   },
   reducers: {
     setOrders:(state,action)=>{
@@ -13,13 +13,12 @@ export const orderSlice = createSlice({
     },
     setOrder: (state, action) => {
       state.order = action.payload;
+    },setOrderDetails: (state, action) => {
+      state.orderDetails = action.payload;
     },
-    total_price: (state, action) => {
-      state.total_cash = action.payload;
-
-    },
+   
   },
 });
 
-export const { setOrder,setOrders,total_price } = orderSlice.actions;
+export const { setOrder,setOrders,setOrderDetails } = orderSlice.actions;
 export default orderSlice.reducer;
