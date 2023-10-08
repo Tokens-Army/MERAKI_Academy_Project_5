@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Card, CardContent, CardMedia, Typography, Button, Box } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+  Button,
+  Box,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -137,6 +144,20 @@ const Cart = () => {
             Delete Order
           </Button>
         </Box>
+          ))}
+        <Typography variant="h6" component="div" gutterBottom>
+          Total Price: {totalPrice}
+        </Typography>
+        <Button variant="contained" onClick={() => navigate("/contact-us")}>
+          Contact Us
+        </Button>
+        <Button
+          variant="contained"
+          sx={{ ml: 1 }}
+          onClick={() => handleDeleteOrder(order.id)}
+        >
+          Delete Order
+        </Button>
       </Box>
     </div>
   );

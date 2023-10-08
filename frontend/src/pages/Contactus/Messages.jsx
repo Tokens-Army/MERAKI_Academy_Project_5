@@ -98,12 +98,35 @@ const Messages = ({ socket, user_id, admin, user }) => {
                                   }
                             }
                           >
-                            <p>{message.message}</p>
-                            <p className="meta">
-                              <time dateTime="2018">
-                                {/* {new Date(message.createdAt).getTime()} */}
-                                {Date.now()}
-                              </time>
+                            <p
+                              style={
+                                Number(user_id) == message.from
+                                  ? {
+                                      backgroundColor: "#3f51b5",
+                                      padding: "10px",
+                                      borderRadius: "15%",
+                                      color: "white",
+                                    }
+                                  : {
+                                      backgroundColor: "#818181",
+                                      padding: "10px",
+                                      borderRadius: "15%",
+                                      color: "white",
+                                    }
+                              }
+                            >
+                              {message.message} {""}
+                              {message.createdAt ? (
+                                <time style={{ fontSize: "10px" }}>
+                                  {new Date(message.createdAt).getHours()}:
+                                  {new Date(message.createdAt).getMinutes()}
+                                </time>
+                              ) : (
+                                <time style={{ fontSize: "10px" }}>
+                                  {new Date().getHours()}:
+                                  {new Date().getMinutes()}
+                                </time>
+                              )}
                             </p>
                           </div>
                         </div>
