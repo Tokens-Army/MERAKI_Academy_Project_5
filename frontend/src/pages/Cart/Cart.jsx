@@ -114,6 +114,9 @@ const Cart = () => {
                 <Typography variant="body2" color="text.secondary">
                   Price: {cart.order.service_price}
                 </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Delivery: 2 JDs
+                </Typography>
               </CardContent>
             </Card>
           )}
@@ -146,6 +149,7 @@ const Cart = () => {
         </Box>
           ))}
         <Typography variant="h6" component="div" gutterBottom>
+          Total Price: {totalPrice+2}
           Total Price: {totalPrice}
         </Typography>
         <Button variant="contained" onClick={() => navigate("/contact-us")}>

@@ -1,10 +1,16 @@
 .ordersInfos{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr ;    
     padding: 10px;
     border: 2px solid gray;    
 }
 .infosorders{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr ;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr ;
+}
+.true{
+    color: greenyellow;
+}
+.false{
+    color: red;
 }
