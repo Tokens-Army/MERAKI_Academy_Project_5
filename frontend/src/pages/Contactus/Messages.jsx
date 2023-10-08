@@ -55,16 +55,16 @@ const Messages = ({ socket, user_id, admin, user }) => {
     <div
       className="page-content page-container"
       id="page-content"
-      style={{ display: "flex", justifyContent: "center" }}
+      style={{ display: "flex", justifyContent: "center", width: "50vw" }}
     >
-      <div className="padding">
+      <div className="padding" style={{ width: "100%" }}>
         <div>
           <div className="col-md-6">
             <div className="card card-bordered">
               <div className="card-header">
                 <h4 className="card-title">
                   {admin ? (
-                    <strong>
+                    <strong style={{ alignContent: "center" }}>
                       {user.firstname} {user.lastname}
                     </strong>
                   ) : (
