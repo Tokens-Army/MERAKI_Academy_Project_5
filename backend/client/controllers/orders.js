@@ -31,7 +31,7 @@ const getMyOrders = async (req, res) => {
     const { order_id } = req.params;
     const { userId } = req.token;
     const orders = await pool.query(
-      `select O.user_id,S.name AS service_name , S.img AS service_img, S.price AS service_price, O.order_status,O.location ,O.scheduled_time from orders O inner join services S on O.service_id = S.id  where O.user_id = $1 and order_status='pending' and O.is_deleted=0 and o.id=$2;`,
+      `select O.user_id,S.name AS service_name , S.img AS service_img, S.price AS service_price, O.order_status,O.location ,O.scheduled_time from orders O inner join services S on O.service_id = S.id  where O.user_id = $1 and O.is_deleted=0 and o.id=$2;`,
       [userId, order_id]
     );
     const accessories = await pool.query(
