@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setLogout } from "../../service/redux/loginSlice";
 import socketInit from "../../service/api/socket_server";
+import image from "../../assets/images/img.png";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ const Navbar = () => {
           }}
           onClick={() => navigate("/")}
         >
-          Wash My Ride
+          <img src={image} style={{height: "3rem"}} />
         </Button>
         <Box sx={{ flexGrow: 1 }} />
         <Button color="inherit" onClick={() => navigate("/cart")}>

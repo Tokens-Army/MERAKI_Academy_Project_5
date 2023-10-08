@@ -86,19 +86,13 @@ const Cart = () => {
           </Typography>
           {cart.employee ? (
             <CardContent>
+              <img src={cart.employee.img}/>
               <Typography variant="h6" component="div">
                 Employee: {cart.employee.name}
               </Typography>
               <Typography variant="body2" color="text.secondary">
                 Phone Number: {cart.employee.phonenum}
               </Typography>
-              <CardMedia
-                component="div"
-                sx={{
-                  padding: "2%",
-                }}
-                image={cart.employee.img}
-              />
             </CardContent>
           ) : (
             <Typography variant="body2" color="text.secondary">
