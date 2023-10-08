@@ -3,14 +3,19 @@ CREATE TABLE roles (
   role VARCHAR(255) NOT NULL,
   PRIMARY KEY (id)
 );
+
+
 INSERT INTO roles (role) VALUES ('User') RETURNING *;
 INSERT INTO roles (role) VALUES ('Admin') RETURNING *;
+
 
 CREATE TABLE permissions (
   id SERIAL NOT NULL,
   permission VARCHAR(255) NOT NULL,
   PRIMARY KEY (id)
 );
+
+
 INSERT INTO permissions (permission) VALUES ('ADD_ORDER') RETURNING *;
 INSERT INTO permissions (permission) VALUES ('CREATE_SERVICE') RETURNING *;
 INSERT INTO permissions (permission) VALUES ('CREATE_ACCESSORY') RETURNING *;
@@ -24,9 +29,12 @@ CREATE TABLE role_permission (
   FOREIGN KEY (permission_id) REFERENCES permissions(id),
   PRIMARY KEY (id)
 );
+
+
 INSERT INTO role_permission (role_id, permission_id) VALUES (1,1) RETURNING *;
 INSERT INTO role_permission (role_id, permission_id) VALUES (2,2) RETURNING *;
 INSERT INTO role_permission (role_id, permission_id) VALUES (2,3) RETURNING *;
+
 
 CREATE TABLE users(
   id SERIAL NOT NULL,
@@ -39,11 +47,14 @@ CREATE TABLE users(
   is_deleted SMALLINT DEFAULT 0,
   PRIMARY KEY (id)
 );
+
+
 INSERT INTO users (firstName, lastName,  email, password, role_id) VALUES ('mohammad','alawneh','mohammad@gmail.com','12345678',2) RETURNING *;
 INSERT INTO users (firstName, lastName,  email, password, role_id) VALUES ('ali','ikmail','ali@gmail.com','12345678',2) RETURNING *;
 INSERT INTO users (firstName, lastName,  email, password, role_id) VALUES ('saad','habashneh','saad@gmail.com','12345678',2) RETURNING *;
 INSERT INTO users (firstName, lastName,  email, password, role_id) VALUES ('ahmed','ahmed','ahmed@gmail.com','12345678',1) RETURNING *;
 INSERT INTO users (firstName, lastName,  email, password, role_id) VALUES ('yousef','yousef','yousef@gmail.com','12345678',1) RETURNING *;
+
 
 CREATE TABLE employees (
   id SERIAL NOT NULL,
@@ -53,6 +64,8 @@ CREATE TABLE employees (
   Availability varchar(255),
   PRIMARY KEY (id)
 );
+
+
 INSERT INTO employees (name, img,  phoneNum,Availability) VALUES ('YOUSEF AlShereif','https://randomuser.me/api/portraits/med/men/45.jpg','+96258828787','Available') RETURNING *;
 INSERT INTO employees (name, img,  phoneNum,Availability) VALUES ('Aleksi Aleksi','https://randomuser.me/api/portraits/med/men/95.jpg','+96258828787','Available') RETURNING *;
 INSERT INTO employees (name, img,  phoneNum,Availability) VALUES ('Jameel Yaser','https://randomuser.me/api/portraits/med/men/64.jpg','+96258828787','Available') RETURNING *;
@@ -69,10 +82,12 @@ CREATE TABLE services(
   PRIMARY KEY (id)
 );
 
+
 INSERT INTO services (name, description, img, price) values ('Hand car wash', 'washing the car by hand, using a hose, a bucket, a sponge, and a soap solution. Hand car wash can help remove dirt, grime, bugs, and bird droppings from the car, as well as rinse off any residue or soap marks', 'https://www.1stclassmobiledetailing.com.au/wp-content/uploads/2019/03/hand-car-wash.jpg', 5) RETURNING *;
 INSERT INTO services (name, description, img, price) values ('Car vacuuming', 'This service involves using a vacuum cleaner to remove dust, dirt, and debris from the interior of the car, including the seats, floor mats, carpets, and trunk. Car vacuuming can help improve the air quality and appearance of the car', 'https://thumbs.dreamstime.com/b/professional-car-vacuuming-vehicle-service-caucasian-worker-cleaning-cargo-area-inside-135721486.jpg', 3) RETURNING *;
 INSERT INTO services (name, description, img, price) values ('Seat car cleaning', 'This service involves cleaning and sanitizing the seats of the car, using a steam cleaner, a shampooer, or a leather conditioner. Seat car cleaning can help remove stains, odors, bacteria, and allergens from the seats, as well as restore their color and texture', 'https://beautyntechs.com/wp-content/uploads/2021/08/Tips-for-your-car-seat-cleaning.jpg', 5) RETURNING *;
 INSERT INTO services (name, description, img, price) values ('Car polishing', 'This service involves applying a protective layer of wax or polish to the exterior of the car, using a buffer or a cloth. Car polishing can help enhance the shine and gloss of the car, as well as protect it from scratches, oxidation, and UV damage', 'https://media.torque.com.sg/public/2019/08/car-polishing-machine-or-hand-better.jpg', 5) RETURNING *;
+
 
   CREATE TABLE accessories (
   id SERIAL NOT NULL,
@@ -96,6 +111,7 @@ INSERT INTO accessories (name, description, img, price) values ('Car Bumper Prot
 INSERT INTO accessories (name, description, img, price) values ('Car Storage Bag', 'Car luggage carrier, Small size, large capacity, Easy to install, just hang on the car air outlet, You can store pens, mobile phone, glasses, cigarettes, cards and other, things, keep your car clean', 'https://doublem-jo.com/cdn/shop/products/1582362768741_1574160459942_5dbbfc5c3e1f100f0085194b-0-large_400x.jpg?v=1587817315', 5) RETURNING *;
 INSERT INTO accessories (name, description, img, price) values ('Car Rearview Auxiliary Blind Spot Mirror', '360 degree car blind spot mirror, Wide angle adjustable and swivel, Clarifies the vision for the driver and facilitates the process of, driving when backing and overtaking', 'https://doublem-jo.com/cdn/shop/products/5f083758fb7f653716e8c7eb-large_500x.jpg?v=1602497781', 7) RETURNING *;
 
+
 CREATE TABLE orders(
   id SERIAL NOT NULL,
   user_id INT,
@@ -111,6 +127,7 @@ CREATE TABLE orders(
   PRIMARY KEY (id)
 );
 
+
 CREATE TABLE order_accessories (
   id SERIAL NOT NULL,
   order_id INT,
@@ -120,8 +137,3 @@ CREATE TABLE order_accessories (
   is_deleted SMALLINT DEFAULT 0,
   PRIMARY KEY (id)
 );
-
-
-
-
-

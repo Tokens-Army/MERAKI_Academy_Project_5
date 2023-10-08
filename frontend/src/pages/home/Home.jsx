@@ -23,8 +23,9 @@ const Home = () => {
     return state.login.token;
   });
   const navigate = useNavigate();
+
   return (
-    <div>
+    <div style={{minHeight: "80%"}}>
       <ThemeProvider theme={defaultTheme}>
         <CssBaseline />
         <main>
@@ -122,4 +123,5 @@ export const serviceLoader = async () => {
   });
   return { result };
 };
+
 export default Home;

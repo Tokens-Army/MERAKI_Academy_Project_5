@@ -38,7 +38,7 @@ const Accessories = () => {
   const { result } = useLoaderData();
   const navigate = useNavigate();
   return (
-    <div>
+    <div style={{minHeight: "80%"}}>
       <Stack spacing={2} sx={{ width: "10%" }}>
         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
           <Alert
