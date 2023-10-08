@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "./AdminMessages.css";
 import socketInit from "../../../service/api/socket_server";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -51,7 +52,13 @@ const AdminMessage = () => {
   }, []);
 
   return (
-    <div style={{ display: "flex", gap: "3vw" }}>
+    <div
+      className="customer-service-page"
+      style={{
+        display: "flex",
+        gap: "3vw",
+      }}
+    >
       <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
         <div style={{ alignSelf: "center" }}>
           <ListItem>
@@ -84,25 +91,6 @@ const AdminMessage = () => {
                   </ListItem>
                   <Divider variant="inset" component="li" />
                 </>
-
-                // <div
-                //   key={user.id}
-                //   style={{
-                //     width: "20vw",
-                //     display: "flex",
-                //     alignItems: "center",
-                //     gap: "1vw",
-                //   }}
-                //   onClick={() => {
-                //     setUser(user);
-                //     setSocket(socketInit({ user_id, token }));
-                //   }}
-                // >
-                //   <Avatar>{user.firstname[0]}</Avatar>{" "}
-                //   <p style={{ color: "blue", cursor: "pointer" }}>
-                //     {user.firstname} {user.lastname}
-                //   </p>
-                // </div>
               );
             })}
         </div>
@@ -117,7 +105,9 @@ const AdminMessage = () => {
           user={user}
         />
       ) : (
-        <div></div>
+        <div>
+          <img src="https://t4.ftcdn.net/jpg/03/65/60/33/360_F_365603381_jl2eSsk2nsz7hFbGpfZSWwfXLxO1Unp4.jpg" width="850vw"/>
+        </div>
       )}
     </div>
   );
