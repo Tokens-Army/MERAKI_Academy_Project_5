@@ -24,7 +24,6 @@ const Cart = () => {
         },
       })
       .then((response) => {
-        console.log(response);
         setCart(response.data);
       })
       .catch((error) => console.error(error));
@@ -64,9 +63,11 @@ const Cart = () => {
         }}
       >
         <Box
+          className="CARDS"
           sx={{
             width: "80%",
             boxShadow: "0px 10px 20px rgba(0,0,0,0.1)",
+            transition: "0.3s",
             backgroundColor: "#fff",
             borderRadius: "10px",
             overflow: "hidden",
