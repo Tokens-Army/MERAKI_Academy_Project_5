@@ -19,4 +19,8 @@
 .acceptedOrdersImg{
     width: 75%;
 }
+.addemployeebtn{
+    cursor: pointer;
+    color: rgb(49, 49, 189);
+}
 

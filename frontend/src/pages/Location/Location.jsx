@@ -75,6 +75,7 @@ const Location = (props) => {
       />
       <br />
       <Button
+        variant="contained"
         onClick={() => {
           axios
             .put(`http://localhost:5000/orders/location/${order.id}`, {

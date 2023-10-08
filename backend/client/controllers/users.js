@@ -53,6 +53,7 @@ users.login = (req, res) => {
             const options = { expiresIn: "1d" };
             const secret = process.env.SECRET;
             const token = jwt.sign(payload, secret, options);
+            console.log(response);
             if (token) {
               return res.status(200).json({
                 token,
@@ -74,10 +75,9 @@ users.login = (req, res) => {
       } else throw Error;
     })
     .catch((err) => {
-      res.status(403).json({
+      res.status(404).json({
         success: false,
-        message:
-          "The email doesn’t exist or the password you’ve entered is incorrect",
+        message: "The email doesn’t exist",
         err,
       });
     });

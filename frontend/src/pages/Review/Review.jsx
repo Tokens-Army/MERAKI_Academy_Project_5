@@ -6,6 +6,8 @@ import ListItemText from "@mui/material/ListItemText";
 import Grid from "@mui/material/Grid";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+
 
 const Review = () => {
   const order = useSelector((state) => {
@@ -17,7 +19,6 @@ const Review = () => {
   const [myOrder, setMyOrder] = useState({});
   const [location, setLocation] = useState({});
   const [scheduleTime, setScheduleTime] = useState("");
-  const dispatch = useDispatch()
   let totalPrice = 0;
   useEffect(() => {
     axios
@@ -38,17 +39,6 @@ const Review = () => {
         console.log(err);
       });
   }, []);
-
-    // useEffect(()=>{
-    //   axios.post(`http://localhost:5000/orders/total_price/${order.id}`,{total_price:totalPrice})
-    //   .then((results)=>{
-    //     console.log(results);
-    //   })
-    //   .catch((err)=>{
-    //     console.log(err);
-    //   })
-      
-    // },[])
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -72,8 +62,6 @@ const Review = () => {
               totalPrice += myOrder.order.service_price;
             }
             totalPrice += accessory.accessory_price;
-            console.log(totalPrice);
-            console.log(accessory.accessory_price);
             return (
               <ListItem key={accessory.accessory_name} sx={{ py: 1, px: 0 }}>
                 <ListItemText primary={accessory.accessory_name} />
@@ -93,7 +81,6 @@ const Review = () => {
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
             {totalPrice} JD
-  
           </Typography>
         </ListItem>
       </List>

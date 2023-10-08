@@ -38,6 +38,10 @@ const getMyOrders = async (req, res) => {
       `select A.name As accessory_name, A.img As accessory_img , A.price As accessory_price,A.id As accessory_id from accessories A inner join order_accessories OA on A.id=OA.accessories_id inner join orders O on OA.order_id=O.id where O.user_id=$1 and O.id=$2 AND OA.is_deleted = 0;`,
       [userId, order_id]
     );
+    const employee = await pool.query(
+      `select name, phoneNum, img from employees inner join orders on orders.employee_id = employees.id where orders.id = $1`,
+      [order_id]
+    );
     if (!orders.rows.length) {
       return res.status(404).json({
         success: false,
@@ -49,6 +53,7 @@ const getMyOrders = async (req, res) => {
       message: "All your orders",
       order: orders.rows[0],
       accessories: accessories.rows,
+      employee: employee.rows[0],
     });
   } catch (err) {
     res.status(500).json({
@@ -108,7 +113,7 @@ const updateOrderTime = (req, res) => {
 const deleteOrderById = (req, res) => {
   const { orderId } = req.params;
 
-  const query = `DELETE FROM orders WHERE orders.id = $1`;
+  const query = `UPDATE orders SET is_deleted = 1 WHERE orders.id = $1`;
 
   pool
     .query(query, [orderId])

@@ -55,16 +55,16 @@ const Messages = ({ socket, user_id, admin, user }) => {
     <div
       className="page-content page-container"
       id="page-content"
-      style={{ display: "flex", justifyContent: "center" }}
+      style={{ display: "flex", justifyContent: "center", width: "50vw" }}
     >
-      <div className="padding">
+      <div className="padding" style={{ width: "100%" }}>
         <div>
           <div className="col-md-6">
             <div className="card card-bordered">
               <div className="card-header">
                 <h4 className="card-title">
                   {admin ? (
-                    <strong>
+                    <strong style={{ alignContent: "center" }}>
                       {user.firstname} {user.lastname}
                     </strong>
                   ) : (
@@ -98,12 +98,35 @@ const Messages = ({ socket, user_id, admin, user }) => {
                                   }
                             }
                           >
-                            <p>{message.message}</p>
-                            <p className="meta">
-                              <time dateTime="2018">
-                                {/* {new Date(message.createdAt).getTime()} */}
-                                {Date.now()}
-                              </time>
+                            <p
+                              style={
+                                Number(user_id) == message.from
+                                  ? {
+                                      backgroundColor: "#3f51b5",
+                                      padding: "10px",
+                                      borderRadius: "15%",
+                                      color: "white",
+                                    }
+                                  : {
+                                      backgroundColor: "#818181",
+                                      padding: "10px",
+                                      borderRadius: "15%",
+                                      color: "white",
+                                    }
+                              }
+                            >
+                              {message.message} {""}
+                              {message.createdAt ? (
+                                <time style={{ fontSize: "10px" }}>
+                                  {new Date(message.createdAt).getHours()}:
+                                  {new Date(message.createdAt).getMinutes()}
+                                </time>
+                              ) : (
+                                <time style={{ fontSize: "10px" }}>
+                                  {new Date().getHours()}:
+                                  {new Date().getMinutes()}
+                                </time>
+                              )}
                             </p>
                           </div>
                         </div>

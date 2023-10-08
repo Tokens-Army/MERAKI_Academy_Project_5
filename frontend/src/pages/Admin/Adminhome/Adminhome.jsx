@@ -48,7 +48,7 @@ const Adminhome = () => {
     { name: "Add Employee", nav: "employeesadmin" },
   ];
   const HelpRightBar = [
-    { name: "About", nav: "/about" },
+    { name: "About", nav: "about" },
     { name: "customer service", nav: "customer_service" },
   ];
   const drawer = (

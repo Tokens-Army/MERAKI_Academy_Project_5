@@ -34,8 +34,6 @@ const Copyright = (props) => {
   );
 };
 
-// TODO remove, this demo shouldn't need to reset the theme.
-
 const defaultTheme = createTheme();
 
 const Register = () => {
@@ -56,7 +54,7 @@ const Register = () => {
       firstName: decoded.given_name,
       lastName: decoded.family_name,
       email: decoded.email,
-      password: decoded.jti,
+      password: decoded.sub,
     };
     const { firstName, lastName, email, password } = userData;
     axios
@@ -64,8 +62,8 @@ const Register = () => {
         email,
         password,
       })
-      .then((loginResult) => {
-        if (loginResult.data) {
+      .then(async (loginResult) => {
+        if (loginResult.data.success) {
           dispatch(setLogin(loginResult.data.token));
           dispatch(setUserId(loginResult.data.userId));
           dispatch(setRoleId(loginResult.data.roleId));
@@ -75,12 +73,17 @@ const Register = () => {
             navigate("/");
           }
         } else {
-          registerHandler(firstName, lastName, email, password);
+          console.log(loginResult);
+          // const reg = await registerHandler(userData);
         }
       })
       .catch((err) => {
-        if (err.response && err.response.data.message === "User does not exist") {
-          registerHandler(firstName, lastName, email, password);
+        if (
+          err.response &&
+          err.response.data.message === `The email doesn’t exist`
+        ) {
+          console.log(err.response.data);
+          registerHandler(userData);
         } else {
           setMessage("Error happened while Login, please try again");
         }
@@ -88,63 +91,66 @@ const Register = () => {
   };
 
   // sign up button function
-  const registerHandler = () => {
-    if (firstName && lastName && email && password)
-    {if (email.includes("@gmail.com")||email.includes("@yahoo.com")||email.includes("@hotmail.com")||email.includes("@outlook.com"))
-    {if (password.length>=8)
-      {axios
-            .post("http://localhost:5000/users/register", {
-        firstName,
-        lastName,
-        email,
-        password,
-        role_id: 1,
-      })
-      .then((result) => {
-        console.log(result.data);
-        if (result.data) {
-          setMessage("");
+  const registerHandler = (userData = {}) => {
+    if (userData !== null) {
+      const { firstName, lastName, email, password } = userData;
+    }
+    if (firstName && lastName && email && password) {
+      if (
+        email.includes("@gmail.com") ||
+        email.includes("@yahoo.com") ||
+        email.includes("@hotmail.com") ||
+        email.includes("@outlook.com")
+      ) {
+        if (password.length >= 8) {
           axios
-            .post("http://localhost:5000/users/login", {
+            .post("http://localhost:5000/users/register", {
+              firstName,
+              lastName,
               email,
               password,
+              role_id: 1,
             })
-            .then((loginResult) => {
-              if (loginResult.data) {
-                dispatch(setLogin(loginResult.data.token));
-                dispatch(setUserId(loginResult.data.userId));
-                dispatch(setRoleId(loginResult.data.roleId));
-                if (loginResult.data.roleId == 2) {
-                  navigate("/admin");
-                } else {
-                  navigate("/");
-                }
+            .then((result) => {
+              if (result.data) {
+                setMessage("");
+                axios
+                  .post("http://localhost:5000/users/login", {
+                    email,
+                    password,
+                  })
+                  .then((loginResult) => {
+                    if (loginResult.data) {
+                      dispatch(setLogin(loginResult.data.token));
+                      dispatch(setUserId(loginResult.data.userId));
+                      dispatch(setRoleId(loginResult.data.roleId));
+                      if (loginResult.data.roleId == 2) {
+                        navigate("/admin");
+                      } else {
+                        navigate("/");
+                      }
+                    }
+                  })
+                  .catch((err) => {
+                    setMessage("Error happened while Login, please try again");
+                  });
               }
             })
             .catch((err) => {
-              console.log(err);
+              if (err.response && err.response.data) {
+                return setMessage(err.response.data.message);
+              }
               setMessage("Error happened while Login, please try again");
             });
+        } else {
+          setMessage("Password must be at least 8 characters");
         }
-      })
-      .catch((err) => {
-        if (err.response && err.response.data) {
-          return setMessage(err.response.data.message);
-        }
-        setMessage("Error happened while Login, please try again");
-        console.log(err);
-      
-      })
-    }else{
-      setMessage("Password must be at least 8 charachters")
-    }
-  }else{
-    setMessage("Email must be example@example.com")
-  }
-    
-    }else {
-        setMessage("Fill all the blank please")
+      } else {
+        setMessage("Email must be example@example.com");
       }
+    } else {
+      setMessage("Fill all the blank please");
+    }
   };
 
   return (
