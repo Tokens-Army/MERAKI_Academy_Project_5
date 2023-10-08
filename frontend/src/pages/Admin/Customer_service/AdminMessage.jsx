@@ -1,8 +1,15 @@
 import React, { useEffect, useState } from "react";
 import socketInit from "../../../service/api/socket_server";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import Divider from "@mui/material/Divider";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import Avatar from "@mui/material/Avatar";
+import Typography from "@mui/material/Typography";
 
 import { useSelector, useDispatch } from "react-redux";
-import { Avatar, Button } from "@mui/material";
+import { Button, ListItemButton } from "@mui/material";
 import Messages from "../../Contactus/Messages";
 import axios from "axios";
 const AdminMessage = () => {
@@ -44,32 +51,62 @@ const AdminMessage = () => {
   }, []);
 
   return (
-    <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-      <div>
-        <Button
-          onClick={() => {
-            setSocket(socketInit({ user_id, token }));
-          }}
-        >
-          Connect
-        </Button>
-        {allUsers &&
-          allUsers.map((user) => {
-            return (
-              <div key={user.id}>
-                <Avatar
-                  onClick={() => {
-                    setUser(user);
-                    setSocket(socketInit({ user_id, token }));
-                  }}
-                >
-                  {user.firstname[0]}
-                </Avatar>{" "}
-                {user.firstname} {user.lastname}
-              </div>
-            );
-          })}
-      </div>
+    <div style={{ display: "flex", gap: "3vw" }}>
+      <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
+        <div style={{ alignSelf: "center" }}>
+          <ListItem>
+            <ListItemButton>
+              <h3>All Registerd User</h3>
+            </ListItemButton>
+          </ListItem>
+          {allUsers &&
+            allUsers.map((user) => {
+              return (
+                <>
+                  <ListItem
+                    key={user.id}
+                    onClick={() => {
+                      setUser(user);
+                      setSocket(socketInit({ user_id, token }));
+                    }}
+                  >
+                    <ListItemButton>
+                      <ListItemAvatar>
+                        <Avatar sx={{ bgcolor: "#03a9f4" }}>
+                          {user.firstname[0]}
+                        </Avatar>
+                      </ListItemAvatar>
+                      <ListItemText
+                        primary={`${user.firstname} ${user.lastname}`}
+                        style={{ color: "blue" }}
+                      />
+                    </ListItemButton>
+                  </ListItem>
+                  <Divider variant="inset" component="li" />
+                </>
+
+                // <div
+                //   key={user.id}
+                //   style={{
+                //     width: "20vw",
+                //     display: "flex",
+                //     alignItems: "center",
+                //     gap: "1vw",
+                //   }}
+                //   onClick={() => {
+                //     setUser(user);
+                //     setSocket(socketInit({ user_id, token }));
+                //   }}
+                // >
+                //   <Avatar>{user.firstname[0]}</Avatar>{" "}
+                //   <p style={{ color: "blue", cursor: "pointer" }}>
+                //     {user.firstname} {user.lastname}
+                //   </p>
+                // </div>
+              );
+            })}
+        </div>
+      </List>
       {isConnected ? (
         <Messages
           socket={socket}
@@ -80,7 +117,7 @@ const AdminMessage = () => {
           user={user}
         />
       ) : (
-        <div>wlecomeee</div>
+        <div></div>
       )}
     </div>
   );
