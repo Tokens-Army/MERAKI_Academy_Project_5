@@ -56,7 +56,7 @@ const Register = () => {
       firstName: decoded.given_name,
       lastName: decoded.family_name,
       email: decoded.email,
-      password: decoded.jti,
+      password: decoded.sub,
     };
     const { firstName, lastName, email, password } = userData;
     axios
@@ -64,8 +64,9 @@ const Register = () => {
         email,
         password,
       })
-      .then((loginResult) => {
-        if (loginResult.data) {
+      .then( async (loginResult) => {
+        if (loginResult.data.success) {
+          console.log(loginResult);
           dispatch(setLogin(loginResult.data.token));
           dispatch(setUserId(loginResult.data.userId));
           dispatch(setRoleId(loginResult.data.roleId));
@@ -75,12 +76,15 @@ const Register = () => {
             navigate("/");
           }
         } else {
-          registerHandler(firstName, lastName, email, password);
+          console.log(loginResult);
+          // const reg = await registerHandler(userData);
         }
       })
       .catch((err) => {
-        if (err.response && err.response.data.message === "User does not exist") {
-          registerHandler(firstName, lastName, email, password);
+        console.log(err);
+        if (err.response && err.response.data.message ===`The email doesn’t exist`) {
+          console.log(err.response.data );
+          registerHandler(userData);
         } else {
           setMessage("Error happened while Login, please try again");
         }
@@ -88,7 +92,12 @@ const Register = () => {
   };
 
   // sign up button function
-  const registerHandler = () => {
+  const registerHandler = (userData={}) => {
+    if (userData!==null)
+    {
+      const { firstName, lastName, email, password } = userData;
+    }
+    console.log(firstName,lastName,password,email);
     if (firstName && lastName && email && password)
     {if (email.includes("@gmail.com")||email.includes("@yahoo.com")||email.includes("@hotmail.com")||email.includes("@outlook.com"))
     {if (password.length>=8)
@@ -101,7 +110,6 @@ const Register = () => {
         role_id: 1,
       })
       .then((result) => {
-        console.log(result.data);
         if (result.data) {
           setMessage("");
           axios
@@ -122,7 +130,6 @@ const Register = () => {
               }
             })
             .catch((err) => {
-              console.log(err);
               setMessage("Error happened while Login, please try again");
             });
         }
@@ -131,12 +138,10 @@ const Register = () => {
         if (err.response && err.response.data) {
           return setMessage(err.response.data.message);
         }
-        setMessage("Error happened while Login, please try again");
-        console.log(err);
-      
+        setMessage("Error happened while Login, please try again");      
       })
     }else{
-      setMessage("Password must be at least 8 charachters")
+      setMessage("Password must be at least 8 characters")
     }
   }else{
     setMessage("Email must be example@example.com")

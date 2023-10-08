@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Card, CardContent, Typography, Button, Box } from "@mui/material";
+import { Card, CardContent, CardMedia, Typography, Button, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-  
+
 const Cart = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [cart, setCart] = useState({});
-  const total_priceAll = useSelector((state)=>state.order.total_price)
-  const totalCash = useSelector(state=>state.order.totalCash)
+  const total_priceAll = useSelector((state) => state.order.total_price);
+  const totalCash = useSelector((state) => state.order.totalCash);
   const token = useSelector((state) => {
     return state.login.token;
   });
 
   const order = useSelector((state) => state.order.order);
-  console.log(order);
 
   useEffect(() => {
     axios
@@ -25,6 +24,7 @@ const Cart = () => {
         },
       })
       .then((response) => {
+        console.log(response);
         setCart(response.data);
       })
       .catch((error) => console.error(error));
@@ -75,6 +75,27 @@ const Cart = () => {
         <Typography variant="h4" component="div" gutterBottom>
           Your Cart
         </Typography>
+        {cart.employee ? (
+          <CardContent>
+            <Typography variant="h6" component="div">
+              Employee: {cart.employee.name}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              Phone Number: {cart.employee.phonenum}
+            </Typography>
+            <CardMedia
+              component="div"
+              sx={{
+                padding: "2%",
+              }}
+              image={cart.employee.img}
+            />
+          </CardContent>
+        ) : (
+          <Typography variant="body2" color="text.secondary">
+            No employee assigned yet
+          </Typography>
+        )}
         {cart.order && (
           <Card elevation={0}>
             <CardContent>
@@ -102,10 +123,9 @@ const Cart = () => {
           ))}
         <Typography variant="h6" component="div" gutterBottom>
           Total Price: {totalPrice}
-          
         </Typography>
-        <Button variant="contained" onClick={() => navigate("/")}>
-          Checkout
+        <Button variant="contained" onClick={() => navigate("/contactus")}>
+          Contact Us
         </Button>
         <Button
           variant="contained"
