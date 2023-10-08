@@ -31,7 +31,6 @@ const Cart = () => {
         },
       })
       .then((response) => {
-        console.log(response);
         setCart(response.data);
       })
       .catch((error) => console.error(error));
@@ -59,76 +58,92 @@ const Cart = () => {
   }
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh",
-        backgroundColor: "#f5f5f5",
-      }}
-    >
+    <div style={{minHeight: "80%"}}>
       <Box
         sx={{
-          width: "80%",
-          boxShadow: "0px 10px 20px rgba(0,0,0,0.1)",
-          backgroundColor: "#fff",
-          borderRadius: "10px",
-          overflow: "hidden",
-          p: 2,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+          backgroundColor: "#f5f5f5",
         }}
       >
-        <Typography variant="h4" component="div" gutterBottom>
-          Your Cart
-        </Typography>
-        {cart.employee ? (
-          <CardContent>
-            <Typography variant="h6" component="div">
-              Employee: {cart.employee.name}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Phone Number: {cart.employee.phonenum}
-            </Typography>
-            <CardMedia
-              component="div"
-              sx={{
-                padding: "2%",
-              }}
-              image={cart.employee.img}
-            />
-          </CardContent>
-        ) : (
-          <Typography variant="body2" color="text.secondary">
-            No employee assigned yet
+        <Box
+          className="CARDS"
+          sx={{
+            width: "80%",
+            boxShadow: "0px 10px 20px rgba(0,0,0,0.1)",
+            transition: "0.3s",
+            backgroundColor: "#fff",
+            borderRadius: "10px",
+            overflow: "hidden",
+            p: 2,
+          }}
+        >
+          <Typography variant="h4" component="div" gutterBottom>
+            Your Cart
           </Typography>
-        )}
-        {cart.order && (
-          <Card elevation={0}>
+          {cart.employee ? (
             <CardContent>
-              <Typography variant="h5" component="div">
-                Service Name: {cart.order.service_name}
+              <img src={cart.employee.img}/>
+              <Typography variant="h6" component="div">
+                Employee: {cart.employee.name}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                Price: {cart.order.service_price}
+                Phone Number: {cart.employee.phonenum}
               </Typography>
             </CardContent>
-          </Card>
-        )}
-        {cart.accessories &&
-          cart.accessories.map((accessory) => (
-            <Card key={accessory.name} elevation={0}>
+          ) : (
+            <Typography variant="body2" color="text.secondary">
+              No employee assigned yet
+            </Typography>
+          )}
+          {cart.order && (
+            <Card elevation={0}>
               <CardContent>
                 <Typography variant="h5" component="div">
-                  Accessory Name: {accessory.accessory_name}
+                  Service Name: {cart.order.service_name}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Price: {accessory.accessory_price}
+                  Price: {cart.order.service_price}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Delivery: 2 JDs
                 </Typography>
               </CardContent>
             </Card>
+          )}
+          {cart.accessories &&
+            cart.accessories.map((accessory) => (
+              <Card key={accessory.name} elevation={0}>
+                <CardContent>
+                  <Typography variant="h5" component="div">
+                    Accessory Name: {accessory.accessory_name}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Price: {accessory.accessory_price}
+                  </Typography>
+                </CardContent>
+              </Card>
+            ))}
+          <Typography variant="h6" component="div" gutterBottom>
+            Total Price: {totalPrice}
+          </Typography>
+          <Button variant="contained" onClick={() => navigate("/contactus")}>
+            Contact Us
+          </Button>
+          <Button
+            variant="contained"
+            sx={{ ml: 1 }}
+            onClick={() => handleDeleteOrder(order.id)}
+          >
+            Delete Order
+          </Button>
+        </Box>
           ))}
         <Typography variant="h6" component="div" gutterBottom>
+          Total Price: {totalPrice+2}
           Total Price: {totalPrice}
         </Typography>
         <Button variant="contained" onClick={() => navigate("/contact-us")}>
@@ -142,7 +157,7 @@ const Cart = () => {
           Delete Order
         </Button>
       </Box>
-    </Box>
+    </div>
   );
 };
 

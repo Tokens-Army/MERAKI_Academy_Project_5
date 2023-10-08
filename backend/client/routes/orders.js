@@ -10,7 +10,8 @@ const {
   getAllEmployees,
   addEmployeeToOrder,
   countPendingOrders,
-  addTotalPrice
+  addTotalPrice,
+  getOrderDetailsById
 } = require("../controllers/orders");
 const authentication = require("../middlewares/authentication");
 const authorization = require("../middlewares/authorization");
@@ -43,4 +44,6 @@ ordersRouter.put("/addemployees/:id/:employee_id/",addEmployeeToOrder)
 ordersRouter.get("/pendingorders/count",countPendingOrders)
 
 ordersRouter.post("/total_price/:order_id",addTotalPrice)
+
+ordersRouter.get("/orderDetails/:id",getOrderDetailsById)
 module.exports = ordersRouter;

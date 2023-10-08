@@ -31,7 +31,7 @@ const getMyOrders = async (req, res) => {
     const { order_id } = req.params;
     const { userId } = req.token;
     const orders = await pool.query(
-      `select O.user_id,S.name AS service_name , S.img AS service_img, S.price AS service_price, O.order_status,O.location ,O.scheduled_time from orders O inner join services S on O.service_id = S.id  where O.user_id = $1 and order_status='pending' and O.is_deleted=0 and o.id=$2;`,
+      `select O.user_id,S.name AS service_name , S.img AS service_img, S.price AS service_price, O.order_status,O.location ,O.scheduled_time from orders O inner join services S on O.service_id = S.id  where O.user_id = $1 and O.is_deleted=0 and o.id=$2;`,
       [userId, order_id]
     );
     const accessories = await pool.query(
@@ -158,7 +158,7 @@ const addLocationToOrder = (req, res) => {
 
 const getAllOrders = (req, res) => {
   pool
-    .query(`SELECT * FROM orders WHERE is_deleted = 0;`)
+    .query(`SELECT * FROM orders WHERE is_deleted = 0`)
     .then((result) => {
       res.status(200).json({
         success: true,
@@ -262,6 +262,26 @@ const addTotalPrice = (req,res)=>{
     })
 }
 
+const getOrderDetailsById = (req,res)=>{
+  const {id}=req.params
+  const array = [id]
+  const query = ` select U.firstName,U.lastName,O.id, O.created_at, O.user_id,S.name AS service_name , S.img AS service_img, S.price AS service_price, O.order_status,O.location ,O.scheduled_time,A.name As accessory_name, A.img As accessory_img , A.price As accessory_price,A.id As accessory_id from orders O inner join services S on O.service_id = S.id inner join order_accessories OA on OA.order_id=O.id inner join accessories A on OA.accessories_id=A.id inner join users U on O.user_id = U.id where O.id=$1`
+  pool.query(query,array)
+  .then((results)=>{
+    res.status(200).json({
+      success:true,
+      message:"Here is the details of this order",
+      Details:results.rows
+    })
+  })
+  .catch((err)=>{
+    res.status(500).json({
+      success:false,
+      message:"Server Error , Kindly try again later",
+      error : err
+    })
+  })
+}
 module.exports = {
   createOrderById,
   getMyOrders,
@@ -273,5 +293,6 @@ module.exports = {
   getAllEmployees,
   addEmployeeToOrder,
   countPendingOrders,
-  addTotalPrice
+  addTotalPrice,
+  getOrderDetailsById
 };

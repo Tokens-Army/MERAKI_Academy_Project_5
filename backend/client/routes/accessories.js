@@ -8,7 +8,7 @@ const authorization = require("../middlewares/authorization");
 const accessoriesRouter = express.Router();
 accessoriesRouter.post("/",authentication,authorization("CREATE_ACCESSORY"),createNewAccessories)
 accessoriesRouter.get("/",getAllAccessories)
-accessoriesRouter.delete("/:id",authentication,authorization("CREATE_ACCESSORY"),deleteAccessoryById)
 accessoriesRouter.put("/:id",authentication,authorization("CREATE_ACCESSORY"), updateAccessoryById)
+accessoriesRouter.delete("/:id",authentication,authorization("CREATE_ACCESSORY"),deleteAccessoryById)
 
 module.exports = accessoriesRouter;

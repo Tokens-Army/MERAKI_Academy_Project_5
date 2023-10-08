@@ -23,8 +23,9 @@ const Home = () => {
     return state.login.token;
   });
   const navigate = useNavigate();
+
   return (
-    <div>
+    <div style={{ minHeight: "80%" }}>
       <ThemeProvider theme={defaultTheme}>
         <CssBaseline />
         <main>
@@ -37,16 +38,20 @@ const Home = () => {
                       return (
                         <Grid item key={service.id} xs={12} sm={6} md={6}>
                           <Card
+                            className="CARDS"
                             sx={{
                               height: "100%",
                               display: "flex",
                               flexDirection: "column",
+                              boxShadow: "0px 10px 20px rgba(0,0,0,0.1)",
+                              borderRadius: "10px",
+                              transition: "0.3s",
+                              p: 2,
                             }}
                           >
                             <CardMedia
                               component="div"
                               sx={{
-                                // 16:9
                                 pt: "56.25%",
                               }}
                               image={service.img}
@@ -64,6 +69,7 @@ const Home = () => {
                                 component="h2"
                                 variant="h3"
                                 color="grey"
+                                mt="1%"
                               >
                                 {service.price}JD
                               </Typography>
@@ -71,12 +77,13 @@ const Home = () => {
                             <CardActions>
                               <Button
                                 size="large"
-                                style={{ left: "40%" }}
+                                style={{ left: "37%" }}
+                                variant="contained"
                                 onClick={() => {
                                   axios
                                     .post(
                                       `http://localhost:5000/orders/${service.id}`,
-                                      {total_price:service.price},
+                                      { total_price: service.price },
                                       {
                                         headers: {
                                           Authorization: `Bearer ${token}`,
@@ -122,4 +129,5 @@ export const serviceLoader = async () => {
   });
   return { result };
 };
+
 export default Home;

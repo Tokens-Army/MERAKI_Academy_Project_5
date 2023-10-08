@@ -32,8 +32,6 @@ const Copyright = (props) => {
   );
 };
 
-// TODO remove, this demo shouldn't need to reset the theme.
-
 const defaultTheme = createTheme();
 
 const Login = () => {
@@ -82,8 +80,7 @@ const Login = () => {
           md={7}
           sx={{
             backgroundImage:
-              "url(https://source.unsplash.com/random?wallpapers)",
-            backgroundRepeat: "no-repeat",
+              "url(https://source.unsplash.com/random?car-washing)",
             backgroundColor: (t) =>
               t.palette.mode === "light"
                 ? t.palette.grey[50]

@@ -29,6 +29,7 @@ const ContactUs = () => {
     };
   }, [socket]);
   return (
+
     <div>
       {!isConnected && (
         <div
@@ -81,6 +82,15 @@ const ContactUs = () => {
           </div>
         </div>
       )}
+
+    <div style={{minHeight: "80%"}}>
+      <button
+        onClick={() => {
+          setSocket(socketInit({ user_id, token }));
+        }}
+      >
+        Talk with Customer Service
+      </button>
       {isConnected && (
         <div style={{ display: "flex", justifyContent: "center" }}>
           <Messages
