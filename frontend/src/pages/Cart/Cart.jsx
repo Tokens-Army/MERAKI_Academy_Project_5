@@ -97,11 +97,14 @@ const Cart = () => {
                 <Typography variant="body2" color="text.secondary">
                   Price: {accessory.accessory_price}
                 </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Delivery: 2 JDs
+                </Typography>
               </CardContent>
             </Card>
           ))}
         <Typography variant="h6" component="div" gutterBottom>
-          Total Price: {totalPrice}
+          Total Price: {totalPrice+2}
           
         </Typography>
         <Button variant="contained" onClick={() => navigate("/")}>

@@ -55,12 +55,12 @@ function Deposits() {
           $3,024.00
         </Typography>
         <Typography color="text.secondary" sx={{ flex: 1 }}>
-          on 15 March, 2019
+          on 1st Oct, 2023
         </Typography>
         <div>
-          <Link color="primary" href="#" onClick={preventDefaults}>
+          <a href='http://localhost:5173/admin/ordersadmin'>
             View balance
-          </Link>
+          </a>
         </div>
       </React.Fragment>
     );
@@ -136,11 +136,10 @@ function createData(time, amount) {
 const Mainadmincomponent = () => {
     const navigate = useNavigate()
     const token = useSelector((state)=>state.login.token)
-    const totalCash = useSelector((state=>state.order.totalCash))
     const count = useSelector((state)=>state.main.data)
     const orders = useSelector((state)=>state.main.orders)
     const theme = useTheme();
-    console.log(totalCash);
+    
     const [open, setOpen] = React.useState(true);
     const toggleDrawer = () => {
         setOpen(!open);
@@ -188,8 +187,8 @@ const Mainadmincomponent = () => {
                     <TableCell>{order.created_at}</TableCell>
                     <TableCell>{order.user_id}</TableCell>
                     <TableCell>{order.order_status}</TableCell>
-                    <TableCell>{order.scheduled_time}</TableCell>
-                    <TableCell align="right">{`${order.employee_id}`}</TableCell>
+                    {order.scheduled_time?<TableCell>{order.scheduled_time}</TableCell>:<TableCell>Not scheduled</TableCell>}
+                    {order.employee_id?<TableCell align="right">{`${order.employee_id}`}</TableCell>:<a align="rigth" className='addEmpolyeebtn' href='http://localhost:5173/admin/employeesadmin' >Add Employee</a>}
                   </TableRow>
                 ))}
               </TableBody>
