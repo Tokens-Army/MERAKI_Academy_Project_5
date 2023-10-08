@@ -111,7 +111,7 @@ CREATE TABLE orders(
   PRIMARY KEY (id)
 );
 
-CREATE TABLE order_accessories (
+CREATE TABLE     (
   id SERIAL NOT NULL,
   order_id INT,
   accessories_id INT,
