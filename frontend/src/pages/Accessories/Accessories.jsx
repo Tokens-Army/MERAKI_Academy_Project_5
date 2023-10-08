@@ -2,7 +2,6 @@ import React, { useState, useEffect, Suspense } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./Accessories.css";
-// import { Card } from "react-bootstrap";
 import { Await, useLoaderData } from "react-router-dom";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
@@ -38,7 +37,7 @@ const Accessories = () => {
   const { result } = useLoaderData();
   const navigate = useNavigate();
   return (
-    <div>
+    <div style={{ minHeight: "80%" }}>
       <Stack spacing={2} sx={{ width: "10%" }}>
         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
           <Alert
@@ -65,16 +64,20 @@ const Accessories = () => {
                       return (
                         <Grid item key={accessory.id} xs={12} sm={6} md={6}>
                           <Card
+                            className="CARDS"
                             sx={{
                               height: "100%",
                               display: "flex",
                               flexDirection: "column",
+                              boxShadow: "0px 10px 20px rgba(0,0,0,0.1)",
+                              transition: "0.3s",
+                              borderRadius: "10px",
+                              p: 2,
                             }}
                           >
                             <CardMedia
                               component="div"
                               sx={{
-                                // 16:9
                                 pt: "56.25%",
                               }}
                               image={accessory.img}
@@ -99,14 +102,14 @@ const Accessories = () => {
                             <CardActions>
                               <Button
                                 size="large"
-                                style={{ left: "40%" }}
+                                variant="contained"
+                                style={{ left: "37%" }}
                                 onClick={() => {
                                   axios
                                     .post(
                                       `http://localhost:5000/orders/${order.id}/${accessory.id}`
                                     )
                                     .then((result) => {
-                                      console.log(result);
                                       setOpen(true);
                                     })
                                     .catch((err) => {
@@ -129,6 +132,8 @@ const Accessories = () => {
         </main>
       </ThemeProvider>
       <Button
+        sx={{ mb: "1%" }}
+        variant="contained"
         onClick={() => {
           navigate("/scheduleorder");
         }}
@@ -143,7 +148,6 @@ export const accessoriesLoader = async () => {
   const result = axios
     .get("http://localhost:5000/accessories")
     .then((result) => {
-      // console.log(result.data.result);
       return result.data.result;
     })
     .catch((err) => {

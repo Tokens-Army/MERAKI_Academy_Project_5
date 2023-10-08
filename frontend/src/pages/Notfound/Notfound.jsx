@@ -3,10 +3,10 @@ import { NavLink } from "react-router-dom";
 
 const Notfound = () => {
   return (
-    <>
-      <div>Notfound</div>
+    <div>
+      <p>Notfound</p>
       back to <NavLink to="/">Home</NavLink>
-    </>
+    </div>
   );
 };
 

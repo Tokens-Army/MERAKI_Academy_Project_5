@@ -29,7 +29,7 @@ const ContactUs = () => {
     };
   }, [socket]);
   return (
-    <div>
+    <div style={{minHeight: "80%"}}>
       <button
         onClick={() => {
           setSocket(socketInit({ user_id, token }));
