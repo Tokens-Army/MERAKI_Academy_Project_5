@@ -82,55 +82,53 @@ const Messages = ({ socket, user_id, admin, user }) => {
                 {allMessages.length > 0 &&
                   allMessages.map((message) => {
                     return (
-                      <>
-                        <div key={message.id}>
-                          <div
-                            className="media-body"
+                      <div key={message.createdAt}>
+                        <div
+                          className="media-body"
+                          style={
+                            Number(user_id) == message.from
+                              ? {
+                                  display: "flex",
+                                  justifyContent: "start",
+                                }
+                              : {
+                                  display: "flex",
+                                  justifyContent: "end",
+                                }
+                          }
+                        >
+                          <p
                             style={
                               Number(user_id) == message.from
                                 ? {
-                                    display: "flex",
-                                    justifyContent: "start",
+                                    backgroundColor: "#3f51b5",
+                                    padding: "10px",
+                                    borderRadius: "15%",
+                                    color: "white",
                                   }
                                 : {
-                                    display: "flex",
-                                    justifyContent: "end",
+                                    backgroundColor: "#818181",
+                                    padding: "10px",
+                                    borderRadius: "15%",
+                                    color: "white",
                                   }
                             }
                           >
-                            <p
-                              style={
-                                Number(user_id) == message.from
-                                  ? {
-                                      backgroundColor: "#3f51b5",
-                                      padding: "10px",
-                                      borderRadius: "15%",
-                                      color: "white",
-                                    }
-                                  : {
-                                      backgroundColor: "#818181",
-                                      padding: "10px",
-                                      borderRadius: "15%",
-                                      color: "white",
-                                    }
-                              }
-                            >
-                              {message.message} {""}
-                              {message.createdAt ? (
-                                <time style={{ fontSize: "10px" }}>
-                                  {new Date(message.createdAt).getHours()}:
-                                  {new Date(message.createdAt).getMinutes()}
-                                </time>
-                              ) : (
-                                <time style={{ fontSize: "10px" }}>
-                                  {new Date().getHours()}:
-                                  {new Date().getMinutes()}
-                                </time>
-                              )}
-                            </p>
-                          </div>
+                            {message.message} {""}
+                            {message.createdAt ? (
+                              <time style={{ fontSize: "10px" }}>
+                                {new Date(message.createdAt).getHours()}:
+                                {new Date(message.createdAt).getMinutes()}
+                              </time>
+                            ) : (
+                              <time style={{ fontSize: "10px" }}>
+                                {new Date().getHours()}:
+                                {new Date().getMinutes()}
+                              </time>
+                            )}
+                          </p>
                         </div>
-                      </>
+                      </div>
                     );
                   })}
                 <div className="media media-chat media-chat-reverse"></div>
