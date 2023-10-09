@@ -159,7 +159,7 @@ const Mainadmincomponent = () => {
         })
     },[])   
     useEffect(()=>{
-      axios.get("http://localhost:5000/orders")
+      axios.get("http://localhost:5000/orders/last/5orders")
       .then((results)=>{
           dispatch(setOrders(results.data.orders))
       })
@@ -187,7 +187,7 @@ const Mainadmincomponent = () => {
                     <TableCell>{order.user_id}</TableCell>
                     <TableCell>{order.order_status}</TableCell>
                      {order.scheduled_time?<TableCell>{order.scheduled_time}</TableCell>:<TableCell>Not scheduled</TableCell>}
-                    {order.employee_id?<TableCell align="right">{`${order.employee_id}`}</TableCell>:<a align="rigth" className='addEmpolyeebtn' href='http://localhost:5173/admin/employeesadmin' >Add Employee</a>}
+                    {order.employee_id?<TableCell align="right">{`${order.employee_id}`}</TableCell>:<TableCell align="right" className='addEmpolyeebtn' href='http://localhost:5173/admin/employeesadmin' >Add Employee</TableCell>}
                   </TableRow>
                 ))}
               </TableBody>
@@ -225,7 +225,7 @@ const Mainadmincomponent = () => {
                 margin={{
                     top: 16,
                   right: 16,
-                  bottom: 0,
+                  // bottom: 10,
                   left: 24,
                 }}
               >
@@ -233,7 +233,20 @@ const Mainadmincomponent = () => {
                   dataKey="time"
                   stroke={theme.palette.text.secondary}
                   style={theme.typography.body2}
-                  />
+                  // className='xaxis'
+                  >
+                    <Label
+                    position="middle"
+                    style={{
+                      textAnchor: 'middle',
+                      fill: theme.palette.text.primary,
+                      ...theme.typography.body1,
+                    }}
+                  >
+                    Orders
+                  </Label>
+
+                  </XAxis>
                 <YAxis
                   stroke={theme.palette.text.secondary}
                   style={theme.typography.body2}
@@ -268,17 +281,17 @@ const Mainadmincomponent = () => {
          <div className='acceptedOrdersCount'>
             <img className='usersCountImg' src='https://static.prod01.ue1.p.pcomm.net/blackbaud/user_content/photos/000/006/6783/a6132a5cd55abcae190bc82567ca8a47-original-users.png'/>
             <img className='fireImg' src='https://media.istockphoto.com/id/1323529010/vector/fire-vector-isolated.jpg?s=612x612&w=0&k=20&c=ta6bKkXZDuqy2H3tRhR79sSl_-fdGhKyoenbbjEr3l0='/>
-            {count&&<div className='allCount'>{count?.usersCount[0]?.count}</div>}
+            {/* {count&&<div className='allCount'>{count?.usersCount[0]?.count}</div>} */}
             </div>
             <div>
             <img className='pendingOrderImg' src='https://c.mql5.com/31/28/pending-order-placer-logo-200x200-6150.png'/><br/>
             <img className='fireImg' src='https://media.istockphoto.com/id/1323529010/vector/fire-vector-isolated.jpg?s=612x612&w=0&k=20&c=ta6bKkXZDuqy2H3tRhR79sSl_-fdGhKyoenbbjEr3l0='/>
-        {count&&<div className='allCount'>{count?.pendingOrdersCount[0]?.count}</div>}
+        {/* {count&&<div className='allCount'>{count?.pendingOrdersCount[0]?.count}</div>} */}
             </div>
             <div>
             <img className='acceptedOrdersImg' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrtGGZ9vU5VYVNiHM9Cle6cUT9KBRvHK7quQ&usqp=CAU'/><br/>
             <img className='fireImg' src='https://media.istockphoto.com/id/1323529010/vector/fire-vector-isolated.jpg?s=612x612&w=0&k=20&c=ta6bKkXZDuqy2H3tRhR79sSl_-fdGhKyoenbbjEr3l0='/>
-         {count&&<div className='allCount'>{count?.acceptedOrdersCount[0]?.count}</div>}
+         {/* {count&&<div className='allCount'>{count?.acceptedOrdersCount[0]?.count}</div>} */}
             </div>
         </div>
     <ThemeProvider theme={defaultTheme}>

@@ -158,7 +158,7 @@ const addLocationToOrder = (req, res) => {
 
 const getAllOrders = (req, res) => {
   pool
-    .query(`SELECT * FROM orders WHERE is_deleted = 0`)
+    .query(`SELECT * FROM orders ORDER BY id DESC LIMIT 20`)
     .then((result) => {
       res.status(200).json({
         success: true,
@@ -227,7 +227,7 @@ const countPendingOrders = (req, res) => {
       res.status(200).json({
         success: true,
         pendingOrdersCount: results[0].rows,
-        usersCount: results[1].rows,
+        usersCogetLast5Ordersunt: results[1].rows,
         acceptedOrdersCount: results[2].rows,
         message: "Here are all your pending orders",
       });
@@ -262,6 +262,24 @@ const addTotalPrice = (req,res)=>{
     })
 }
 
+const getLast5Orders = (req,res)=>{
+  pool.query(`SELECT * FROM orders ORDER BY id DESC LIMIT 5;`)
+  .then((results)=>{
+    res.status(200).json({
+      success: true,
+      message:"Here are the last 5 orders",
+      orders : results.rows
+    })
+  })
+  .catch((err)=>{
+    res.status(500).json({
+      success:false,
+      message:"Server Error kindly try again later",
+      error:err
+    })
+  })
+}
+
 const getOrderDetailsById = (req,res)=>{
   const {id}=req.params
   const array = [id]
@@ -294,5 +312,6 @@ module.exports = {
   addEmployeeToOrder,
   countPendingOrders,
   addTotalPrice,
-  getOrderDetailsById
+  getOrderDetailsById,
+  getLast5Orders
 };

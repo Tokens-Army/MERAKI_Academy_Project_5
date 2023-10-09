@@ -120,14 +120,24 @@ const AddAccessories = () => {
               <TableCell>
                 <Button
                   onClick={() => {
-                    dispatch(
-                      addAccessory({
-                        name: accessoryName,
-                        description: accessoryDesc,
-                        img: accessoryImg,
-                        price: accessoryPrice,
+                    if (!accessoryName||!accessoryImg||!accessoryDesc||!accessoryPrice){
+                      console.log("Kindly fill all the fields");
+                      <div>Fill all the fields please</div>
+                    }else{
+                      dispatch(addAccessory({name : accessoryName,img : accessoryImg,description : accessoryDesc,price : accessoryPrice}))
+                      axios.post("http://localhost:5000/accessories",{name:accessoryName, img: accessoryImg,description :accessoryDesc ,price :accessoryPrice},
+                      {
+                        headers: {
+                          Authorization: `Bearer ${token}`,
+                        },
                       })
-                    );
+                      .then((results)=>{
+                        <>Accessory added successfully</>
+                      })
+                      .catch((err)=>{
+                        console.log(err);
+                      })
+                    }
                     setAccessoryName("");
                     setAccessoryDesc("");
                     setAccessoryImg("");
@@ -195,7 +205,7 @@ const AddAccessories = () => {
                             variant="h6"
                             component="h2"
                           >
-                            Update {accessoryName} accessory
+                            Update  accessory
                             <input
                               className="updateAccessoryInputs"
                               placeholder="New name"
@@ -240,6 +250,8 @@ const AddAccessories = () => {
                                     }
                                   )
                                   .then((results) => {
+                                    console.log(accessoryName);
+                                    console.log(results.data.accessories);
                                     dispatch(
                                       updateAccessory(
                                         results.data.accessories[0]

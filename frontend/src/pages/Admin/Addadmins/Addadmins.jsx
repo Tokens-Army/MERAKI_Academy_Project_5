@@ -91,7 +91,7 @@ const Addadmins = () => {
           <Box
             component="form"
             sx={{ mt: 3 }}
-          >
+            >
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -103,7 +103,7 @@ const Addadmins = () => {
                   label="First Name"
                   autoFocus
                   onChange={(e) => setFirstName(e.target.value)}
-                />
+                  />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -114,7 +114,7 @@ const Addadmins = () => {
                   name="lastName"
                   autoComplete="family-name"
                   onChange={(e) => setLastName(e.target.value)}
-                />
+                  />
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -125,7 +125,7 @@ const Addadmins = () => {
                   name="email"
                   autoComplete="email"
                   onChange={(e) => setEmail(e.target.value)}
-                />
+                  />
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -149,7 +149,7 @@ const Addadmins = () => {
                   id="Con-password"
                   autoComplete="new-password"
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                />
+                  />
               </Grid>
             </Grid>
             {status
@@ -166,14 +166,14 @@ const Addadmins = () => {
             <Grid container justifyContent="flex-end">
               <Grid container>
               <Typography>
-                Already have an account?
-                <Link to="/login" variant="body2"> Sign in</Link>
+                Want to delete an admin?
+                <Link to="/admin/deleteadmins" variant="body2">  Delete Admin</Link>
               </Typography>
               </Grid>
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
+        <Copyright sx={{ mt: 2 }} />
       </Container>
     </ThemeProvider>
   );

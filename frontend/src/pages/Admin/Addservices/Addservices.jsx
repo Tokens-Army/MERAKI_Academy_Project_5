@@ -57,7 +57,7 @@
 //             Authorization: `Bearer ${token}`,
 //           },
 //         })
-//         .then((results)=>{
+//         .then((results)=>{addAccessory
 //           <>Service added successfully</>
 //         })
 //         .catch((err)=>{
@@ -123,14 +123,14 @@ const style = {
 
 const AddServices = () => {
 
-  const [open, setOpen] = useState(false);
-  const [deleteOpen, setDeleteOpen] = useState(false);
   const [id, setId] = useState(0);
   const [serviceName, setServiceName] = useState("");
   const [serviceDesc, setServiceDesc] = useState("");
   const [serviceImg, setServiceImg] = useState("");
   const [servicePrice, setServicePrice] = useState(0);
-
+  
+  const [deleteOpen, setDeleteOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
   const handleDeleteClose = () => setDeleteOpen(false);
 
@@ -280,7 +280,7 @@ const AddServices = () => {
                     >
                       <DeleteForeverIcon style={{ color: "red" }} />
                     </Button>
-                    <Modal
+                    {id === service.id&&<Modal
                       open={open}
                       onClose={() => setOpen(false)}
                       aria-labelledby="modal-modal-title"
@@ -349,8 +349,8 @@ const AddServices = () => {
                           </Button>
                         </Typography>
                       </Box>
-                    </Modal>
-                    <Modal
+                    </Modal>}
+                    {id===service.id&&<Modal
                       open={deleteOpen}
                       onClose={handleDeleteClose}
                       aria-labelledby="modal-modal-title"
@@ -388,7 +388,7 @@ const AddServices = () => {
                         </Button>
                         <Button onClick={handleDeleteClose}>No</Button>
                       </Box>
-                    </Modal>
+                    </Modal>}
                   </div>
                 </TableCell>
               </TableRow>
