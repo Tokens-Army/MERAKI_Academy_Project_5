@@ -187,7 +187,9 @@ const Mainadmincomponent = () => {
                     <TableCell>{order.user_id}</TableCell>
                     <TableCell>{order.order_status}</TableCell>
                      {order.scheduled_time?<TableCell>{order.scheduled_time}</TableCell>:<TableCell>Not scheduled</TableCell>}
-                    {order.employee_id?<TableCell align="right">{`${order.employee_id}`}</TableCell>:<TableCell align="right" className='addEmpolyeebtn' href='http://localhost:5173/admin/employeesadmin' >Add Employee</TableCell>}
+                    {order.employee_id?<TableCell align="right">{`${order.employee_id}`}</TableCell>:<TableCell align="right" className='addEmpolyeebtn' onClick={()=>{
+                      navigate("/admin/employeesadmin")
+                    }} >Add Employee</TableCell>}
                   </TableRow>
                 ))}
               </TableBody>
