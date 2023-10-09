@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import GoogleMapReact from "google-map-react";
+import { TextField } from "@mui/material";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Snackbar from "@mui/material/Snackbar";
@@ -21,7 +22,9 @@ const Location = (props) => {
     }
     setOpen(false);
   };
+
   const [myLoc, setMyLoc] = useState({ lat: 31.92425, lng: 35.917441 });
+
   const defaultProps = {
     center: {
       lat: 31.92425,
@@ -29,11 +32,13 @@ const Location = (props) => {
     },
     zoom: 11,
   };
+
   const order = useSelector((state) => {
     return state.order.order;
   });
+
   return (
-    <div style={{ height: "80vh", width: "100%" }}>
+    <div style={{ height: "100vh", width: "100%" }}>
       <Stack spacing={2} sx={{ width: "10%" }}>
         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
           <Alert
@@ -45,6 +50,7 @@ const Location = (props) => {
           </Alert>
         </Snackbar>
       </Stack>
+      <div style={{height: "90%"}}>
       <GoogleMapReact
         center={myLoc}
         defaultCenter={defaultProps.center}
@@ -57,24 +63,31 @@ const Location = (props) => {
       >
         <Marker lat={myLoc.lat} lng={myLoc.lng} text="My Marker" />
       </GoogleMapReact>
-      <label>building</label>
-      <input
-        placeholder="Building name"
+      </div>
+      <div style={{marginRight: "16%"}}>
+      <TextField
+        margin="normal"
+        id="building"
+        label="Building"
+        name="building"
         onChange={(e) => {
           setMyLoc({ ...myLoc, ...{ buildingName: e.target.value } });
           console.log(myLoc);
         }}
       />
-      <label>home</label>
-      <input
-        placeholder="Home No."
+      <TextField
+        margin="normal"
+        id="home"
+        label="Home"
+        name="home"
         onChange={(e) => {
           setMyLoc({ ...myLoc, ...{ HomeNo: e.target.value } });
           console.log(myLoc);
         }}
       />
-      <br />
+      </div>
       <Button
+        sx={{mt: 2, mr: 38}}
         variant="contained"
         onClick={() => {
           axios

@@ -17,11 +17,13 @@ import { setOrder } from "../../service/redux/orderSlice";
 const defaultTheme = createTheme();
 
 const Home = () => {
+
   const dispatch = useDispatch();
   const { result } = useLoaderData();
   const token = useSelector((state) => {
     return state.login.token;
   });
+
   const navigate = useNavigate();
 
   return (
@@ -29,14 +31,14 @@ const Home = () => {
       <ThemeProvider theme={defaultTheme}>
         <CssBaseline />
         <main>
-          <Container sx={{ py: 8 }} maxWidth="md">
-            <Grid container spacing={3}>
+          <Container sx={{ py: 3 }} maxWidth="xl">
+            <Grid container spacing={4} m>
               <Suspense fallback={<>loading......</>}>
                 <Await resolve={result} errorElement={<>error .....</>}>
                   {(result) => {
                     return result.map((service) => {
                       return (
-                        <Grid item key={service.id} xs={12} sm={6} md={6}>
+                        <Grid item key={service.id} ml={7} md={5}>
                           <Card
                             className="CARDS"
                             sx={{
@@ -77,7 +79,7 @@ const Home = () => {
                             <CardActions>
                               <Button
                                 size="large"
-                                style={{ left: "37%" }}
+                                style={{ left: "40.5%" }}
                                 variant="contained"
                                 onClick={() => {
                                   axios
