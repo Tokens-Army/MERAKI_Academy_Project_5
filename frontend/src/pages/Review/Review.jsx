@@ -30,9 +30,6 @@ const Review = () => {
         setMyOrder(result.data);
         setLocation(JSON.parse(result.data.order.location));
         setScheduleTime(new Date(result.data.order.scheduled_time));
-        // console.log(myOrder.order.service_name);
-        console.log(result.data);
-        console.log(result.data.order.service_name);
       })
       .catch((err) => {
         console.log(err);
@@ -72,14 +69,14 @@ const Review = () => {
           })}
 
         <ListItem sx={{ py: 1, px: 0 }}>
-          <ListItemText primary="shipping" />
-          <Typography variant="body2">free</Typography>
+          <ListItemText primary="Delivery" />
+          <Typography variant="body2">2 JD</Typography>
         </ListItem>
 
         <ListItem sx={{ py: 1, px: 0 }}>
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-            {totalPrice} JD
+            {totalPrice+2} JD
           </Typography>
         </ListItem>
       </List>

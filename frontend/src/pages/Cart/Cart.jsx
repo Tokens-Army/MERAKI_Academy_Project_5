@@ -10,8 +10,9 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import "./Cart.css"
 const Cart = () => {
+  const obj={}
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [cart, setCart] = useState({});
@@ -58,14 +59,17 @@ const Cart = () => {
   }
 
   return (
-    <div style={{minHeight: "80%"}}>
+    <div style={{minHeight: "80%"}} className="ddd">
+      <div></div>
       <Box
         sx={{
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          height: "100vh",
+          minHeight: "10vh",
+          maxHeight: "74vh",
+          overflow:"hidden",
           backgroundColor: "#f5f5f5",
         }}
       >
@@ -77,8 +81,9 @@ const Cart = () => {
             transition: "0.3s",
             backgroundColor: "#fff",
             borderRadius: "10px",
-            overflow: "hidden",
-            p: 2,
+            minHeight:"50vh",
+            overflowY:"scroll",
+            p: 1,
           }}
         >
           <Typography variant="h4" component="div" gutterBottom>
@@ -103,7 +108,7 @@ const Cart = () => {
             <Card elevation={0}>
               <CardContent>
                 <Typography variant="h5" component="div">
-                  Service Name: {cart.order.service_name}
+                  Service : {cart.order.service_name}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   Price: {cart.order.service_price}
@@ -114,41 +119,29 @@ const Cart = () => {
               </CardContent>
             </Card>
           )}
-          {cart.accessories &&
-            cart.accessories.map((accessory) => (
-              <Card key={accessory.name} elevation={0}>
+          Accessories:
+          <ol>
+            {
+              cart.accessories &&
+              cart.accessories.map((accessory) => (
+                <Card key={accessory.name} elevation={0}>
                 <CardContent>
                   <Typography variant="h5" component="div">
-                    Accessory Name: {accessory.accessory_name}
+                     <li className="liii">{accessory.accessory_name}</li>
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
                     Price: {accessory.accessory_price}
                   </Typography>
                 </CardContent>
               </Card>
-            ))}
-          <Typography variant="h6" component="div" gutterBottom>
-            Total Price: {totalPrice}
-          </Typography>
-          <Button variant="contained" onClick={() => navigate("/contactus")}>
-            Contact Us
-          </Button>
-          <Button
-            variant="contained"
-            sx={{ ml: 1 }}
-            onClick={() => handleDeleteOrder(order.id)}
-          >
-            Delete Order
-          </Button>
+            ))
+          }
+          </ol>
         </Box>
-          ))}
+          
         <Typography variant="h6" component="div" gutterBottom>
           Total Price: {totalPrice+2}
-          Total Price: {totalPrice}
         </Typography>
-        <Button variant="contained" onClick={() => navigate("/contact-us")}>
-          Contact Us
-        </Button>
         <Button
           variant="contained"
           sx={{ ml: 1 }}
@@ -157,6 +150,7 @@ const Cart = () => {
           Delete Order
         </Button>
       </Box>
+      <div></div>
     </div>
   );
 };
