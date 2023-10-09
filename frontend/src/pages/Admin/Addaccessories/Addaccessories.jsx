@@ -44,7 +44,6 @@ const AddAccessories = () => {
   const [accessoryImg, setAccessoryImg] = useState("");
   const [accessoryPrice, setAccessoryPrice] = useState(0);
 
-  const handleClose = () => setOpen(false);
   const handleDeleteClose = () => setDeleteOpen(false);
 
   const token = useSelector((state) => {
@@ -120,23 +119,36 @@ const AddAccessories = () => {
               <TableCell>
                 <Button
                   onClick={() => {
-                    if (!accessoryName||!accessoryImg||!accessoryDesc||!accessoryPrice){
+                    if (
+                      !accessoryName ||
+                      !accessoryImg ||
+                      !accessoryDesc ||
+                      !accessoryPrice
+                    ) {
                       console.log("Kindly fill all the fields");
-                      <div>Fill all the fields please</div>
-                    }else{
-                      dispatch(addAccessory({name : accessoryName,img : accessoryImg,description : accessoryDesc,price : accessoryPrice}))
-                      axios.post("http://localhost:5000/accessories",{name:accessoryName, img: accessoryImg,description :accessoryDesc ,price :accessoryPrice},
-                      {
-                        headers: {
-                          Authorization: `Bearer ${token}`,
-                        },
-                      })
-                      .then((results)=>{
-                        <>Accessory added successfully</>
-                      })
-                      .catch((err)=>{
-                        console.log(err);
-                      })
+                      <div>Fill all the fields please</div>;
+                    } else {
+                      axios
+                        .post(
+                          "http://localhost:5000/accessories",
+                          {
+                            name: accessoryName,
+                            img: accessoryImg,
+                            description: accessoryDesc,
+                            price: accessoryPrice,
+                          },
+                          {
+                            headers: {
+                              Authorization: `Bearer ${token}`,
+                            },
+                          }
+                        )
+                        .then((results) => {
+                          dispatch(addAccessory(results.data.result[0]));
+                        })
+                        .catch((err) => {
+                          console.log(err);
+                        });
                     }
                     setAccessoryName("");
                     setAccessoryDesc("");
@@ -205,7 +217,7 @@ const AddAccessories = () => {
                             variant="h6"
                             component="h2"
                           >
-                            Update  accessory
+                            Update accessory
                             <input
                               className="updateAccessoryInputs"
                               placeholder="New name"

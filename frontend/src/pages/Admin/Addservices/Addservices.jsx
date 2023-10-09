@@ -13,9 +13,9 @@
 //   const navigate = useNavigate()
 //   const services = useSelector((state)=>state.services.services)
 //   const token = useSelector((state)=>{
-//     return state.login.token    
+//     return state.login.token
 //   })
-  
+
 //     useEffect(()=>{
 //       axios.get("http://localhost:5000/services")
 //       .then((results)=>{
@@ -74,7 +74,7 @@
 //         <img className='serviceimgaddservicepage' src={service.img}/>
 //         <div>{service.description}</div>
 //         <div>Price {service.price} JD only</div>
-        
+
 //        </div>
 //       })}
 //     </div>
@@ -122,13 +122,12 @@ const style = {
 };
 
 const AddServices = () => {
-
   const [id, setId] = useState(0);
   const [serviceName, setServiceName] = useState("");
   const [serviceDesc, setServiceDesc] = useState("");
   const [serviceImg, setServiceImg] = useState("");
   const [servicePrice, setServicePrice] = useState(0);
-  
+
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
@@ -207,25 +206,38 @@ const AddServices = () => {
               <TableCell>
                 <Button
                   onClick={() => {
-                    if (!serviceName||!serviceImg||!serviceDesc||!servicePrice){
-                              console.log("Kindly fill all the fields");
-                              <div>Fill all the fields please</div>
-                            }else{
-                              dispatch(addServices({name : serviceName,img : serviceImg,description : serviceDesc,price : servicePrice}))
-                              axios.post("http://localhost:5000/services",{name:serviceName, img: serviceImg,description :serviceDesc ,price :servicePrice},
-                              {
-                                headers: {
-                                  Authorization: `Bearer ${token}`,
-                                },
-                              })
-                              .then((results)=>{
-                                <>Service added successfully</>
-                              })
-                              .catch((err)=>{
-                                console.log(err);
-                              })
-                            }
-                            
+                    if (
+                      !serviceName ||
+                      !serviceImg ||
+                      !serviceDesc ||
+                      !servicePrice
+                    ) {
+                      console.log("Kindly fill all the fields");
+                      <div>Fill all the fields please</div>;
+                    } else {
+                      axios
+                        .post(
+                          "http://localhost:5000/services",
+                          {
+                            name: serviceName,
+                            img: serviceImg,
+                            description: serviceDesc,
+                            price: servicePrice,
+                          },
+                          {
+                            headers: {
+                              Authorization: `Bearer ${token}`,
+                            },
+                          }
+                        )
+                        .then((results) => {
+                          dispatch(addServices(results.data.service[0]));
+                        })
+                        .catch((err) => {
+                          console.log(err);
+                        });
+                    }
+
                     setServiceName("");
                     setServiceDesc("");
                     setServiceImg("");
@@ -280,115 +292,119 @@ const AddServices = () => {
                     >
                       <DeleteForeverIcon style={{ color: "red" }} />
                     </Button>
-                    {id === service.id&&<Modal
-                      open={open}
-                      onClose={() => setOpen(false)}
-                      aria-labelledby="modal-modal-title"
-                      aria-describedby="modal-modal-description"
-                    >
-                      <Box sx={style}>
-                        <Typography
-                          id="modal-modal-title"
-                          variant="h6"
-                          component="h2"
-                        >
-                          Update {serviceName} accessory
-                          <input
-                            className="updateAccessoryInputs"
-                            placeholder="New name"
-                            type="text"
-                            onChange={(e) => setServiceName(e.target.value)}
-                          />
-                          <input
-                            className="updateAccessoryInputs"
-                            placeholder="New img"
-                            type="text"
-                            onChange={(e) => setServiceImg(e.target.value)}
-                          />
-                          <input
-                            className="updateAccessoryInputs"
-                            placeholder="New description"
-                            type="text"
-                            onChange={(e) => setServiceDesc(e.target.value)}
-                          />
-                          <input
-                            className="updateAccessoryInputs"
-                            placeholder="New price"
-                            type="number"
-                            onChange={(e) => setServicePrice(e.target.value)}
-                          />
+                    {id === service.id && (
+                      <Modal
+                        open={open}
+                        onClose={() => setOpen(false)}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                      >
+                        <Box sx={style}>
+                          <Typography
+                            id="modal-modal-title"
+                            variant="h6"
+                            component="h2"
+                          >
+                            Update {serviceName} accessory
+                            <input
+                              className="updateAccessoryInputs"
+                              placeholder="New name"
+                              type="text"
+                              onChange={(e) => setServiceName(e.target.value)}
+                            />
+                            <input
+                              className="updateAccessoryInputs"
+                              placeholder="New img"
+                              type="text"
+                              onChange={(e) => setServiceImg(e.target.value)}
+                            />
+                            <input
+                              className="updateAccessoryInputs"
+                              placeholder="New description"
+                              type="text"
+                              onChange={(e) => setServiceDesc(e.target.value)}
+                            />
+                            <input
+                              className="updateAccessoryInputs"
+                              placeholder="New price"
+                              type="number"
+                              onChange={(e) => setServicePrice(e.target.value)}
+                            />
+                            <Button
+                              onClick={() => {
+                                axios
+                                  .put(
+                                    `http://localhost:5000/services/${id}`,
+                                    {
+                                      name: serviceName,
+                                      img: serviceImg,
+                                      description: serviceDesc,
+                                      price: servicePrice,
+                                    },
+                                    {
+                                      headers: {
+                                        Authorization: `Bearer ${token}`,
+                                      },
+                                    }
+                                  )
+                                  .then((results) => {
+                                    dispatch(
+                                      updateServices(results.data.result)
+                                    );
+                                    setOpen(false);
+                                  })
+                                  .catch((err) => {
+                                    console.log(err);
+                                  });
+                              }}
+                            >
+                              Update
+                            </Button>
+                          </Typography>
+                        </Box>
+                      </Modal>
+                    )}
+                    {id === service.id && (
+                      <Modal
+                        open={deleteOpen}
+                        onClose={handleDeleteClose}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                      >
+                        <Box sx={style}>
+                          <Typography
+                            id="modal-modal-title"
+                            variant="h6"
+                            component="h2"
+                          >
+                            Are you sure you want to delete this service?
+                          </Typography>
                           <Button
                             onClick={() => {
                               axios
-                                .put(
+                                .delete(
                                   `http://localhost:5000/services/${id}`,
-                                  {
-                                    name: serviceName,
-                                    img: serviceImg,
-                                    description: serviceDesc,
-                                    price: servicePrice,
-                                  },
                                   {
                                     headers: {
                                       Authorization: `Bearer ${token}`,
                                     },
                                   }
                                 )
-                                .then((results) => {
-                                  dispatch(
-                                    updateServices(results.data.result)
-                                  );
-                                  setOpen(false);
+                                .then((result) => {
+                                  dispatch(deleteService(id));
+                                  setDeleteOpen(false);
                                 })
                                 .catch((err) => {
                                   console.log(err);
                                 });
                             }}
                           >
-                            Update
+                            Yes
                           </Button>
-                        </Typography>
-                      </Box>
-                    </Modal>}
-                    {id===service.id&&<Modal
-                      open={deleteOpen}
-                      onClose={handleDeleteClose}
-                      aria-labelledby="modal-modal-title"
-                      aria-describedby="modal-modal-description"
-                    >
-                      <Box sx={style}>
-                        <Typography
-                          id="modal-modal-title"
-                          variant="h6"
-                          component="h2"
-                        >
-                          Are you sure you want to delete this service?
-                        </Typography>
-                        <Button
-                          onClick={() => {
-                            axios
-                              .delete(
-                                `http://localhost:5000/services/${id}`,
-                                {
-                                  headers: {
-                                    Authorization: `Bearer ${token}`,
-                                  },
-                                }
-                              )
-                              .then((result) => {
-                                dispatch(deleteService(id));
-                                setDeleteOpen(false);
-                              })
-                              .catch((err) => {
-                                console.log(err);
-                              });
-                          }}
-                        >
-                          Yes
-                        </Button>
-                        <Button onClick={handleDeleteClose}>No</Button>
-                      </Box>
-                    </Modal>}
+                          <Button onClick={handleDeleteClose}>No</Button>
+                        </Box>
+                      </Modal>
+                    )}
                   </div>
                 </TableCell>
               </TableRow>
@@ -401,6 +417,3 @@ const AddServices = () => {
 };
 
 export default AddServices;
-
-
-
