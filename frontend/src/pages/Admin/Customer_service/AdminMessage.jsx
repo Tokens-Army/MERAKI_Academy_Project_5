@@ -69,7 +69,7 @@ const AdminMessage = () => {
           {allUsers &&
             allUsers.map((user) => {
               return (
-                <>
+                <div key={user.id}>
                   <ListItem
                     key={user.id}
                     onClick={() => {
@@ -90,7 +90,7 @@ const AdminMessage = () => {
                     </ListItemButton>
                   </ListItem>
                   <Divider variant="inset" component="li" />
-                </>
+                </div>
               );
             })}
         </div>
@@ -106,7 +106,10 @@ const AdminMessage = () => {
         />
       ) : (
         <div>
-          <img src="https://t4.ftcdn.net/jpg/03/65/60/33/360_F_365603381_jl2eSsk2nsz7hFbGpfZSWwfXLxO1Unp4.jpg" width="850vw"/>
+          <img
+            src="https://t4.ftcdn.net/jpg/03/65/60/33/360_F_365603381_jl2eSsk2nsz7hFbGpfZSWwfXLxO1Unp4.jpg"
+            width="850vw"
+          />
         </div>
       )}
     </div>

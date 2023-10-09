@@ -29,7 +29,7 @@ const Orders = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-    const [details, setDetails] = useState("")
+  const [details, setDetails] = useState("");
   useEffect(() => {
     axios
       .get(`http://localhost:5000/orders`, {
@@ -62,16 +62,22 @@ const Orders = () => {
                 <div>{ord.id}</div>
                 <div>{ord.created_at}</div>
                 <div>{ord.user_id}</div>
-                {ord.order_status==="accepted"?<div className="true">{ord.order_status}</div>:<div className="false">{ord.order_status}</div>}
+                {ord.order_status === "accepted" ? (
+                  <div className="true">{ord.order_status}</div>
+                ) : (
+                  <div className="false">{ord.order_status}</div>
+                )}
                 <Button
                   onClick={() => {
                     axios
-                      .get(`http://localhost:5000/orders/orderDetails/${ord.id}`)
+                      .get(
+                        `http://localhost:5000/orders/orderDetails/${ord.id}`
+                      )
                       .then((results) => {
                         handleOpen();
-                        setDetails(results.data.Details)
+                        setDetails(results.data.Details);
                         console.log(results.data.Details);
-                    })
+                      })
                       .catch((err) => {
                         console.log(err);
                       });
@@ -96,14 +102,24 @@ const Orders = () => {
                         component="h2"
                       >
                         Update accessory from here
-                        {details&&<div>
-                            <div>User name : {details[0]?.firstname+" "+details[0]?.lastname}</div>
+                        {details && (
+                          <div>
+                            <div>
+                              User name :{" "}
+                              {details[0]?.firstname +
+                                " " +
+                                details[0]?.lastname}
+                            </div>
                             <div>Service Name : {details[0]?.service_name}</div>
-                            {details?.map(detail=>{
-                            return<div key={detail.accessory_id}>
-                                Item: {detail.accessory_name}
-                            </div>})}
-                            </div>}
+                            {details?.map((detail) => {
+                              return (
+                                <div key={detail.accessory_id}>
+                                  Item: {detail.accessory_name}
+                                </div>
+                              );
+                            })}
+                          </div>
+                        )}
                       </Typography>
                     </Box>
                   </Modal>

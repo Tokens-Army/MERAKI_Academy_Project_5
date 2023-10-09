@@ -29,8 +29,7 @@ const ContactUs = () => {
     };
   }, [socket]);
   return (
-
-    <div>
+    <div style={{ minHeight: "70vh" }}>
       {!isConnected && (
         <div
           style={{
@@ -82,28 +81,20 @@ const ContactUs = () => {
           </div>
         </div>
       )}
-
-    <div style={{minHeight: "80%"}}>
-      <button
-        onClick={() => {
-          setSocket(socketInit({ user_id, token }));
-        }}
-      >
-        Talk with Customer Service
-      </button>
-      {isConnected && (
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <Messages
-            socket={socket}
-            user_id={user_id}
-            setSocket={setSocket}
-            token={token}
-            admin={false}
-            user={null}
-          />
-        </div>
-      )}
-    </div>
+      <div style={{ minHeight: "80%" }}>
+        {isConnected && (
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <Messages
+              socket={socket}
+              user_id={user_id}
+              setSocket={setSocket}
+              token={token}
+              admin={false}
+              user={null}
+            />
+          </div>
+        )}
+      </div>
     </div>
   );
 };

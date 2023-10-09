@@ -36,16 +36,12 @@ const Adminhome = () => {
   };
   const rightBar = [
     { name: "Main", nav: "main" },
-    { name: "Add Admins", nav: "addadmins" },
-    { name: "Delete Admins", nav: "deleteadmins" },
-    { name: "Add Services", nav: "addservices" },
-    { name: "Update Services", nav: "updateservices" },
-    { name: "Delete Services", nav: "deleteservices" },
-    { name: "Add Accessories", nav: "addaccessories" },
-    { name: "Update Accessories", nav: "updateaccessories" },
-    { name: "Delete Accessories", nav: "deleteaccessories" },
+    { name: "Services", nav: "addservices" },
+    { name: "Accessories", nav: "addaccessories" },
     { name: "Orders", nav: "ordersAdmin" },
     { name: "Add Employee", nav: "employeesadmin" },
+    { name: "Add Admins", nav: "addadmins" },
+    { name: "Delete Admins", nav: "deleteadmins" },
   ];
   const HelpRightBar = [
     { name: "About", nav: "about" },

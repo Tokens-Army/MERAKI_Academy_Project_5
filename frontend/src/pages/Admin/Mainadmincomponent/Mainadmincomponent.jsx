@@ -177,7 +177,7 @@ const Mainadmincomponent = () => {
                   <TableCell>User Id</TableCell>
                   <TableCell>Order Status</TableCell>
                   <TableCell>Schedule date</TableCell>
-                  <TableCell align="right">Employee id</TableCell>
+                  <TableCell align="">Employee id</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
