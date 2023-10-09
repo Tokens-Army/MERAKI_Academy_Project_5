@@ -83,24 +83,8 @@ export const router = createBrowserRouter([
         element: <Addservices />,
       },
       {
-        path: "updateservices",
-        element: <Updateservices />,
-      },
-      {
-        path: "deleteservices",
-        element: <Deleteservices />,
-      },
-      {
         path: "addaccessories",
         element: <Addaccessories />,
-      },
-      {
-        path: "updateaccessories",
-        element: <Updateaccessories />,
-      },
-      {
-        path: "deleteaccessories",
-        element: <Deleteaccessories />,
       },
       {
         path: "ordersAdmin",
@@ -117,10 +101,11 @@ export const router = createBrowserRouter([
       {
         path: "customer_service",
         element: <AdminMessage />,
-      },{
+      },
+      {
         path: "about",
-        element:<AboutAdmin/>
-      }
+        element: <AboutAdmin />,
+      },
     ],
   },
   {
