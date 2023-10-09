@@ -21,21 +21,28 @@ import { useSelector } from "react-redux";
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
+
 const defaultTheme = createTheme();
+
 const Accessories = () => {
+
   const [open, setOpen] = useState(false);
+
   const order = useSelector((state) => {
     return state.order.order;
   });
+
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
-
     setOpen(false);
   };
+
   const { result } = useLoaderData();
+
   const navigate = useNavigate();
+
   return (
     <div style={{ minHeight: "80%" }}>
       <Stack spacing={2} sx={{ width: "10%" }}>
@@ -52,8 +59,20 @@ const Accessories = () => {
       <ThemeProvider theme={defaultTheme}>
         <CssBaseline />
         <main>
-          <Container sx={{ py: 8 }} maxWidth="md">
-            <Grid container spacing={3}>
+          <Container sx={{ py: 3 }} maxWidth="xl">
+            <Typography variant="h4">
+              Choose an accessory with your order!
+            </Typography><br/>
+          <Button
+        sx={{ mb: "1%" }}
+        variant="contained"
+        onClick={() => {
+          navigate("/scheduleorder");
+        }}
+      >
+        NEXT
+      </Button>
+            <Grid container spacing={4} m>
               <Suspense fallback={<>Loading...</>}>
                 <Await
                   resolve={result}
@@ -62,7 +81,7 @@ const Accessories = () => {
                   {(result) => {
                     return result.map((accessory) => {
                       return (
-                        <Grid item key={accessory.id} xs={12} sm={6} md={6}>
+                        <Grid item key={accessory.id} ml={7} md={5}>
                           <Card
                             className="CARDS"
                             sx={{
@@ -103,7 +122,7 @@ const Accessories = () => {
                               <Button
                                 size="large"
                                 variant="contained"
-                                style={{ left: "37%" }}
+                                style={{ left: "40.5%" }}
                                 onClick={() => {
                                   axios
                                     .post(
@@ -131,15 +150,6 @@ const Accessories = () => {
           </Container>
         </main>
       </ThemeProvider>
-      <Button
-        sx={{ mb: "1%" }}
-        variant="contained"
-        onClick={() => {
-          navigate("/scheduleorder");
-        }}
-      >
-        NEXT
-      </Button>
     </div>
   );
 };
