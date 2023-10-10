@@ -86,7 +86,7 @@ const Cart = () => {
         }}
       >
         <Box
-          className="CARDS"
+          className="CARDS no-scrollbar"
           sx={{
             width: "80%",
             boxShadow: "0px 10px 20px rgba(0,0,0,0.1)",
@@ -164,15 +164,17 @@ const Cart = () => {
           <Button variant="contained" onClick={() => navigate("/contact-us")}>
             Contact Us
           </Button>
-          <Button
-            variant="contained"
-            sx={{ ml: 1 }}
-            onClick={() => {
-              setDeleteOpen(true);
-            }}
-          >
-            Delete Order
-          </Button>
+          {cart.order && (
+            <Button
+              variant="contained"
+              sx={{ ml: 1 }}
+              onClick={() => {
+                setDeleteOpen(true);
+              }}
+            >
+              Delete Order
+            </Button>
+          )}
         </Box>
         <Modal
           open={deleteOpen}

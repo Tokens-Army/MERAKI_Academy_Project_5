@@ -29,11 +29,13 @@ const getAllServices = (req, res) => {
   pool
     .query(`SELECT * FROM services WHERE is_deleted = 0;`)
     .then((result) => {
-      res.status(200).json({
-        success: true,
-        message: "All the services",
-        services: result.rows,
-      });
+      setTimeout(() => {
+        res.status(200).json({
+          success: true,
+          message: "All the services",
+          services: result.rows,
+        });
+      }, 3000);
     })
     .catch((err) => {
       res.status(500).json({

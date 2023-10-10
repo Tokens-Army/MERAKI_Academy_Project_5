@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./Contactus.css";
 import axios from "axios";
 import { useSelector } from "react-redux";
@@ -7,6 +7,13 @@ const Messages = ({ socket, user_id, admin, user }) => {
   const [to, setTo] = useState("");
   const [message, setMessage] = useState("");
   const [allMessages, setAllMessages] = useState([]);
+
+  const bottomRef = useRef(null);
+
+  useEffect(() => {
+    // 👇️ scroll to bottom every time messages change
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [allMessages]);
 
   useEffect(() => {
     if (allMessages.length === 0) {
@@ -80,9 +87,9 @@ const Messages = ({ socket, user_id, admin, user }) => {
               >
                 <div className="media media-meta-day">Today</div>
                 {allMessages.length > 0 &&
-                  allMessages.map((message) => {
+                  allMessages.map((message, i) => {
                     return (
-                      <div key={message.createdAt}>
+                      <div key={i}>
                         <div
                           className="media-body"
                           style={
@@ -153,8 +160,8 @@ const Messages = ({ socket, user_id, admin, user }) => {
                     style={{ top: "0px", height: "2px" }}
                   ></div>
                 </div>
+                <div ref={bottomRef} />
               </div>
-
               <div className="publisher bt-1 border-light">
                 <img
                   className="avatar avatar-xs"
@@ -197,38 +204,3 @@ const Messages = ({ socket, user_id, admin, user }) => {
 };
 
 export default Messages;
-{
-  /* <h2>Messages</h2>
-      <input
-        placeholder="message"
-        type="text"
-        onChange={(e) => {
-          setMessage(e.target.value);
-        }}
-      />
-      <input
-        placeholder="to"
-        type="text"
-        onChange={(e) => {
-          setTo(e.target.value);
-        }}
-      />
-      <button
-        onClick={() => {
-          sendMessage();
-        }}
-      >
-        send
-      </button> */
-}
-{
-  /* {allMessages.length > 0 &&
-        allMessages.map((message) => {
-          return (
-            <p key={message.message}>
-              <small>from{message.from}: </small>
-              {message.message}
-            </p>
-          );
-        })} */
-}
