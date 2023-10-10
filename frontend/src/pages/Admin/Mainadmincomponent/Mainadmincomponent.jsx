@@ -136,7 +136,7 @@ function createData(time, amount) {
 const Mainadmincomponent = () => {
     const navigate = useNavigate()
     const token = useSelector((state)=>state.login.token)
-    const count = useSelector((state)=>state.main.data)
+    const [count, setCount] = useState("")
     const orders = useSelector((state)=>state.main.orders)
     const theme = useTheme();
     const [open, setOpen] = React.useState(true);
@@ -145,21 +145,21 @@ const Mainadmincomponent = () => {
     };
     const dispatch = useDispatch()
     useEffect(()=>{
-        axios.get("http://localhost:5000/orders//pendingorders/count",{
+        axios.get("http://localhost:5000/orders/pendingorders/count",{
             headers: {
                 Authorization: `Bearer ${token}`,
             },
         })
         .then((results)=>{
-            dispatch(setMain(results.data))
-            
+          console.log(results.data);
+            setCount(results.data)
         })
         .catch((err)=>{
             console.log(err);
         })
     },[])   
     useEffect(()=>{
-      axios.get("http://localhost:5000/orders/last/5orders")
+      axios.get("http://localhost:5000/orders/")
       .then((results)=>{
           dispatch(setOrders(results.data.orders))
       })
@@ -177,17 +177,17 @@ const Mainadmincomponent = () => {
                   <TableCell>User Id</TableCell>
                   <TableCell>Order Status</TableCell>
                   <TableCell>Schedule date</TableCell>
-                  <TableCell align="">Employee id</TableCell>
+                  <TableCell align="center">Employee id</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {orders&&orders.map((order) => (
+                {orders&&orders.slice(-5).map((order) => (
                   <TableRow key={order.id}>
                     <TableCell>{order.created_at}</TableCell>
                     <TableCell>{order.user_id}</TableCell>
                     <TableCell>{order.order_status}</TableCell>
                      {order.scheduled_time?<TableCell>{order.scheduled_time}</TableCell>:<TableCell>Not scheduled</TableCell>}
-                    {order.employee_id?<TableCell align="right">{`${order.employee_id}`}</TableCell>:<TableCell align="right" className='addEmpolyeebtn' onClick={()=>{
+                    {order.employee_id?<TableCell align="right">{`${order.employee_id}`}</TableCell>:<TableCell align="center" className='addEmpolyeebtn' onClick={()=>{
                       navigate("/admin/employeesadmin")
                     }} >Add Employee</TableCell>}
                   </TableRow>
@@ -204,17 +204,17 @@ const Mainadmincomponent = () => {
       }
       function Chart() {
         const theme = useTheme();
-        const data = [
-            createData(0,0),
-            createData(1, 300),
-            createData(2, 600),
-            createData(3, 800),
-            createData(4, 1500),
-            createData(5, 2000),
-            createData(6, 2400),
-            createData(7, 2400),
-            createData(8, undefined),
-        ];
+        // const data = [
+        //     createData(0,0),
+        //     createData(1, 300),
+        //     createData(2, 600),
+        //     createData(3, 800),
+        //     createData(4, 1500),
+        //     createData(5, 2000),
+        //     createData(6, 2400),
+        //     createData(7, 2400),
+        //     createData(8, undefined),
+        // ];
         return (
           <React.Fragment>
             <ResponsiveContainer>
@@ -222,7 +222,7 @@ const Mainadmincomponent = () => {
               
                 data={orders&&orders.map((order)=>{
                     
-                    return createData(order.id,(new Date(order.created_at).getDate()))
+                    return createData(order.id,(new Date(order.created_at).getMinutes()))
                 })}
                 margin={{
                     top: 16,
@@ -262,7 +262,7 @@ const Mainadmincomponent = () => {
                       ...theme.typography.body1,
                     }}
                   >
-                    Days
+                    Minites
                   </Label>
                 </YAxis>
                 <Line
@@ -283,17 +283,17 @@ const Mainadmincomponent = () => {
          <div className='acceptedOrdersCount'>
             <img className='usersCountImg' src='https://static.prod01.ue1.p.pcomm.net/blackbaud/user_content/photos/000/006/6783/a6132a5cd55abcae190bc82567ca8a47-original-users.png'/>
             <img className='fireImg' src='https://media.istockphoto.com/id/1323529010/vector/fire-vector-isolated.jpg?s=612x612&w=0&k=20&c=ta6bKkXZDuqy2H3tRhR79sSl_-fdGhKyoenbbjEr3l0='/>
-            {/* {count&&<div className='allCount'>{count?.usersCount[0]?.count}</div>} */}
+            {count&&<div className='allCount'>{count.usersAcouts.length}</div>}
             </div>
             <div>
             <img className='pendingOrderImg' src='https://c.mql5.com/31/28/pending-order-placer-logo-200x200-6150.png'/><br/>
             <img className='fireImg' src='https://media.istockphoto.com/id/1323529010/vector/fire-vector-isolated.jpg?s=612x612&w=0&k=20&c=ta6bKkXZDuqy2H3tRhR79sSl_-fdGhKyoenbbjEr3l0='/>
-        {/* {count&&<div className='allCount'>{count?.pendingOrdersCount[0]?.count}</div>} */}
+        {count&&<div className='allCount'>{count.pendingOrders.length}</div>}
             </div>
             <div>
             <img className='acceptedOrdersImg' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrtGGZ9vU5VYVNiHM9Cle6cUT9KBRvHK7quQ&usqp=CAU'/><br/>
             <img className='fireImg' src='https://media.istockphoto.com/id/1323529010/vector/fire-vector-isolated.jpg?s=612x612&w=0&k=20&c=ta6bKkXZDuqy2H3tRhR79sSl_-fdGhKyoenbbjEr3l0='/>
-         {/* {count&&<div className='allCount'>{count?.acceptedOrdersCount[0]?.count}</div>} */}
+         {count&&<div className='allCount'>{count.acceptedOrders.length}</div>}
             </div>
         </div>
     <ThemeProvider theme={defaultTheme}>

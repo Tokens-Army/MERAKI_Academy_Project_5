@@ -221,14 +221,16 @@ const addEmployeeToOrder = (req, res) => {
 const countPendingOrders = (req, res) => {
   pool
     .query(
-      `SELECT COUNT (id) FROM orders WHERE order_status='pending' AND is_deleted=0 ; SELECT COUNT (id) FROM users WHERE role_id=1 AND is_deleted=0;SELECT COUNT (id) FROM orders WHERE order_status='accepted' AND is_deleted=0 ;`
+      `SELECT id from orders where order_status='pending';SELECT id from orders where order_status='accepted';
+      SELECT id from users where is_deleted=0 and role_id=1`
     )
     .then((results) => {
+      console.log(results);
       res.status(200).json({
         success: true,
-        pendingOrdersCount: results[0].rows,
-        usersCogetLast5Ordersunt: results[1].rows,
-        acceptedOrdersCount: results[2].rows,
+        pendingOrders: results[0].rows,
+        acceptedOrders: results[1].rows,
+        usersAcouts: results[2].rows,
         message: "Here are all your pending orders",
       });
     })
