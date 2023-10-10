@@ -13,11 +13,12 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useSelector, useDispatch } from "react-redux";
 import { setOrder } from "../../service/redux/orderSlice";
+import "./Home.css";
+import Loader from "../../assets/Animations/Loader.jsX";
 
 const defaultTheme = createTheme();
 
 const Home = () => {
-
   const dispatch = useDispatch();
   const { result } = useLoaderData();
   const token = useSelector((state) => {
@@ -33,7 +34,7 @@ const Home = () => {
         <main>
           <Container sx={{ py: 3 }} maxWidth="xl">
             <Grid container spacing={4} m>
-              <Suspense fallback={<>loading......</>}>
+              <Suspense fallback={<Loader />}>
                 <Await resolve={result} errorElement={<>error .....</>}>
                   {(result) => {
                     return result.map((service) => {

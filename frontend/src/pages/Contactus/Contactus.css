@@ -302,6 +302,7 @@ textarea {
 #chat-content {
   overflow-y: scroll !important;
   height: 400px !important;
+  
 }
 
 .container {

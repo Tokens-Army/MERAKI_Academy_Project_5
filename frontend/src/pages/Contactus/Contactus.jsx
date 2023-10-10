@@ -3,6 +3,8 @@ import socketInit from "../../service/api/socket_server";
 import Messages from "./Messages.jsx";
 import { useSelector, useDispatch } from "react-redux";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
+import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
+import MailIcon from "@mui/icons-material/Mail";
 const ContactUs = () => {
   const [socket, setSocket] = useState(null);
   const [isConnected, setIsConnected] = useState(false);
@@ -29,7 +31,7 @@ const ContactUs = () => {
     };
   }, [socket]);
   return (
-    <div style={{ minHeight: "70vh" }}>
+    <div style={{ minHeight: "80vh" }}>
       {!isConnected && (
         <div
           style={{
@@ -50,13 +52,17 @@ const ContactUs = () => {
                   <div className="text-two">Birendranagar 06</div>
                 </div>
                 <div className="phone details">
-                  <i className="fas fa-phone-alt"></i>
+                  <i className="fas fa-phone-alt">
+                    <LocalPhoneIcon />
+                  </i>
                   <div className="topic">Phone</div>
                   <div className="text-one">+96278754895</div>
                   <div className="text-two">+96278754895</div>
                 </div>
                 <div className="email details">
-                  <i className="fas fa-envelope"></i>
+                  <i className="fas fa-envelope">
+                    <MailIcon />
+                  </i>
                   <div className="topic">Email</div>
                   <div className="text-one">codinglab@gmail.com</div>
                   <div className="text-two">info.codinglab@gmail.com</div>

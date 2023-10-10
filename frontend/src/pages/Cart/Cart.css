@@ -8,3 +8,6 @@
 .secondary-info {
   text-align: start;
 }
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
