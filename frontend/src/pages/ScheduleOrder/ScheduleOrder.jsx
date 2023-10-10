@@ -34,7 +34,7 @@ function getStepContent(step) {
           <DemoContainer components={["StaticDateTimePicker"]}>
             <DemoItem>
               <StaticDateTimePicker
-                defaultValue={dayjs("2023-08-28T15:30")}
+                defaultValue={dayjs("2023-10-10T15:30")}
                 onChange={(value) => {
                   const selectedDate = String(value.$d).split(" ");
                   selectedDate.splice(5, 2);
@@ -45,8 +45,7 @@ function getStepContent(step) {
                         scheduled_time: selectedDate.join(" "),
                       }
                     )
-                    .then((res) => {
-                    })
+                    .then((res) => {})
                     .catch((err) => {
                       console.log(err);
                     });

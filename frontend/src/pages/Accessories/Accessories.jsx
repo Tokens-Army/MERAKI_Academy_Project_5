@@ -17,6 +17,7 @@ import Stack from "@mui/material/Stack";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import { useSelector } from "react-redux";
+import Loader from "../../assets/Animations/Loader.jsX";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -25,7 +26,6 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 const defaultTheme = createTheme();
 
 const Accessories = () => {
-
   const [open, setOpen] = useState(false);
 
   const order = useSelector((state) => {
@@ -62,18 +62,21 @@ const Accessories = () => {
           <Container sx={{ py: 3 }} maxWidth="xl">
             <Typography variant="h4">
               Choose an accessory with your order!
-            </Typography><br/>
-          <Button
-        sx={{ mb: "1%" }}
-        variant="contained"
-        onClick={() => {
-          navigate("/scheduleorder");
-        }}
-      >
-        NEXT
-      </Button>
-            <Grid container spacing={4} m>
-              <Suspense fallback={<>Loading...</>}>
+            </Typography>
+            <br />
+            <Button
+              sx={{ mb: "1%" }}
+              className="next-button"
+              style={{}}
+              variant="contained"
+              onClick={() => {
+                navigate("/scheduleorder");
+              }}
+            >
+              NEXT
+            </Button>
+            <Grid container spacing={4}>
+              <Suspense fallback={<Loader />}>
                 <Await
                   resolve={result}
                   errorElement={<>Error Loading data refresh please</>}
@@ -81,7 +84,7 @@ const Accessories = () => {
                   {(result) => {
                     return result.map((accessory) => {
                       return (
-                        <Grid item key={accessory.id} ml={7} md={5}>
+                        <Grid item key={accessory?.id} ml={10} md={5}>
                           <Card
                             className="CARDS"
                             sx={{
@@ -97,7 +100,7 @@ const Accessories = () => {
                             <CardMedia
                               component="div"
                               sx={{
-                                pt: "56.25%",
+                                pt: "100%",
                               }}
                               image={accessory.img}
                             />
