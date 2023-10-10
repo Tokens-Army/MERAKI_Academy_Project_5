@@ -50,44 +50,44 @@ const Location = (props) => {
           </Alert>
         </Snackbar>
       </Stack>
-      <div style={{height: "90%"}}>
-      <GoogleMapReact
-        center={myLoc}
-        defaultCenter={defaultProps.center}
-        defaultZoom={defaultProps.zoom}
-        yesIWantToUseGoogleMapApiInternals={true}
-        onClick={(e) => {
-          setMyLoc({ ...myLoc, ...{ lat: e.lat, lng: e.lng } });
-          console.log(myLoc);
-        }}
-      >
-        <Marker lat={myLoc.lat} lng={myLoc.lng} text="My Marker" />
-      </GoogleMapReact>
+      <div style={{ height: "90%" }}>
+        <GoogleMapReact
+          center={myLoc}
+          defaultCenter={defaultProps.center}
+          defaultZoom={defaultProps.zoom}
+          yesIWantToUseGoogleMapApiInternals={true}
+          onClick={(e) => {
+            setMyLoc({ ...myLoc, ...{ lat: e.lat, lng: e.lng } });
+            console.log(myLoc);
+          }}
+        >
+          <Marker lat={myLoc.lat} lng={myLoc.lng} text="My Marker" />
+        </GoogleMapReact>
       </div>
-      <div style={{marginRight: "16%"}}>
-      <TextField
-        margin="normal"
-        id="building"
-        label="Building"
-        name="building"
-        onChange={(e) => {
-          setMyLoc({ ...myLoc, ...{ buildingName: e.target.value } });
-          console.log(myLoc);
-        }}
-      />
-      <TextField
-        margin="normal"
-        id="home"
-        label="Home"
-        name="home"
-        onChange={(e) => {
-          setMyLoc({ ...myLoc, ...{ HomeNo: e.target.value } });
-          console.log(myLoc);
-        }}
-      />
+      <div style={{ marginRight: "16%" }}>
+        <TextField
+          margin="normal"
+          id="building"
+          label="Building"
+          name="building"
+          onChange={(e) => {
+            setMyLoc({ ...myLoc, ...{ buildingName: e.target.value } });
+            console.log(myLoc);
+          }}
+        />
+        <TextField
+          margin="normal"
+          id="home"
+          label="Home"
+          name="home"
+          onChange={(e) => {
+            setMyLoc({ ...myLoc, ...{ HomeNo: e.target.value } });
+            console.log(myLoc);
+          }}
+        />
       </div>
       <Button
-        sx={{mt: 2, mr: 38}}
+        sx={{ mt: 2, mr: 38 }}
         variant="contained"
         onClick={() => {
           axios

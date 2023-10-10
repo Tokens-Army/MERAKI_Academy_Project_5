@@ -31,9 +31,9 @@ const Home = () => {
     <div style={{ minHeight: "80%" }}>
       <ThemeProvider theme={defaultTheme}>
         <CssBaseline />
-        <main>
+        <main style={{ width: "100%" }}>
           <Container sx={{ py: 3 }} maxWidth="xl">
-            <Grid container spacing={4} m>
+            <Grid container spacing={4} >
               <Suspense fallback={<Loader />}>
                 <Await resolve={result} errorElement={<>error .....</>}>
                   {(result) => {

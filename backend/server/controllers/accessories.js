@@ -28,11 +28,13 @@ const getAllAccessories = (req, res) => {
     .query(`SELECT * FROM accessories WHERE is_deleted=0`)
     .then((results) => {
       if (results.rows.length !== 0) {
-        return res.status(200).json({
-          success: true,
-          message: "Here is all the accessories",
-          result: results.rows,
-        });
+        setTimeout(() => {
+          return res.status(200).json({
+            success: true,
+            message: "Here is all the accessories",
+            result: results.rows,
+          });
+        }, 3000);
       } else {
         res.status(404).json({
           success: false,
