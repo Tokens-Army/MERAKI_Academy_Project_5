@@ -1,3 +1,4 @@
+import "./Home.css";
 import React, { Suspense } from "react";
 import axios from "axios";
 import { Await, useLoaderData, useNavigate } from "react-router-dom";
@@ -13,7 +14,6 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useSelector, useDispatch } from "react-redux";
 import { setOrder } from "../../service/redux/orderSlice";
-import "./Home.css";
 import Loader from "../../assets/Animations/Loader.jsX";
 
 const defaultTheme = createTheme();
@@ -32,8 +32,8 @@ const Home = () => {
       <ThemeProvider theme={defaultTheme}>
         <CssBaseline />
         <main style={{ width: "100%" }}>
-          <Container sx={{ py: 3 }} maxWidth="xl">
-            <Grid container spacing={4} >
+          <Container className="home-container" sx={{ py: 3 }} maxWidth="xl" justify="center" alignItems="center">
+            <Grid container spacing={4} sx={{ width: "100%", justifyContent: "center", alignItems: "space-around"}}>
               <Suspense fallback={<Loader />}>
                 <Await resolve={result} errorElement={<>error .....</>}>
                   {(result) => {
