@@ -44,7 +44,7 @@ ordersRouter.put("/addemployees/:id/:employee_id/",addEmployeeToOrder)
 
 ordersRouter.get("/pendingorders/count",countPendingOrders)
 
-ordersRouter.post("/total_price/:order_id",addTotalPrice)
+ordersRouter.put("/total/price/:order_id",addTotalPrice)
 
 ordersRouter.get("/orderDetails/:id",getOrderDetailsById)
 
