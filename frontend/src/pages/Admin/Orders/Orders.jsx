@@ -101,20 +101,22 @@ const Orders = () => {
                         variant="h6"
                         component="h2"
                       >
-                        Update accessory from here
                         {details && (
                           <div>
                             <div>
                               User name :{" "}
-                              {details[0]?.firstname +
+                              {details[0]?.firstname.charAt(0).toUpperCase() + details[0].firstname.slice(1) +
                                 " " +
-                                details[0]?.lastname}
+                                details[0]?.lastname.charAt(0).toUpperCase() + details[0].lastname.slice(1)}
                             </div>
-                            <div>Service Name : {details[0]?.service_name}</div>
+                            <div>Employee Id : {details[0]?.employee_id}</div>
+                            <div>
+                            Service Name : {details[0]?.service_name} 
+                            </div>
                             {details?.map((detail) => {
                               return (
                                 <div key={detail.accessory_id}>
-                                  Item: {detail.accessory_name}
+                                  Accessory name: {detail.accessory_name}
                                 </div>
                               );
                             })}

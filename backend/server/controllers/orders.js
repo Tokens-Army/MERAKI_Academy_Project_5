@@ -178,7 +178,7 @@ const getAllOrders = (req, res) => {
 const getAllEmployees = async (req, res) => {
   try {
     const allOrders = await pool.query(
-      `Select * from orders where  is_deleted=0;Select * from employees Where availability= 'Available'`
+      `Select * from orders where  is_deleted=0 and order_status='pending' ;Select * from employees Where availability= 'Available'`
     );
     res.status(200).json({
       success: true,
@@ -250,9 +250,9 @@ const addTotalPrice = (req,res)=>{
     pool.query(`UPDATE orders SET total_price=$1 where id=$2`,array)
     .then((results)=>{
       res.status(201).json({
-        succes:ture,
+        succes:true,
         message:"order price added successfuly",
-        results : results
+        results : results.rows
       })
     })
     .catch((err)=>{
@@ -285,7 +285,7 @@ const getLast5Orders = (req,res)=>{
 const getOrderDetailsById = (req,res)=>{
   const {id}=req.params
   const array = [id]
-  const query = ` select U.firstName,U.lastName,O.id, O.created_at, O.user_id,S.name AS service_name , S.img AS service_img, S.price AS service_price, O.order_status,O.location ,O.scheduled_time,A.name As accessory_name, A.img As accessory_img , A.price As accessory_price,A.id As accessory_id from orders O inner join services S on O.service_id = S.id inner join order_accessories OA on OA.order_id=O.id inner join accessories A on OA.accessories_id=A.id inner join users U on O.user_id = U.id where O.id=$1`
+  const query = ` select U.firstName,U.lastName,O.id, O.created_at,O.employee_id, O.user_id,S.name AS service_name , S.img AS service_img, S.price AS service_price, O.order_status,O.location ,O.scheduled_time,A.name As accessory_name, A.img As accessory_img , A.price As accessory_price,A.id As accessory_id from orders O inner join services S on O.service_id = S.id inner join order_accessories OA on OA.order_id=O.id inner join accessories A on OA.accessories_id=A.id inner join users U on O.user_id = U.id where O.id=$1`
   pool.query(query,array)
   .then((results)=>{
     res.status(200).json({
