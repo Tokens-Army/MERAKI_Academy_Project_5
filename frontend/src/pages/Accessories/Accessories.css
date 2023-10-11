@@ -6,7 +6,7 @@
   background-color: rgb(72, 71, 128) !important;
 }
 .next-button:hover {
-  background-color: rgb(40, 37, 216) !important;
+  background-color: #1976D2 !important;
   width: 12vw !important;
   height: 7vh !important;
   transition: 0.45s ease;

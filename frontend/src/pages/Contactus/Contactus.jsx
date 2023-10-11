@@ -48,8 +48,8 @@ const ContactUs = () => {
                     <LocationOnOutlinedIcon />
                   </i>
                   <div className="topic">Address</div>
-                  <div className="text-one">Surkhet, NP12</div>
-                  <div className="text-two">Birendranagar 06</div>
+                  <div className="text-one">Amman</div>
+                  <div className="text-two">Jordan</div>
                 </div>
                 <div className="phone details">
                   <i className="fas fa-phone-alt">
@@ -64,8 +64,8 @@ const ContactUs = () => {
                     <MailIcon />
                   </i>
                   <div className="topic">Email</div>
-                  <div className="text-one">codinglab@gmail.com</div>
-                  <div className="text-two">info.codinglab@gmail.com</div>
+                  <div className="text-one">mohammed@gmail.com</div>
+                  <div className="text-two">saad@gmail.com</div>
                 </div>
               </div>
               <div className="right-side">
@@ -76,6 +76,7 @@ const ContactUs = () => {
                   pleasure to help you.
                 </p>
                 <button
+                  style={{backgroundColor: "#3E20A1", color: "white"}}
                   onClick={() => {
                     setSocket(socketInit({ user_id, token }));
                   }}
