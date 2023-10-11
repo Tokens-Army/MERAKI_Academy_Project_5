@@ -151,7 +151,6 @@ const Mainadmincomponent = () => {
             },
         })
         .then((results)=>{
-          console.log(results.data);
             setCount(results.data)
         })
         .catch((err)=>{
@@ -262,7 +261,7 @@ const Mainadmincomponent = () => {
                       ...theme.typography.body1,
                     }}
                   >
-                    Minites
+                    Minutes
                   </Label>
                 </YAxis>
                 <Line

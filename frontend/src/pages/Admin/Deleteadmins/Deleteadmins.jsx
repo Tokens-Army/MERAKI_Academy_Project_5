@@ -45,7 +45,6 @@ const AddServices = () => {
     axios
       .get("http://localhost:5000/users")
       .then((result) => {
-        console.log(result.data.admins);
         dispatch(setAdmins(result.data.admins));
       })
       .catch((err) => {
@@ -75,7 +74,7 @@ const AddServices = () => {
           </TableHead>
           <TableBody>
             
-            {admins.map((admin) => (
+            {admins && admins.map((admin) => (
               <TableRow
                 key={admin.id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -83,9 +82,9 @@ const AddServices = () => {
                 <TableCell component="th" scope="row">
                   {admin.id}
                 </TableCell>
-                <TableCell align="left">{admin.firstname}</TableCell>
+                <TableCell align="left">{admin.firstname.charAt(0).toUpperCase() + admin.firstname.slice(1)}</TableCell>
                 <TableCell align="left">
-                 {admin.lastname}
+                 {admin.lastname.charAt(0).toUpperCase() + admin.lastname.slice(1).toLowerCase()}
                 </TableCell>
                 <TableCell align="left">
                   {admin.email}

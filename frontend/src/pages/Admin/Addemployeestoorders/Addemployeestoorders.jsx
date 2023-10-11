@@ -29,7 +29,6 @@ const Addemployeestoorders = () => {
     useEffect(()=>{
         axios.get("http://localhost:5000/orders/employees/employees")
         .then((results)=>{
-          console.log(results.data);
             dispatch(setData(results.data))
         })
         .catch(err=>console.log(err))
@@ -53,7 +52,7 @@ const Addemployeestoorders = () => {
                 {order.order_status==="pending"?<div className='orderStatusPending'>{order.order_status}</div>:<div className='orderStatusAccepted'>
                     {order.order_status}</div>
                     }
-                <div>{order.employee_id}</div>    
+                {order.employee_id?<div>{order.employee_id}</div>:<div>Not selected yet</div>}    
                 <div>{order.user_id}</div>
                 {order.employee_id?<Button onClick={()=>{
           handleOpen()
