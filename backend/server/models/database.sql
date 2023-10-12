@@ -126,6 +126,7 @@ CREATE TABLE orders(
   is_deleted SMALLINT DEFAULT 0,
   PRIMARY KEY (id)
 );
+
 CREATE TABLE order_accessories (
 
   id SERIAL NOT NULL,
