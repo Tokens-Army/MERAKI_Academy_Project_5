@@ -36,9 +36,11 @@ const Navbar = () => {
           <img src={image} style={{height: "3rem"}} />
         </Button>
         <Box sx={{ flexGrow: 1 }} />
-        <Button color="inherit" onClick={() => navigate("/cart")}>
-          Cart
-        </Button>
+        {isLoggedIn && (
+          <Button color="inherit" onClick={() => navigate("/cart")}>
+            Cart
+          </Button>
+        )}
         <Button color="inherit" onClick={() => navigate("/about")}>
           About
         </Button>
