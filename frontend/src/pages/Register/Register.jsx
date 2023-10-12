@@ -74,7 +74,6 @@ const Register = () => {
           }
         } else {
           console.log(loginResult);
-          // const reg = await registerHandler(userData);
         }
       })
       .catch((err) => {
@@ -231,12 +230,14 @@ const Register = () => {
             >
               Sign Up
             </Button>
-            <GoogleLogin
-              onSuccess={responseGoogle}
-              onError={() => {
-                setMessage("Login Failed");
-              }}
-            />
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <GoogleLogin
+                onSuccess={responseGoogle}
+                onError={() => {
+                  setMessage("Login Failed");
+                }}
+              />
+            </div>
             <br />
             <Grid container justifyContent="flex-end">
               <Grid container>

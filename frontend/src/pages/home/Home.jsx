@@ -32,8 +32,12 @@ const Home = () => {
       <ThemeProvider theme={defaultTheme}>
         <CssBaseline />
         <main style={{ width: "100%" }}>
-          <Container className="home-container" sx={{ py: 3 }} maxWidth="xl" justify="center" alignItems="center">
-            <Grid container spacing={4} sx={{ width: "100%", justifyContent: "center", alignItems: "space-around"}}>
+          <Container className="home-container" sx={{ py: 3 }} maxWidth="xl">
+            <Grid
+              container
+              spacing={4}
+              sx={{ width: "100%", justifyContent: "center" }}
+            >
               <Suspense fallback={<Loader />}>
                 <Await resolve={result} errorElement={<>error .....</>}>
                   {(result) => {
@@ -77,10 +81,9 @@ const Home = () => {
                                 {service.price}JD
                               </Typography>
                             </CardContent>
-                            <CardActions>
+                            <CardActions className="home-button">
                               <Button
                                 size="large"
-                                style={{ left: "40.5%" }}
                                 variant="contained"
                                 onClick={() => {
                                   axios

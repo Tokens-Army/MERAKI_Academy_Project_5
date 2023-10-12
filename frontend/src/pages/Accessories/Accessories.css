@@ -6,8 +6,29 @@
   background-color: rgb(72, 71, 128) !important;
 }
 .next-button:hover {
-  background-color: #1976D2 !important;
+  background-color: #1976d2 !important;
   width: 12vw !important;
   height: 7vh !important;
   transition: 0.45s ease;
+}
+.all-accessories {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  row-gap: 3vh;
+  color: #f1eaea;
+  justify-content: center !important;
+}
+.accessory-buttons {
+  display: flex !important;
+  justify-content: center;
+}
+
+@media only screen and (max-width: 600px) {
+  .all-accessories {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 3vh;
+    color: #f1eaea;
+    justify-content: center !important;
+  }
 }

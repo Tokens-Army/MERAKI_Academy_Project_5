@@ -1,9 +1,3 @@
-import { useState } from "react";
-import dayjs from "dayjs";
-import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { StaticDateTimePicker } from "@mui/x-date-pickers/StaticDateTimePicker";
 import React from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import AppBar from "@mui/material/AppBar";
@@ -16,45 +10,16 @@ import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Location from "../Location/Location";
-import axios from "axios";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import Review from "../Review/Review";
+import Time from "../Time/Time";
 
 const steps = ["Add cleaning time", "Add your Location", "Review your order"];
 
 function getStepContent(step) {
-  const order_id = useSelector((state) => {
-    return state.order.order.id;
-  });
   switch (step) {
     case 0:
-      return (
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DemoContainer components={["StaticDateTimePicker"]}>
-            <DemoItem>
-              <StaticDateTimePicker
-                defaultValue={dayjs("2023-10-10T15:30")}
-                onChange={(value) => {
-                  const selectedDate = String(value.$d).split(" ");
-                  selectedDate.splice(5, 2);
-                  axios
-                    .put(
-                      `http://localhost:5000/orders/update_time/${order_id}`,
-                      {
-                        scheduled_time: selectedDate.join(" "),
-                      }
-                    )
-                    .then((res) => {})
-                    .catch((err) => {
-                      console.log(err);
-                    });
-                }}
-              />
-            </DemoItem>
-          </DemoContainer>
-        </LocalizationProvider>
-      );
+      return <Time />;
     case 1:
       return <Location />;
     case 2:
@@ -76,7 +41,7 @@ export default function ResponsiveDateTimePickers() {
     setActiveStep(activeStep - 1);
   };
   return (
-    <>
+    <div style={{ minHeight: "85vh" }}>
       <React.Fragment>
         <CssBaseline />
         <AppBar
@@ -104,7 +69,22 @@ export default function ResponsiveDateTimePickers() {
               ))}
             </Stepper>
             {activeStep === steps.length ? (
+
               navigate("/cart")
+              <React.Fragment>
+                <div style={{ minHeight: "25vh" }}>
+                  <Typography variant="h4" gutterBottom color="green">
+                    Thank you for your order.
+                  </Typography>
+                  <Button
+                    onClick={() => {
+                      navigate("/cart");
+                    }}
+                  >
+                    <h3>Go to Your Cart</h3>
+                  </Button>
+                </div>
+              </React.Fragment>
             ) : (
               <React.Fragment>
                 {getStepContent(activeStep)}
@@ -127,6 +107,6 @@ export default function ResponsiveDateTimePickers() {
           </Paper>
         </Container>
       </React.Fragment>
-    </>
+    </div>
   );
 }
