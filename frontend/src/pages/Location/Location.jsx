@@ -58,7 +58,6 @@ const Location = (props) => {
           yesIWantToUseGoogleMapApiInternals={true}
           onClick={(e) => {
             setMyLoc({ ...myLoc, ...{ lat: e.lat, lng: e.lng } });
-            console.log(myLoc);
           }}
         >
           <Marker lat={myLoc.lat} lng={myLoc.lng} text="My Marker" />
@@ -72,7 +71,6 @@ const Location = (props) => {
           name="building"
           onChange={(e) => {
             setMyLoc({ ...myLoc, ...{ buildingName: e.target.value } });
-            console.log(myLoc);
           }}
         />
         <TextField
@@ -82,7 +80,6 @@ const Location = (props) => {
           name="home"
           onChange={(e) => {
             setMyLoc({ ...myLoc, ...{ HomeNo: e.target.value } });
-            console.log(myLoc);
           }}
         />
       </div>
