@@ -41,7 +41,7 @@ export default function ResponsiveDateTimePickers() {
     setActiveStep(activeStep - 1);
   };
   return (
-    <>
+    <div style={{ minHeight: "85vh" }}>
       <React.Fragment>
         <CssBaseline />
         <AppBar
@@ -70,16 +70,18 @@ export default function ResponsiveDateTimePickers() {
             </Stepper>
             {activeStep === steps.length ? (
               <React.Fragment>
-                <Typography variant="h5" gutterBottom>
-                  Thank you for your order.
-                </Typography>
-                <Button
-                  onClick={() => {
-                    navigate("/cart");
-                  }}
-                >
-                  cart
-                </Button>
+                <div style={{ minHeight: "25vh" }}>
+                  <Typography variant="h4" gutterBottom color="green">
+                    Thank you for your order.
+                  </Typography>
+                  <Button
+                    onClick={() => {
+                      navigate("/cart");
+                    }}
+                  >
+                    <h3>Go to Your Cart</h3>
+                  </Button>
+                </div>
               </React.Fragment>
             ) : (
               <React.Fragment>
@@ -103,6 +105,6 @@ export default function ResponsiveDateTimePickers() {
           </Paper>
         </Container>
       </React.Fragment>
-    </>
+    </div>
   );
 }

@@ -81,10 +81,9 @@ const Home = () => {
                                 {service.price}JD
                               </Typography>
                             </CardContent>
-                            <CardActions>
+                            <CardActions className="home-button">
                               <Button
                                 size="large"
-                                style={{ left: "40.5%" }}
                                 variant="contained"
                                 onClick={() => {
                                   axios
