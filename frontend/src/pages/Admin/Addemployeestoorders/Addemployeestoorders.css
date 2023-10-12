@@ -4,8 +4,9 @@
 }
 .employeeInfo{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr ;
 }
+
 .ordersInfo{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 
@@ -19,4 +20,12 @@
 }
 .orderStatusAccepted{
     color: greenyellow;
+}
+.addEmployeeBtn{
+    height: 40px !important;
+    border: 2px solid blue;
+}
+.addEmployeeBtn:hover{
+    background-color: blue;
+    transition: 0.5s ease;
 }

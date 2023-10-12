@@ -69,6 +69,8 @@ export default function ResponsiveDateTimePickers() {
               ))}
             </Stepper>
             {activeStep === steps.length ? (
+
+              navigate("/cart")
               <React.Fragment>
                 <div style={{ minHeight: "25vh" }}>
                   <Typography variant="h4" gutterBottom color="green">

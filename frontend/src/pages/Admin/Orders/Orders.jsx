@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Orders.css";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import { setOrderDetails, setOrders } from "../../../service/redux/orderSlice";
+import { setOrders } from "../../../service/redux/orderSlice";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -12,7 +12,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: 600,
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -22,14 +22,14 @@ const style = {
 const Orders = () => {
   const orders = useSelector((state) => state.order.orders);
   const token = useSelector((state) => state.login.token);
-  const orderDetails = useSelector((state) => state.order.orderDetails);
   const dispatch = useDispatch();
-  const [updateBtn, setUpdateBtn] = useState(false);
   const [id, setId] = useState(0);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [details, setDetails] = useState("");
+  const [priceAll, setPriceAll] = useState(0)
+  // let totalPrice=0
   useEffect(() => {
     axios
       .get(`http://localhost:5000/orders`, {
@@ -38,15 +38,20 @@ const Orders = () => {
         },
       })
       .then((results) => {
-        // console.log(results.data.orders);
         dispatch(setOrders(results.data.orders));
+        
+    
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
+  // let totalPrice = details ? ;
+
+  
   return (
     <div>
+
       <div className="infosorders">
         <h3>Order id</h3>
         <h3>Created at</h3>
@@ -76,7 +81,12 @@ const Orders = () => {
                       .then((results) => {
                         handleOpen();
                         setDetails(results.data.Details);
-                        console.log(results.data.Details);
+                        const totalPrice= results.data.Details.reduce(
+                          (sum, accessory) => sum + accessory.accessory_price,
+                          0
+                        )
+                        setPriceAll(results.data.Details[0].service_price+totalPrice)
+                        
                       })
                       .catch((err) => {
                         console.log(err);
@@ -95,31 +105,37 @@ const Orders = () => {
                     aria-labelledby="modal-modal-title"
                     aria-describedby="modal-modal-description"
                   >
-                    <Box sx={style}>
+                    <Box sx={style} className="MoreDetailsBox">
                       <Typography
                         id="modal-modal-title"
                         variant="h6"
                         component="h2"
                       >
                         {details && (
-                          <div>
-                            <div>
-                              User name :{" "}
+                          <div className="ccc">
+                              <div className="resultss">
+                            <span className="disc">User name :{" "}</span>
                               {details[0]?.firstname.charAt(0).toUpperCase() + details[0].firstname.slice(1) +
                                 " " +
                                 details[0]?.lastname.charAt(0).toUpperCase() + details[0].lastname.slice(1)}
+                                </div>
+                            {details[0]?.employee_id?<div className="resultss"><span className="disc">Employee Id : </span>{details[0]?.employee_id}</div>:<div className="resultss"><span className="disc"> Employee id : </span> Not selected yet</div>}
+
+                            <div className="resultss">
+                            <span  className="disc">Service Name :</span>
+                            {details[0]?.service_name}
                             </div>
-                            <div>Employee Id : {details[0]?.employee_id}</div>
-                            <div>
-                            Service Name : {details[0]?.service_name} 
-                            </div>
-                            {details?.map((detail) => {
+                            <span className="disc">Accessories names:</span>
+                            <ol>
+                            {details?.map((detail,i) => {
                               return (
-                                <div key={detail.accessory_id}>
-                                  Accessory name: {detail.accessory_name}
+                                <div key={i}> 
+                                  <li className="resultss">{detail.accessory_name}</li>
                                 </div>
                               );
                             })}
+                            </ol>
+                            <div className="resultss"><span className="disc">Total price : </span>{priceAll}</div>
                           </div>
                         )}
                       </Typography>

@@ -29,11 +29,7 @@ const Cart = () => {
   const [open, setOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [cart, setCart] = useState({});
-
   const handleDeleteClose = () => setDeleteOpen(false);
-
-  const total_priceAll = useSelector((state) => state.order.total_price);
-  const totalCash = useSelector((state) => state.order.totalCash);
   const token = useSelector((state) => {
     return state.login.token;
   });
@@ -47,6 +43,7 @@ const Cart = () => {
         },
       })
       .then((response) => {
+        
         setCart(response.data);
       })
       .catch((error) => console.error(error));
@@ -64,7 +61,6 @@ const Cart = () => {
       })
       .catch((error) => console.log(error));
   };
-
   let totalPrice = cart.order ? cart.order.service_price : 0;
   if (cart.accessories) {
     totalPrice += cart.accessories.reduce(

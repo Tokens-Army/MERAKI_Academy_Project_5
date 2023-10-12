@@ -14,7 +14,6 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import TablePagination from "@mui/material/TablePagination";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import Box from "@mui/material/Box";
@@ -22,6 +21,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { Input } from "@mui/material";
+import Loader from "../../../assets/Animations/Loader.jsX";
 
 const style = {
   position: "absolute",
@@ -73,7 +73,8 @@ const AddServices = () => {
   }, []);
 
   return (
-    <>
+  <div>
+  {services.length!==0?<>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
           <TableHead>
@@ -121,8 +122,8 @@ const AddServices = () => {
                 <Button
                   onClick={() => {
                     axios
-                      .post(
-                        "http://localhost:5000/services",
+                    .post(
+                      "http://localhost:5000/services",
                         {
                           name: serviceName,
                           img: serviceImg,
@@ -315,7 +316,8 @@ const AddServices = () => {
           </TableBody>
         </Table>
       </TableContainer>
-    </>
+    </>:<Loader />}
+                      </div>
   );
 };
 
