@@ -21,6 +21,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { Input } from "@mui/material";
+import Loader from "../../../assets/Animations/Loader.jsX";
 
 const style = {
   position: "absolute",
@@ -72,7 +73,7 @@ const AddAccessories = () => {
 
   return (
     <>
-      <TableContainer component={Paper}>
+      {accessories.length!==0?<TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
           <TableHead>
             <TableRow>
@@ -328,7 +329,7 @@ const AddAccessories = () => {
             ))}
           </TableBody>
         </Table>
-      </TableContainer>
+      </TableContainer>:<Loader/>}
     </>
   );
 };

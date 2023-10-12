@@ -12,7 +12,7 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
+    width: 700,
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
@@ -68,7 +68,7 @@ const Addemployeestoorders = () => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box sx={style} className="MoreDetailsBox">
           <Typography id="modal-modal-title" variant="h6" component="h2">
           
           Which employee do you want to add to this on this order?
@@ -77,26 +77,24 @@ const Addemployeestoorders = () => {
           <Typography className='deletebox' id="modal-modal-description" sx={{ mt: 2 }}>
           <div className='employeeCard'>
         <div className='employeeInfo'>
-                <div>Id</div>
-                <div>Name</div>
-                <div>Image</div>
-                <div>Phone number</div>
-                <div>Availability</div>
+                <div className="disc">Id</div>
+                <div className="disc">Name</div>
+                <div className="disc">Image</div>
+                <div className="disc">Phone number</div>
+                <div className="disc">Availability</div>
+                <div className='disc'></div>
             </div>
         {data.employees?data.employees.map(employee=>{
             return<div className='employeeInfo' key={employee.id}>
-                <div>{employee.id}</div>
-                <div>{employee.name}</div>
+                <div className="resultss">{employee.id}</div>
+                <div className="resultss">{employee.name}</div>
                 <img className='employeeImg' src={employee.img}/>
-                <div>{employee.phonenum}</div>
-                <div>{employee.availability}</div>
-                <button onClick={()=>{
-                    
+                <div className="resultss">{employee.phonenum}</div>
+                <div className="resultss">{employee.availability}</div>
+                <button className='addEmployeeBtn' onClick={()=>{  
                     axios.put(`http://localhost:5000/orders/addemployees/${order.id}/${employee.id}`)
                     .then((results)=>{
-                       
                         dispatch(addEmployee({id:order.id,employee_id:employee.id,order_status:order.order_status}))
-
                     })
                     .catch((err)=>{
                         console.log(err);

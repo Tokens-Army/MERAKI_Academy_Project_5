@@ -20,3 +20,15 @@
 .serImg{
     width: 25%;
 }
+.resultss{
+    color: blue;
+   font-family: fantasy;
+}
+.disc{
+    color: black; 
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 22px;
+}
+.MoreDetailsBox{
+border-radius: 10%;
+}

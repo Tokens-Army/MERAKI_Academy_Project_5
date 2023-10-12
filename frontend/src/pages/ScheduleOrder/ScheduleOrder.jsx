@@ -105,7 +105,6 @@ export default function ResponsiveDateTimePickers() {
             </Stepper>
             {activeStep === steps.length ? (
               navigate("/cart")
-              
             ) : (
               <React.Fragment>
                 {getStepContent(activeStep)}
