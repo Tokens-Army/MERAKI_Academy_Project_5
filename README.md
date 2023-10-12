@@ -2,7 +2,7 @@
 
 <p align="center">
 <a href="" target="_blank" rel="noopener noreferrer">
- <img width="200px" height="100px" src="." alt="Project logo">
+ <img width="200px" height="100px" src="./photos/logo.png" alt="Project logo">
  </a>
 </p>
 
@@ -13,7 +13,7 @@
 
 <p align="center"> An awesome Project to describe README 
     <br> 
-<a href='https://www.meraki-academy.org'>Demo</a>
+<a href='https://652714b9c634f2238705857d--fanciful-twilight-37d544.netlify.app/'>Demo</a>
     <br> 
 </p>
 
@@ -47,20 +47,20 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-- Visual Studio Code follow this <a href=''>link</a> to install.
-- Git Bash follow this <a href=''>link</a> to install.
-- MongoDB follow this <a href=''>link</a> to install.
-- Node.js follow this <a href=''>link</a> to install.
+- Visual Studio Code follow this <a href='https://code.visualstudio.com/download'>link</a> to install.
+- Git Bash follow this <a href='https://git-scm.com/downloads'>link</a> to install.
+- MongoDB follow this <a href='https://www.mongodb.com/products/tools/compass'>link</a> to install.
+- Node.js follow this <a href='https://nodejs.org/en/download'>link</a> to install.
 
 ### Installing:
 
 1. Clone the repo to your local machine using git bash.
 
 ```
-git clone https://github.com/your_username_/Project-Name.git
+git clone https://github.com/Tokens-Army/MERAKI_Academy_Project_5.git
 ```
 
-2. Install packeges repeat this step in backend and frontend folder
+2. Install packages repeat this step in backend and frontend folder
 
 ```
 npm i
@@ -84,30 +84,67 @@ Now app ready to use
 
 
 - You don't have to register to navigate our web app!
-- <img src="./pictures/Jobs.png">
-- You can click on the Recruiter Inc Button provided in the navigation bar to view the landing section.
-- <img src="./pictures/landing.png">
+- Home
+- <img src="./photos/home.png">
 - Register Page
-- <img src="./pictures/reg.png">
+- <img src="./photos/reg.png">
 -  Login Page
-  <img src="./pictures/login.png">
+- <img src="./photos/login.png">
+- Footer
+- <img src="./photos/footer.png">
+- About
+- <img src="./photos/about.png">
+- Cart
+- <img src="./photos/cart.png">
+- Accessories page
+- <img src="./photos/accessories.png">
+- Checkout page where you can schedule your order and put your location
+- <img src="./photos/checkout.png">
+- Location
+- <img src="./photos/location.png">
+- Review your order page
+- <img src="./photos/review.png">
+- Contact Us page where you can chat with the company
+- <img src="./photos/contact-us.png">
+- Customer service chat
+- <img src="./photos/chat.png">
+- Admin main page
+- <img src="./photos/admin-main.png">
+- Admin services page
+- <img src="./photos/admin-services.png">
+- Admin accessories page
+- <img src="./photos/admin-accessories.png">
+- Admin orders page
+- <img src="./photos/admin-orders.png">
+- Admin add employees page
+- <img src="./photos/admin-add-employees.png">
+- Admin add admins page
+- <img src="./photos/admin-add-admins.png">
+- Admin delete admins page
+- <img src="./photos/admin-delete-admins.png">
+- Admin customer service page
+- <img src="./photos/admin-customer-service.png">
+
 
 ## ⛏️ Built Using <a name = "built_using"></a>
 
+- [PostgreSQL](https://www.postgresql.org/) - Database
 - [MongoDB](https://www.mongodb.com/) - Database
-- [Express JS](https://expressjs.com/) - Server Framework
-- [React JS](https://https://reactjs.org/) - Web Framework
 - [Node JS](https://nodejs.org/en/) - Server Environment
-- [React BootStrap](https://react-bootstrap.github.io/) - Style Framework
+- [Express JS](https://expressjs.com/) - Server Framework
+- [Socket.IO] (https://socket.io/) - Client/Server communication library
+- [React JS](https://https://reactjs.org/) - Web Framework
+- [Redux.JS] (https://redux.js.org/) - State management library
+- [Material UI](https://mui.com/) - Style Framework
 
 ## User Story <a name = "#user_story"></a>
 
-Your trello board link
-<a href="https://trello.com/b/dlehmeBx/job-search-platform">Trello</a>
+Trello board link
+<a href="https://trello.com/b/onEhhYxU/tokens-army">Trello</a>
 
 ## Data Flow <a name = "#data_flow"></a>
 
-<img width=200px height=200px src="./pictures/p4-diagram.png" alt="Diagram"></a>
+<img width=200px height=200px src="./photos//db-diagram.png" alt="DB Diagram"></a>
 
 ## ⚠️ Guided By <a name = "guided_by"></a>
 
