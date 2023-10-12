@@ -1,4 +1,8 @@
 .home-container {
-    /* background-image: url(https://png.pngtree.com/thumb_back/fh260/back_our/20190625/ourmid/pngtree-blue-geometric-flattened-taobao-e-commerce-coupon-background-image_262564.jpg) !important; */
-    background-color: #D8E9FD;
+  /* background-image: url(https://png.pngtree.com/thumb_back/fh260/back_our/20190625/ourmid/pngtree-blue-geometric-flattened-taobao-e-commerce-coupon-background-image_262564.jpg) !important; */
+  background-color: #d8e9fd;
+}
+.home-button {
+  display: flex !important;
+  justify-content: center;
 }
