@@ -59,7 +59,7 @@ const Accessories = () => {
       <ThemeProvider theme={defaultTheme}>
         <CssBaseline />
         <main>
-          <Container className="home-container" sx={{ py: 3 }} maxWidth="xl" justify="center" alignItems="center">
+          <Container className="home-container" sx={{ py: 3 }} maxWidth="xl">
             <Typography variant="h4">
               You can choose an accessory with your order!
             </Typography>
@@ -75,7 +75,15 @@ const Accessories = () => {
             >
               NEXT
             </Button>
-            <Grid container spacing={4} sx={{ width: "100%", justifyContent: "center", alignItems: "space-around"}}>
+            <Grid
+              container
+              spacing={4}
+              sx={{
+                width: "100%",
+                justifyContent: "center",
+                alignItems: "space-around",
+              }}
+            >
               <Suspense fallback={<Loader />}>
                 <Await
                   resolve={result}
