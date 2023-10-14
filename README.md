@@ -33,7 +33,7 @@
 
 ## 🧐 About <a name = "about"></a>
 
-Welcome to our Mobile Car Wash Services! We are dedicated to providing top-notch car wash services right at your doorstep. Our team of skilled professionals is equipped with state-of-the-art tools and eco-friendly cleaning solutions to ensure your vehicle shines like new.
+Welcome to Wash My Ride Services! We are dedicated to providing top-notch car wash services right at your doorstep. Our team of skilled professionals is equipped with state-of-the-art tools and eco-friendly cleaning solutions to ensure your vehicle shines like new.
 
 We understand that your time is valuable. That’s why we bring the car wash to you, whether you’re at home, at work, or anywhere else. Our services are designed to offer the utmost convenience without compromising on quality.
 
