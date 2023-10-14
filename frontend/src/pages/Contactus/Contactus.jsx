@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import socketInit from "../../service/api/socket_server";
 import Messages from "./Messages.jsx";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import MailIcon from "@mui/icons-material/Mail";
@@ -76,7 +76,7 @@ const ContactUs = () => {
                   pleasure to help you.
                 </p>
                 <button
-                  style={{backgroundColor: "#3E20A1", color: "white"}}
+                  style={{ backgroundColor: "#3E20A1", color: "white" }}
                   onClick={() => {
                     setSocket(socketInit({ user_id, token }));
                   }}

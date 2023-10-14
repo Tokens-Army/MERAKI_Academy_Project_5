@@ -28,12 +28,11 @@ function Copyright(props) {
       {"."}
     </Typography>
   );
-};
+}
 
 const defaultTheme = createTheme();
 
 const Addadmins = () => {
-
   const navigate = useNavigate();
 
   const [firstName, setFirstName] = useState("");
@@ -46,28 +45,29 @@ const Addadmins = () => {
   const RegisterHandler = () => {
     if (password !== confirmPassword) {
       return setMessage("Passwords don't match");
-    }
-    else {
-      axios.post("http://localhost:5000/users/register",{
-        firstName,
-        lastName,
-        email,
-        password,
-        role_id: 2
-      }).then((result) => {
-        if (result.data) {
-          setMessage("");
-          navigate("/login");
-        }
-        else {
-          throw Error;
-        }
-      }).catch((err) => {
-        if (err.response && err.response.data) {
-          return setMessage(err.response.data.message);
-        }
-        setMessage("Error happened while Login, please try again");
-      });
+    } else {
+      axios
+        .post("http://localhost:5000/users/register", {
+          firstName,
+          lastName,
+          email,
+          password,
+          role_id: 2,
+        })
+        .then((result) => {
+          if (result.data) {
+            setMessage("");
+            navigate("/login");
+          } else {
+            throw Error;
+          }
+        })
+        .catch((err) => {
+          if (err.response && err.response.data) {
+            return setMessage(err.response.data.message);
+          }
+          setMessage("Error happened while Login, please try again");
+        });
     }
   };
 
@@ -88,10 +88,7 @@ const Addadmins = () => {
           <Typography component="h1" variant="h5">
             Add Admin account
           </Typography>
-          <Box
-            component="form"
-            sx={{ mt: 3 }}
-            >
+          <Box component="form" sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -103,7 +100,7 @@ const Addadmins = () => {
                   label="First Name"
                   autoFocus
                   onChange={(e) => setFirstName(e.target.value)}
-                  />
+                />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -114,7 +111,7 @@ const Addadmins = () => {
                   name="lastName"
                   autoComplete="family-name"
                   onChange={(e) => setLastName(e.target.value)}
-                  />
+                />
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -125,7 +122,7 @@ const Addadmins = () => {
                   name="email"
                   autoComplete="email"
                   onChange={(e) => setEmail(e.target.value)}
-                  />
+                />
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -149,12 +146,12 @@ const Addadmins = () => {
                   id="Con-password"
                   autoComplete="new-password"
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  />
+                />
               </Grid>
             </Grid>
             {status
-                ? message && <Typography color="primary">{message}</Typography>
-                : message && <Typography color="error">{message}</Typography>}
+              ? message && <Typography color="primary">{message}</Typography>
+              : message && <Typography color="error">{message}</Typography>}
             <Button
               fullWidth
               variant="contained"
@@ -165,10 +162,13 @@ const Addadmins = () => {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid container>
-              <Typography>
-                Want to delete an admin?
-                <Link to="/admin/deleteadmins" variant="body2">  Delete Admin</Link>
-              </Typography>
+                <Typography>
+                  Want to delete an admin?
+                  <Link to="/admin/deleteadmins" variant="body2">
+                    {" "}
+                    Delete Admin
+                  </Link>
+                </Typography>
               </Grid>
             </Grid>
           </Box>

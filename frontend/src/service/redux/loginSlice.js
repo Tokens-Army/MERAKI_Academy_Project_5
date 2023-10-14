@@ -19,8 +19,8 @@ export const loginSlice = createSlice({
       localStorage.setItem("userId", action.payload);
     },
     setRoleId: (state, action) => {
-        state.roleId = action.payload;
-        localStorage.setItem("roleId", action.payload);
+      state.roleId = action.payload;
+      localStorage.setItem("roleId", action.payload);
     },
     setLogout: (state) => {
       state.token = null;

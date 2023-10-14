@@ -158,7 +158,7 @@ const addLocationToOrder = (req, res) => {
 
 const getAllOrders = (req, res) => {
   pool
-    .query(`SELECT * FROM orders ORDER BY id DESC LIMIT 20`)
+    .query(`SELECT * FROM orders ORDER BY id DESC LIMIT 20 `)
     .then((result) => {
       res.status(200).json({
         success: true,
@@ -225,7 +225,6 @@ const countPendingOrders = (req, res) => {
       SELECT id from users where is_deleted=0 and role_id=1`
     )
     .then((results) => {
-      console.log(results);
       res.status(200).json({
         success: true,
         pendingOrders: results[0].rows,

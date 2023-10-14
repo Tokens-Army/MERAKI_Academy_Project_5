@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import {
   Card,
   CardContent,
-  CardMedia,
   Typography,
   Button,
   Box,
@@ -25,8 +24,6 @@ const style = {
 };
 const Cart = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const [open, setOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [cart, setCart] = useState({});
   const handleDeleteClose = () => setDeleteOpen(false);
@@ -36,17 +33,17 @@ const Cart = () => {
 
   const order = useSelector((state) => state.order.order);
   useEffect(() => {
-    axios
-      .get(`http://localhost:5000/orders/${order.id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        
-        setCart(response.data);
-      })
-      .catch((error) => console.error(error));
+    order.id &&
+      axios
+        .get(`http://localhost:5000/orders/${order.id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          setCart(response.data);
+        })
+        .catch((error) => console.error(error));
   }, []);
 
   const handleDeleteOrder = (orderId) => {

@@ -28,8 +28,7 @@ const Orders = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [details, setDetails] = useState("");
-  const [priceAll, setPriceAll] = useState(0)
-  // let totalPrice=0
+  const [priceAll, setPriceAll] = useState(0);
   useEffect(() => {
     axios
       .get(`http://localhost:5000/orders`, {
@@ -39,19 +38,13 @@ const Orders = () => {
       })
       .then((results) => {
         dispatch(setOrders(results.data.orders));
-        
-    
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
-  // let totalPrice = details ? ;
-
-  
   return (
     <div>
-
       <div className="infosorders">
         <h3>Order id</h3>
         <h3>Created at</h3>
@@ -81,12 +74,13 @@ const Orders = () => {
                       .then((results) => {
                         handleOpen();
                         setDetails(results.data.Details);
-                        const totalPrice= results.data.Details.reduce(
+                        const totalPrice = results.data.Details.reduce(
                           (sum, accessory) => sum + accessory.accessory_price,
                           0
-                        )
-                        setPriceAll(results.data.Details[0].service_price+totalPrice)
-                        
+                        );
+                        setPriceAll(
+                          results.data.Details[0].service_price + totalPrice
+                        );
                       })
                       .catch((err) => {
                         console.log(err);
@@ -113,29 +107,46 @@ const Orders = () => {
                       >
                         {details && (
                           <div className="ccc">
-                              <div className="resultss">
-                            <span className="disc">User name :{" "}</span>
-                              {details[0]?.firstname.charAt(0).toUpperCase() + details[0].firstname.slice(1) +
+                            <div className="resultss">
+                              <span className="disc">User name : </span>
+                              {details[0]?.firstname.charAt(0).toUpperCase() +
+                                details[0].firstname.slice(1) +
                                 " " +
-                                details[0]?.lastname.charAt(0).toUpperCase() + details[0].lastname.slice(1)}
-                                </div>
-                            {details[0]?.employee_id?<div className="resultss"><span className="disc">Employee Id : </span>{details[0]?.employee_id}</div>:<div className="resultss"><span className="disc"> Employee id : </span> Not selected yet</div>}
+                                details[0]?.lastname.charAt(0).toUpperCase() +
+                                details[0].lastname.slice(1)}
+                            </div>
+                            {details[0]?.employee_id ? (
+                              <div className="resultss">
+                                <span className="disc">Employee Id : </span>
+                                {details[0]?.employee_id}
+                              </div>
+                            ) : (
+                              <div className="resultss">
+                                <span className="disc"> Employee id : </span>{" "}
+                                Not selected yet
+                              </div>
+                            )}
 
                             <div className="resultss">
-                            <span  className="disc">Service Name :</span>
-                            {details[0]?.service_name}
+                              <span className="disc">Service Name :</span>
+                              {details[0]?.service_name}
                             </div>
                             <span className="disc">Accessories names:</span>
                             <ol>
-                            {details?.map((detail,i) => {
-                              return (
-                                <div key={i}> 
-                                  <li className="resultss">{detail.accessory_name}</li>
-                                </div>
-                              );
-                            })}
+                              {details?.map((detail, i) => {
+                                return (
+                                  <div key={i}>
+                                    <li className="resultss">
+                                      {detail.accessory_name}
+                                    </li>
+                                  </div>
+                                );
+                              })}
                             </ol>
-                            <div className="resultss"><span className="disc">Total price : </span>{priceAll}</div>
+                            <div className="resultss">
+                              <span className="disc">Total price : </span>
+                              {priceAll}
+                            </div>
                           </div>
                         )}
                       </Typography>

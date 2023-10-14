@@ -13,9 +13,7 @@ import Location from "../Location/Location";
 import { useNavigate } from "react-router";
 import Review from "../Review/Review";
 import Time from "../Time/Time";
-
 const steps = ["Add cleaning time", "Add your Location", "Review your order"];
-
 function getStepContent(step) {
   switch (step) {
     case 0:
@@ -28,15 +26,12 @@ function getStepContent(step) {
       throw new Error("Unknown step");
   }
 }
-
 export default function ResponsiveDateTimePickers() {
   const [activeStep, setActiveStep] = React.useState(0);
-  // const [activeStep, setActiveStep] = React.useState(0);
   const navigate = useNavigate();
   const handleNext = () => {
     setActiveStep(activeStep + 1);
   };
-
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
@@ -69,8 +64,6 @@ export default function ResponsiveDateTimePickers() {
               ))}
             </Stepper>
             {activeStep === steps.length ? (
-
-              navigate("/cart")
               <React.Fragment>
                 <div style={{ minHeight: "25vh" }}>
                   <Typography variant="h4" gutterBottom color="green">

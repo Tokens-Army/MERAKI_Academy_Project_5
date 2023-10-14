@@ -1,7 +1,6 @@
 const auth = (socket, next) => {
   const headers = socket.handshake.headers;
   if (!headers.token) {
-    console.log("from auth");
     next(new Error("invalid"));
   } else {
     socket.join("room-" + headers.user_id);

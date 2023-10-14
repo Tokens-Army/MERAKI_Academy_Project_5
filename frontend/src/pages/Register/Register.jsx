@@ -47,7 +47,6 @@ const Register = () => {
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState(false);
 
-  // login with google
   const responseGoogle = (codeResponse) => {
     const decoded = decodeToken(codeResponse.credential);
     const userData = {
@@ -89,7 +88,6 @@ const Register = () => {
       });
   };
 
-  // sign up button function
   const registerHandler = (userData = {}) => {
     if (userData !== null) {
       const { firstName, lastName, email, password } = userData;

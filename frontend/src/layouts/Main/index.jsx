@@ -16,4 +16,4 @@ export default function Main() {
       </footer>
     </div>
   );
-};
+}
