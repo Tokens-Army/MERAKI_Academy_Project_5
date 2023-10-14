@@ -14,13 +14,19 @@ const Footer = () => {
       }}
     >
       <Container maxWidth="lg">
-        <Box sx={{ display: 'flex', justifyContent: 'space-evenly', mb: 1 }}>
-          <Link to="/About" style={{ color: 'inherit', textDecoration: 'none' }}>
+        <Box sx={{ display: "flex", justifyContent: "space-evenly", mb: 1 }}>
+          <Link
+            to="/About"
+            style={{ color: "inherit", textDecoration: "none" }}
+          >
             <Typography variant="subtitle1" align="center">
               About Us
             </Typography>
           </Link>
-          <Link to="/contact-us" style={{ color: 'inherit', textDecoration: 'none' }}>
+          <Link
+            to="/contact-us"
+            style={{ color: "inherit", textDecoration: "none" }}
+          >
             <Typography variant="subtitle1" align="center">
               Contact Us
             </Typography>

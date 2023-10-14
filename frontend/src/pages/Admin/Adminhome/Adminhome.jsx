@@ -9,15 +9,15 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
-import MessageIcon from '@mui/icons-material/Message';
-import LocalCarWashIcon from '@mui/icons-material/LocalCarWash';
-import HomeIcon from '@mui/icons-material/Home';
-import ListAltIcon from '@mui/icons-material/ListAlt';
-import EngineeringIcon from '@mui/icons-material/Engineering';
+import MessageIcon from "@mui/icons-material/Message";
+import LocalCarWashIcon from "@mui/icons-material/LocalCarWash";
+import HomeIcon from "@mui/icons-material/Home";
+import ListAltIcon from "@mui/icons-material/ListAlt";
+import EngineeringIcon from "@mui/icons-material/Engineering";
 import List from "@mui/material/List";
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
-import InfoIcon from '@mui/icons-material/Info';
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
+import InfoIcon from "@mui/icons-material/Info";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -26,7 +26,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import EarbudsBatteryIcon from '@mui/icons-material/EarbudsBattery';
+import EarbudsBatteryIcon from "@mui/icons-material/EarbudsBattery";
 const drawerWidth = 240;
 
 const Adminhome = () => {
@@ -69,13 +69,13 @@ const Adminhome = () => {
           >
             <ListItemButton>
               <ListItemIcon>
-                {index===0 && <HomeIcon />}
-                {index===1 && <LocalCarWashIcon/>}
-                {index===2&&<EarbudsBatteryIcon/>}
-                {index===3&&<ListAltIcon/>}
-                {index===4&&<EngineeringIcon/>}
-                {index===5&&<PersonAddIcon/>}
-                {index===6&&<PersonRemoveIcon/>}
+                {index === 0 && <HomeIcon />}
+                {index === 1 && <LocalCarWashIcon />}
+                {index === 2 && <EarbudsBatteryIcon />}
+                {index === 3 && <ListAltIcon />}
+                {index === 4 && <EngineeringIcon />}
+                {index === 5 && <PersonAddIcon />}
+                {index === 6 && <PersonRemoveIcon />}
               </ListItemIcon>
               <ListItemText primary={text.name} />
             </ListItemButton>
@@ -94,7 +94,7 @@ const Adminhome = () => {
           >
             <ListItemButton>
               <ListItemIcon>
-                {index % 2 === 0 ? <InfoIcon/> : <MessageIcon />}
+                {index % 2 === 0 ? <InfoIcon /> : <MessageIcon />}
               </ListItemIcon>
               <ListItemText primary={text.name} />
             </ListItemButton>

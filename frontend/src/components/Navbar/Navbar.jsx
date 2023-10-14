@@ -6,7 +6,6 @@ import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setLogout } from "../../service/redux/loginSlice";
-import socketInit from "../../service/api/socket_server";
 import image from "../../assets/images/img.png";
 
 const Navbar = () => {
@@ -33,7 +32,7 @@ const Navbar = () => {
           }}
           onClick={() => navigate("/")}
         >
-          <img src={image} style={{height: "3rem"}} />
+          <img src={image} style={{ height: "3rem" }} />
         </Button>
         <Box sx={{ flexGrow: 1 }} />
         {isLoggedIn && (

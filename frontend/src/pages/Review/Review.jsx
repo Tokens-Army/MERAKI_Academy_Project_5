@@ -5,8 +5,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Grid from "@mui/material/Grid";
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
-
+import {  useSelector } from "react-redux";
 
 const Review = () => {
   const order = useSelector((state) => {
@@ -76,7 +75,7 @@ const Review = () => {
         <ListItem sx={{ py: 1, px: 0 }}>
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-            {totalPrice+2} JD
+            {totalPrice + 2} JD
           </Typography>
         </ListItem>
       </List>

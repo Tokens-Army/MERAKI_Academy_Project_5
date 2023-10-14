@@ -1,17 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./Contactus.css";
 import axios from "axios";
-import { useSelector } from "react-redux";
 
 const Messages = ({ socket, user_id, admin, user }) => {
-  const [to, setTo] = useState("");
   const [message, setMessage] = useState("");
   const [allMessages, setAllMessages] = useState([]);
 
   const bottomRef = useRef(null);
 
   useEffect(() => {
-    // 👇️ scroll to bottom every time messages change
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [allMessages]);
 
@@ -21,7 +18,6 @@ const Messages = ({ socket, user_id, admin, user }) => {
         axios
           .get(`http://localhost:5000/users/message/${user.id}/${user_id}`)
           .then((result) => {
-            // console.log();
             setAllMessages(result.data.allMessages);
           })
           .catch((err) => {
@@ -31,7 +27,6 @@ const Messages = ({ socket, user_id, admin, user }) => {
         axios
           .get(`http://localhost:5000/users/message/${user_id}`)
           .then((result) => {
-            // console.log();
             setAllMessages(result.data.allMessages);
           })
           .catch((err) => {
@@ -54,7 +49,6 @@ const Messages = ({ socket, user_id, admin, user }) => {
   };
 
   const receiveMessage = (data) => {
-    console.log(data);
     setAllMessages([...allMessages, data]);
   };
 
@@ -185,7 +179,6 @@ const Messages = ({ socket, user_id, admin, user }) => {
                         message,
                       })
                       .then((result) => {
-                        console.log(result);
                       })
                       .catch((err) => {
                         console.log(err);
