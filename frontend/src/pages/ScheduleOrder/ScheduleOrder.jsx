@@ -70,11 +70,12 @@ export default function ResponsiveDateTimePickers() {
                     Thank you for your order.
                   </Typography>
                   <Button
+                    variant="contained"
                     onClick={() => {
                       navigate("/cart");
                     }}
                   >
-                    <h3>Go to Your Cart</h3>
+                    Go to Your Cart
                   </Button>
                 </div>
               </React.Fragment>
@@ -102,4 +103,4 @@ export default function ResponsiveDateTimePickers() {
       </React.Fragment>
     </div>
   );
-}
+};
